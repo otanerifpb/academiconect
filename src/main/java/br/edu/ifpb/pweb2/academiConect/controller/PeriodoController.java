@@ -114,5 +114,11 @@ public class PeriodoController {
         model.setViewName("redirect:/periodos");
         return model;
     }
+
+     // Ativa o menu estudantes na barra de navegação
+     @ModelAttribute("menu")
+     public String activeMenu(){
+         return "periodos";
+     }
     
 }
