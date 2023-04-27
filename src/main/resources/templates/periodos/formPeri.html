@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt_BR" xmlns:th="www.thymeleaf.org" th:import="org.thymeleaf.spring5.util.SpringSelectedValueComparator">
+<head>
+    <meta th:insert="~{/fragments/head(titulo='Cadastro de Período Letivo')}">
+</head>
+<body>
+    <div th:replace="~{/fragments/body :: logo(titulo=' AcademiConect')}"></div>
+
+    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+        <div th:replace="~{/fragments/body :: menu}"></div>
+
+        <div style="margin-right: 5px;">
+            <a class="nav-item nav-link" th:href="@{/periodos}">
+                <button class="btn btn-outline-secondary my-2 my-sm-0">Sair</button>
+            </a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div th:text="${errorMensagem}" 
+                th:if="${errorMensagem ne null}" 
+                class="alert alert-danger" ></div>
+
+        <div th:text="${succesMensagem}" 
+                th:if="${succesMensagem ne null}" 
+                class="alert alert-success" ></div>
+
+        <div class="card">
+            <div class="card-header">
+                Cadastro de Período Letivo
+            </div>
+            
+            <div class="card-body">
+                <form th:action="@{/periodos}" method="POST" th:object="${periodo}">
+                    <input type="hidden" required th:field="*{id}" />
+                    <label for="nome" class="form-label">Ano:</label>
+                        <input type="number" class="form-control" required th:field="*{ano}" maxlength="4"/></br>
+                    <label for="nome" class="form-label">Período:</label>
+                        <input type="number" class="form-control" required th:field="*{periodo}" /></br>
+                    <label for="nome" class="form-label">Data Início:</label>
+                        <input type="date" class="form-control" required th:field="*{dataInicio}" /></br>
+                    <label for="nome" class="form-label">Data Fim:</label>
+                        <input type="date" class="form-control" required th:field="*{dataFim}" /></br>
+                    <label for="nome" class="form-label">Período Atual?</label>
+                        <input type="checkbox" th:field="*{periodoAtual}" class="form-check-input"/></br></br>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

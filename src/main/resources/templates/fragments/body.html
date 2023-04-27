@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt_BR" xmlns:th="www.thymeleaf.org" th:import="org.thymeleaf.spring5.util.SpringSelectedValueComparator">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragments</title>
+</head>
+<body>
+    <div class="logo-bar mb-0 p-0" th:fragment="logo(titulo)">
+        <span class="logo-font">
+            <img th:src="@{/imagens/header-t.png}" th:text="${titulo}"/> 
+        </span>
+    </div>
+
+    <div class="navbar-nav" th:fragment="menu">
+        <a th:classappend="${menu == 'home'} ? 'active'" class="nav-item nav-link" th:href="@{/home}">Home</a>
+        <a th:classappend="${menu == 'estudantes'} ? 'active'" class="nav-item nav-link" th:href="@{/estudantes}">Estudantes</a>
+        <a th:classappend="${menu == 'instituicoes'} ? 'active'" class="nav-item nav-link" th:href="@{/instituicoes}">Instituição</a>
+        <a th:classappend="${menu == 'declaracoes'} ? 'active'" class="nav-item nav-link" th:href="@{/declaracoes}">Declaração</a>
+        <a th:classappend="${menu == 'periodos'} ? 'active'" class="nav-item nav-link" th:href="@{/periodos}">Período Letivo</a>
+    </div>
+
+    <div style="margin-right: 5px;" th:fragment="sair(titulo)">
+        <a th:href="@{/home}">
+            <button class="btn btn-outline-secondary my-2 my-sm-0" th:text="${titulo}"></button>
+        </a>
+    </div>
+      
+</body>
+</html>

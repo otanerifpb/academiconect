@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt_BR" xmlns:th="www.thymeleaf.org" th:import="org.thymeleaf.spring5.util.SpringSelectedValueComparator">
+<head>
+    <meta th:insert="~{/fragments/head(titulo='Página Principal')}">
+</head>
+<body>
+    <div th:replace="~{/fragments/body :: logo(titulo='Bem Vindo ao AcademiConect')}"></div>
+
+    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">  
+        <div th:replace="~{/fragments/body :: menu}"></div>
+        <div th:replace="~{/fragments/body :: sair(titulo='Sair')}"></div>
+    </nav>
+
+    <div class="home-page mb-3 p-3">
+        <img th:src="@{/imagens/home-page.jpg}" height="500" width="1420"/>
+    </div>
+</body>
+</html>
