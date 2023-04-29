@@ -14,9 +14,8 @@
     <div class="container">
 
         <div class="card">
-            <div class="card-header">
-                Declarações Cadastradas
-            </div>
+            <div th:replace="~{/fragments/body :: titulo(titulo='Declarações Cadastradas')}"></div>
+            
             <div class="card-body">
                 <div th:text="${errorMensagem}" 
                     th:if="${errorMensagem ne null}" 
