@@ -14,9 +14,8 @@
     <div class="container">
 
         <div class="card">
-            <div class="card-header">
-                Estudantes Cadastrados
-            </div>
+            <div th:replace="~{/fragments/body :: titulo(titulo=' Estudantes Cadastrados')}"></div>
+
             <div class="card-body">
 
                 <div th:text="${errorMensagem}" 
@@ -35,7 +34,7 @@
                 <br />
 
                 <div th:if="${not #lists.isEmpty(estudantes)}">
-                    <!-- Controle de registros na tabela -->
+
                     <div th:text="'Total: ' + ${#lists.size(estudantes)} + ' registro(s)'" 
                         style="text-align: right; color: gray; font-size: 0.85em;">
                     </div>

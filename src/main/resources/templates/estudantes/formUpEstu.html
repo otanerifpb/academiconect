@@ -26,11 +26,10 @@
             class="alert alert-success" ></div>
 
         <div class="card">
-            <div class="card-header">
-                Atualizar Estudante
-            </div>
-            <div class="card-body">
+            <div th:replace="~{/fragments/body :: titulo(titulo='Atualizar Estudante')}"></div>
 
+            <div class="card-body">
+                
                 <form th:action="@{/estudantes/update}" method="POST" th:object="${estudante}">
                     <input type="hidden" required th:field="*{id}" />
                     <label for="nome" class="form-label">Nome:</label>
