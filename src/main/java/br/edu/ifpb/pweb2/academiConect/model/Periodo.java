@@ -40,7 +40,7 @@ public class Periodo implements Serializable {
 
     private Integer ano;
 
-    private Integer periodo;
+    private String periodo;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataInicio;

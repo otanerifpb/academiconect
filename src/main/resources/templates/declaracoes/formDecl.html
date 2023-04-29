@@ -34,12 +34,13 @@
                 <form th:action="@{/declaracoes}" method="POST" th:object="${declaracao}">
                     <input type="hidden" required th:field="*{id}" />
                     <label for="estudante" class="form-label">Matrícula:</label>
-                        <select required th:field="*{estudante}" class="form-select">
+                        <input type="text" class="form-control" required th:field="*{estudante.matricula}" /></br>
+                        <!-- <select required th:field="*{estudante}" class="form-select">
                             <option th:each="estu : ${estudanteItems}" 
                                 th:value="${estu.id}" 
                                 th:text="${estu.matricula}" 
                                 th:selected="${estu.id == estudante}">
-                        </select>
+                        </select> -->
                     <!-- <label for="instituicao">Instituicao:</label>
                         <select required th:field="*{intituicao}" class="form-select">
                             <option th:each="inti : ${instituicaoItems}" 

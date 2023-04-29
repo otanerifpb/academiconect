@@ -77,13 +77,13 @@ public class InstituicaoController {
         if (opInstituicao.isPresent()) {
             redAttrs.addFlashAttribute("errorMensagem", "Instituição "+instituicao.getSigla()+" já cadastrado no sistema!!");
             //model.addObject("errorMensagem", "Instituição "+instituicao.getSigla()+" já existe!!");
-            model.setViewName("redirect:instituicoes");
+            model.setViewName("redirect:/instituicoes");
         } else {
             instituicaoRepository.save(instituicao);
             model.addObject("instituicoes", instituicaoRepository.findAll());
             redAttrs.addFlashAttribute("succesMensagem", "Instituição cadastrada com sucesso!");
             //model.addObject("successMensagem", "Instituição cadastrado com sucesso!");
-            model.setViewName("redirect:instituicoes");
+            model.setViewName("redirect:/instituicoes");
         }  
         return model;
     }
@@ -97,7 +97,7 @@ public class InstituicaoController {
         //redAttrs.addFlashAttribute("succesMensagem", "Instituição atualizada com sucesso!");
         model.addObject("succesMensagem", "Instituição "+instituicao.getNome()+", atualizada com sucesso!");
         //model.setViewName("redirect:instituicoes");
-        model.setViewName("instituicoes/listInst");
+        model.setViewName("redirect:/instituicoes");
         return model;
     }
 

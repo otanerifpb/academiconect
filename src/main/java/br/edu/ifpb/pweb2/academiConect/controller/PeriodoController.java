@@ -77,12 +77,12 @@ public class PeriodoController {
         //Optional<Periodo> opPeriodo = periodoRepository.findByAno(periodo.getAno());
         if (opPeriodo.isPresent()) {
             redAttrs.addFlashAttribute("errorMensagem", "Periodo "+periodo.getPeriodo()+" já cadastrado no sistema!!");
-            model.setViewName("redirect:periodos");     
+            model.setViewName("redirect:/periodos");     
         } else {
             periodoRepository.save(periodo);
             model.addObject("periodos", periodoRepository.findAll());
             redAttrs.addFlashAttribute("succesMensagem", "Período "+periodo.getPeriodo()+" cadastrado com sucesso!!");
-            model.setViewName("redirect:periodos");
+            model.setViewName("redirect:/periodos");
         }  
         return model;
     }
@@ -93,7 +93,7 @@ public class PeriodoController {
         periodoRepository.save(periodo);
         model.addObject("periodos", periodoRepository.findAll());
         model.addObject("succesMensagem", "Período "+periodo.getPeriodo()+", atualizado com sucesso!");
-        model.setViewName("periodos/listPeri");
+        model.setViewName("redirect:/periodos");
         return model;
     }
 

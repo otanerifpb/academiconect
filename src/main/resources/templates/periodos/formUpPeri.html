@@ -34,7 +34,7 @@
                 <form th:action="@{/periodos/update}" method="POST" th:object="${periodo}">
                     <input type="hidden" required th:field="*{id}" />
                     <label for="nome" class="form-label">Ano:</label>
-                        <input type="number" class="form-control" required th:field="*{ano}" maxlength="4"/></br>
+                        <input type="text" class="form-control" required th:field="*{ano}" maxlength="4"/></br>
                     <label for="nome" class="form-label">Período:</label>
                         <input type="number" class="form-control" required th:field="*{periodo}" /></br>
                     <label for="nome" class="form-label">Data Início:</label>

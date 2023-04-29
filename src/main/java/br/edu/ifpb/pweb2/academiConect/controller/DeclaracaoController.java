@@ -61,11 +61,11 @@ public class DeclaracaoController implements Serializable {
     public ModelAndView getInstituicaoById(@PathVariable(value = "id") Integer id, ModelAndView model) {
         Optional<Declaracao> opDeclaracao = declaracaoRepository.findById(id);
         if (opDeclaracao.isPresent()) {
-            model.addObject("declaracao", opDeclaracao.get());
+            Declaracao declaracao = opDeclaracao.get();
+            model.addObject("declaracao", declaracao);
             model.setViewName("declaracoes/formUpDecl");
         } else {
-            Declaracao declaracao = opDeclaracao.get();
-            model.addObject("errorMensagem", "Instituição "+declaracao.getId()+" não encontrado.");
+            model.addObject("errorMensagem", "Declaração não encontrado.");
             model.setViewName("declaracoes/listDecl");
         }
         return model;
@@ -74,7 +74,7 @@ public class DeclaracaoController implements Serializable {
     // Rota para salvar novo objeto na lista com o uso do POST
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView save(Declaracao declaracao, ModelAndView model, RedirectAttributes redAttrs) {
-        Optional<Estudante> opEstudante = estudanteRepository.findByNome(declaracao.getEstudante().getNome());
+        Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
         if (opEstudante.isPresent()) {
             Estudante estudante = opEstudante.get();
             declaracao.setEstudante(estudante);
@@ -90,18 +90,30 @@ public class DeclaracaoController implements Serializable {
             //model.addObject("declaracoes", declaracaoRepository.findAll());
             redAttrs.addFlashAttribute("errorMensagem", "Estudante não encontrado!!");
             //model.addObject("successMensagem", "Declaração cadastrado com sucesso!");
-            model.setViewName("redirect:declaracoes");
+            model.setViewName("redirect:/declaracoes");
         }  
         return model;
     }
 
     // Rota para atualizar um objeto na lista com o uso do POST
     @RequestMapping(value="/update", method = RequestMethod.POST)
-    public ModelAndView updade(Declaracao declaracao, ModelAndView model) {
-        declaracaoRepository.save(declaracao);
-        model.addObject("declaracoes", declaracaoRepository.findAll());
-        model.addObject("succesMensagem", "Instituição "+declaracao.getId()+", atualizada com sucesso!");
-        model.setViewName("declaracoes/listDecl");
+    public ModelAndView updade(Declaracao declaracao, ModelAndView model, RedirectAttributes redAttrs) {
+        Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
+        if (opEstudante.isPresent()) {
+            Estudante estudante = opEstudante.get();
+            declaracao.setEstudante(estudante);
+            declaracaoRepository.save(declaracao);
+            model.addObject("declaracoes", declaracaoRepository.findAll());
+            redAttrs.addFlashAttribute("succesMensagem", "Instituição "+declaracao.getId()+", atualizada com sucesso!");
+            //model.setViewName("redirect:/declaracoes");
+            model.setViewName("declaracoes/listDecl");
+    } else {
+        //declaracaoRepository.save(declaracao);
+        //model.addObject("declaracoes", declaracaoRepository.findAll());
+        redAttrs.addFlashAttribute("errorMensagem", "Estudante não encontrado!!");
+        //model.addObject("successMensagem", "Declaração cadastrado com sucesso!");
+        model.setViewName("redirect:/declaracoes");
+    }  
         return model;
     }
 

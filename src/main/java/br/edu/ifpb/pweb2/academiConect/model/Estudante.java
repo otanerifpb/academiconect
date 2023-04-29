@@ -55,6 +55,7 @@ public class Estudante implements Serializable{
     // Relação entre Estudante e Declaração (1:N)
     // Quando tem @OneToMany é necessário add a class no @EqualsAndHashCode(exclude = {"instituicao", "declaracoes"})
     @OneToMany(mappedBy = "estudante", cascade = CascadeType.ALL)
+    //@JoinColumn(name = "id_declaracao")
     private Set<Declaracao> declaracoes = new HashSet<Declaracao>();  
 
     public void addDeclaracao(Declaracao declaracao) {

@@ -77,16 +77,16 @@ public class EstudanteController {
         Optional<Estudante> opMatricula = estudanteRepository.findByMatricula(estudante.getMatricula());
         if (opMatricula.isPresent()) {
             redAttrs.addFlashAttribute("errorMensagem", "Matrícula já cadastrada no sistema!!");
-            model.setViewName("redirect:estudantes");
+            model.setViewName("redirect:/estudantes");
         } else if (opEmail.isPresent()) {
             redAttrs.addFlashAttribute("errorMensagem", "E-mail já cadastrado no sistema!!");
-            model.setViewName("redirect:estudantes");
+            model.setViewName("redirect:/estudantes");
         } else {
             estudanteRepository.save(estudante);
             model.addObject("estudantes", estudanteRepository.findAll());
             redAttrs.addFlashAttribute("succesMensagem", "Estudante cadastrado com sucesso!");
-            //model.setViewName("redirect:estudantes");
             model.setViewName("estudantes/listEstu");
+            //model.setViewName("redirect:/estudantes");
         }
         return model;
     }
@@ -100,7 +100,7 @@ public class EstudanteController {
         //redAttrs.addFlashAttribute("succesMensagem", "Instituição atualizada com sucesso!");
         model.addObject("succesMensagem", "Estudante "+estudante.getNome()+", atualizado com sucesso!");
         //model.setViewName("redirect:instituicoes");
-        model.setViewName("estudantes/listEstu");
+        model.setViewName("redirect:/estudantes");
         return model;
     }
 
@@ -118,7 +118,7 @@ public class EstudanteController {
         } else {
             redAtt.addFlashAttribute("errorMensagem", "Estudante Não encontrado!!");
         }
-        model.setViewName("estudantes/listEstu");
+        model.setViewName("redirect:/estudantes");
         return model;
     }
 

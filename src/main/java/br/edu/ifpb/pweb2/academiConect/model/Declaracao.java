@@ -3,6 +3,7 @@ package br.edu.ifpb.pweb2.academiConect.model;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,7 +46,7 @@ public class Declaracao implements Serializable {
     // Relação entre Declaração e Estudante (1:1)
     // Quando tem @OneToMany é necessário add a class no @EqualsAndHashCode(exclude = {"estudante", "periodo"})
     @ManyToOne
-    @JoinColumn(name = "id_estudante")
+  // @JoinColumn(name = "id_estudante")
     private Estudante estudante;
 
     // Relação entre Declaração e PeriodoLetivo (1:1)
