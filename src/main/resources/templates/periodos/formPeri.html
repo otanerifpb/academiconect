@@ -26,9 +26,7 @@
                 class="alert alert-success" ></div>
 
         <div class="card">
-            <div class="card-header">
-                Cadastro de Período Letivo
-            </div>
+            <div th:replace="~{/fragments/body :: titulo(titulo='Cadastro de Período Letivo')}"></div>
             
             <div class="card-body">
                 <form th:action="@{/periodos}" method="POST" th:object="${periodo}">
