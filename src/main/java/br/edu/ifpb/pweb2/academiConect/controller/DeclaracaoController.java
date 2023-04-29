@@ -127,6 +127,12 @@ public class DeclaracaoController implements Serializable {
     public List<Estudante> getEstudantes() {
         return estudanteRepository.findAll();
     }
+
+    // Ativa o menu Declaração na barra de navegação
+    @ModelAttribute("menu")
+    public String activeMenu(){
+        return "declaracoes";
+    }
     
      
 }

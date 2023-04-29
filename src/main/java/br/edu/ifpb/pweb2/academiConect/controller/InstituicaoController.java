@@ -166,7 +166,7 @@ public class InstituicaoController {
     //     return "instituicoes/declaracoes";
     // }
 
-     // Ativa o menu estudantes na barra de navegação
+     // Ativa o menu Instituição na barra de navegação
      @ModelAttribute("menu")
      public String activeMenu(){
          return "instituicoes";

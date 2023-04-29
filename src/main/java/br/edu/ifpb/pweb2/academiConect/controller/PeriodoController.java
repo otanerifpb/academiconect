@@ -116,7 +116,7 @@ public class PeriodoController {
         return model;
     }
 
-     // Ativa o menu estudantes na barra de navegação
+     // Ativa o menu Período na barra de navegação
      @ModelAttribute("menu")
      public String activeMenu(){
          return "periodos";
