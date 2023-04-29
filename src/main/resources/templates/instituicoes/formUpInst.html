@@ -26,9 +26,8 @@
             class="alert alert-success" ></div>
 
         <div class="card">
-            <div class="card-header">
-                Atualizar Instituição
-            </div>
+            <div th:replace="~{/fragments/body :: titulo(titulo='Atualizar Instituição')}"></div>
+
             <div class="card-body">
 
                 <form th:action="@{/instituicoes/update}" method="POST" th:object="${instituicao}">

@@ -26,9 +26,7 @@
                 class="alert alert-success" ></div>
 
         <div class="card">
-            <div class="card-header">
-                Cadastro de Instituição
-            </div>
+            <div th:replace="~{/fragments/body :: titulo(titulo='Cadastro de Instituição')}"></div>
             
             <div class="card-body">
                 <form th:action="@{/instituicoes}" method="POST" th:object="${instituicao}">
