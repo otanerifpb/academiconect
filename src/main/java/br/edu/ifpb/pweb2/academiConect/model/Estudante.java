@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -44,8 +46,6 @@ public class Estudante implements Serializable{
 
     private String senha;
 
-    private boolean admin;
-
     // Relação entre Estudante e Instituição (1:1)
     // Quando tem @ManyToOne é necessário add a class no @EqualsAndHashCode(exclude = {"instituicao", "declaracoes"})
     @ManyToOne
@@ -58,9 +58,11 @@ public class Estudante implements Serializable{
     //@JoinColumn(name = "id_declaracao")
     private Set<Declaracao> declaracoes = new HashSet<Declaracao>();  
 
-    public void addDeclaracao(Declaracao declaracao) {
-        this.declaracoes.add(declaracao);
-        declaracao.setEstudante(this);
-    }
+    
+
+    // Para associar um estudante a uma instituição
+    public Estudante(Instituicao instituicao) {
+        this.instituicao = instituicao;
+    } 
     
 }

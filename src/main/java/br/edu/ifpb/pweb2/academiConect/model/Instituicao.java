@@ -50,9 +50,9 @@ public class Instituicao implements Serializable {
 
     // O uso de addEstudante, se o objeto vai ser adicionado à coleção existente
     // O uso de setEstudante, se o objeto ja existe e vai ser atualizado em uma propriedade privada estudanteAtual
-    // public void addEstudante(Estudante estudante){
-    //     this.estudantes.add(estudante);
-    //     estudante.setInstituicao(this);
-    // }
+    public void addEstudante(Estudante estudante){
+        this.estudantes.add(estudante);
+        estudante.setInstituicao(this);
+    }
     
 }

@@ -34,9 +34,9 @@
                     <label for="nome" class="form-label">Nome:</label>
                         <input type="text" class="form-control" required th:field="*{nome}" maxlength="50"/></br>
                     <label for="nome" class="form-label">Sigla:</label>
-                        <input type="text" class="form-control" required th:field="*{sigla}" /></br>
+                        <input type="text" class="form-control" th:field="*{sigla}" /></br>
                     <label for="nome" class="form-label">Fone: 0xx xxxxx xxxx</label>
-                        <input type="text" class="form-control" required th:field="*{fone}" /></br>
+                        <input type="text" class="form-control" th:field="*{fone}" /></br>
                     <button type="submit" class="btn btn-primary">Salvar</button>
                 </form>
             </div>

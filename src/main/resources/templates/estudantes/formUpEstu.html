@@ -42,8 +42,13 @@
                         <input type="email" required th:field="*{email}" class="form-control"/></br>
                     <label for="nome" class="form-label">Senha:</label>
                         <input type="password" required th:field="*{senha}" class="form-control" minlength="3"/></br>
-                    <label for="nome" class="form-label">Admin?</label>
-                        <input type="checkbox" th:field="*{admin}" class="form-check-input"/></br></br>
+                    <label for="instituicao" class="form-label">Instituição:</label>
+                        <select required th:field="*{instituicao}" class="form-select">
+                            <option th:each="intit : ${instituicaoItems}" 
+                                th:value="${intit.id}" 
+                                th:text="${intit.sigla}" 
+                                th:selected="${intit.id == instituicao}">
+                        </select></br>
                     <button type="submit" class="btn btn-primary">Atualizar</button>
                 </form>
             </div>

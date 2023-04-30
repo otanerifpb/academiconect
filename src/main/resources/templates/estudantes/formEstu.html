@@ -38,12 +38,18 @@
                         <input type="number" class="form-control" required th:field="*{matricula}" /></br>
                     <label for="nome" class="form-label">Data Nascimento:</label>
                         <input type="date" class="form-control" required th:field="*{dataNascimento}" /></br> 
-                    <label for="nome" class="form-label">Email:</label>
+                    <label for="nome" class="form-label">E-mail:</label>
                         <input type="email" required th:field="*{email}" class="form-control"/></br>
                     <label for="nome" class="form-label">Senha:</label>
                         <input type="password" required th:field="*{senha}" class="form-control" minlength="3"/></br>
-                    <label for="nome" class="form-label">Admin?</label>
-                        <input type="checkbox" th:field="*{admin}" class="form-check-input"/></br></br>
+                    <label for="instituicao" class="form-label">Instituição:</label>
+                        <select th:field="*{instituicao}" class="form-select">
+                            <option value=""></option>
+                            <option th:each="intit : ${instituicaoItems}" 
+                                th:value="${intit.id}" 
+                                th:text="${intit.sigla}" 
+                                th:selected="${intit.id == instituicao}">
+                        </select></br>
                     <button type="submit" class="btn btn-primary">Salvar</button>
                 </form>
             </div>

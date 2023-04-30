@@ -12,10 +12,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
 import br.edu.ifpb.pweb2.academiConect.model.Estudante;
+import br.edu.ifpb.pweb2.academiConect.model.Instituicao;
 import br.edu.ifpb.pweb2.academiConect.repository.DeclaracaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.InstituicaoRepository;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -75,6 +79,7 @@ public class EstudanteController {
     public ModelAndView save(Estudante estudante, ModelAndView model, RedirectAttributes redAttrs) {
         Optional<Estudante> opEmail = estudanteRepository.findByEmail(estudante.getEmail());
         Optional<Estudante> opMatricula = estudanteRepository.findByMatricula(estudante.getMatricula());
+        //if (opMatricula.isPresent() || opEmail.isPresent()) {
         if (opMatricula.isPresent()) {
             redAttrs.addFlashAttribute("errorMensagem", "Matrícula já cadastrada no sistema!!");
             model.setViewName("redirect:/estudantes");
@@ -127,5 +132,21 @@ public class EstudanteController {
     public String activeMenu(){
         return "estudantes";
     }
+
+    // Calcular Idade do estudante
+    @RequestMapping("/idade")
+    public Integer calculate(@PathVariable Integer ano,@PathVariable Integer mes, @PathVariable Integer dia ) {
+        LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
+        LocalDate dataHoje = LocalDate.now();
+        Integer idade = Period.between(dataNascimento, dataHoje).getYears();
+        return idade;
+    }
+
+    // Rota para a dependência da Estudante com a Instituição
+    @ModelAttribute("instituicaoItems")
+    public List<Instituicao> getInstituicao() {
+        return instituicaoRepository.findAll();
+    }
+
     
 }

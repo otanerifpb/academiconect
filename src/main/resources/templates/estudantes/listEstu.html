@@ -43,11 +43,11 @@
                         <thead>
                             <tr>
                                 <th>Nome</th>
-                                <th style="text-align: center;">Matrícula</th>
-                                <th style="text-align: center;">Data Nascimento</th>
-                                <th style="text-align: center;">Senha</th>
-                                <th>E-mail</th>
-                                <th style="text-align: center;">Admin</th>
+                                <th style="text-align: center;">Matrícula:</th>
+                                <th style="text-align: center;">Data Nascimento:</th>
+                                <th>E-mail:</th>
+                                <th style="text-align: center;">Senha:</th>
+                                <th style="text-align: center;">Instituição:</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,12 +58,10 @@
                                 <td th:text="${estudante.matricula}" style="text-align: center;"></td>
                                 <td th:text="${#dates.format(estudante.dataNascimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
                                     style="text-align: center;"></td>
-                                <td th:text="'**' + ${#strings.substring(estudante.senha,0,3)} + '****'" style="text-align: center;"></td>
                                 <td th:text="${estudante.email}"></td>
-                                <td style="text-align: center;">
-                                    <img th:if="${estudante.admin}" th:src="@{/imagens/ok.png}" />
-                                    <img th:unless="${estudante.admin}" th:src="@{/imagens/nok.png}" />
-                                </td>
+                                <td th:text="'**' + ${#strings.substring(estudante.senha,0,3)} + '****'" style="text-align: center;"></td>                                
+                                <td th:text="${estudante.instituicao != null and estudante.instituicao != '' ?estudante.instituicao.sigla: 'Não Informada'}"
+                                    style="text-align: center;"></td>
                                 <td>
                                     <form th:action="@{/estudantes/{id}/delete(id=${estudante.id})}">
                                         <button type="submit" class="btn btn-primary btn-sm" >
