@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
@@ -60,9 +61,9 @@ public class Estudante implements Serializable{
 
     
 
-    // Para associar um estudante a uma instituição
+    // Para associar um Estudante a uma Instituição
     public Estudante(Instituicao instituicao) {
         this.instituicao = instituicao;
-    } 
+    }  
     
 }

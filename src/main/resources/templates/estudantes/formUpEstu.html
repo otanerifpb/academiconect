@@ -31,29 +31,20 @@
             <div class="card-body">
                 
                 <form th:action="@{/estudantes/update}" method="POST" th:object="${estudante}">
-                    <input type="hidden" required th:field="*{id}" />
-                    <label for="nome" class="form-label">Nome:</label>
-                        <input type="text" class="form-control" required th:field="*{nome}" maxlength="50"/></br>
-                    <label for="nome" class="form-label">Matrícula:</label>
-                        <input type="number" class="form-control" required th:field="*{matricula}" /></br>
-                    <label for="nome" class="form-label">Data Nascimento:</label>
-                        <input type="date" class="form-control" required th:field="*{dataNascimento}" /></br> 
-                    <label for="nome" class="form-label">Email:</label>
-                        <input type="email" required th:field="*{email}" class="form-control"/></br>
-                    <label for="nome" class="form-label">Senha:</label>
-                        <input type="password" required th:field="*{senha}" class="form-control" minlength="3"/></br>
+                    <div th:replace="~{/fragments/body :: formEstu}"></div>
                     <label for="instituicao" class="form-label">Instituição:</label>
-                        <select required th:field="*{instituicao}" class="form-select">
+                        <select th:field="*{instituicao.id}" class="form-select">
+                            <option value=""></option>
                             <option th:each="intit : ${instituicaoItems}" 
                                 th:value="${intit.id}" 
                                 th:text="${intit.sigla}" 
                                 th:selected="${intit.id == instituicao}">
+                            </option>
                         </select></br>
                     <button type="submit" class="btn btn-primary">Atualizar</button>
                 </form>
             </div>
         </div>
-    </div>
-    
+    </div>   
 </body>
 </html>

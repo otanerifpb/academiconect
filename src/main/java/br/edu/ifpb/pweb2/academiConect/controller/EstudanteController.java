@@ -63,12 +63,13 @@ public class EstudanteController {
     @RequestMapping("/{id}")
     public ModelAndView getEstudanteById(@PathVariable(value = "id") Integer id, ModelAndView model) {
         Optional<Estudante> opEstudante = estudanteRepository.findById(id);
-        Estudante estudante = opEstudante.get();
+       
         if (opEstudante.isPresent()) {
-            model.addObject("estudante", opEstudante.get());
+            Estudante estudante = opEstudante.get();
+            model.addObject("estudante",estudante);
             model.setViewName("estudantes/formUpEstu");
         } else {
-            model.addObject("errorMensagem", "Estudante "+estudante.getNome()+" não encontrado.");
+            model.addObject("errorMensagem", "Estudante  não encontrado.");
             model.setViewName("estudantes/listInst");
         }
         return model;
@@ -96,15 +97,18 @@ public class EstudanteController {
         return model;
     }
 
-    // Rota para atualizar um objeto na lista
+    // Rota para atualizar um objeto na lista pelo formUpEstu
     @RequestMapping(value="/update", method = RequestMethod.POST)
     public ModelAndView updade(Estudante estudante, ModelAndView model) {
         //Optional<Instituicao> listaInstituicao = instituicaoRepository.findBySigla(instituicao.getSigla());
+        if (estudante.getInstituicao().getId() == null){
+            estudante.setInstituicao(null);
+        }
         estudanteRepository.save(estudante);
         model.addObject("estudantes", estudanteRepository.findAll());
         //redAttrs.addFlashAttribute("succesMensagem", "Instituição atualizada com sucesso!");
         model.addObject("succesMensagem", "Estudante "+estudante.getNome()+", atualizado com sucesso!");
-        //model.setViewName("redirect:instituicoes");
+        //model.setViewName("/instituicoes/formUpEstu");
         model.setViewName("redirect:/estudantes");
         return model;
     }
@@ -142,7 +146,7 @@ public class EstudanteController {
         return idade;
     }
 
-    // Rota para a dependência da Estudante com a Instituição
+    // Rota para acessar a Instituição em Estudante
     @ModelAttribute("instituicaoItems")
     public List<Instituicao> getInstituicao() {
         return instituicaoRepository.findAll();

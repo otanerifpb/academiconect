@@ -32,6 +32,21 @@
 
     <!-- Título do card da página+ -->
     <div class="card-header" th:fragment="titulo(titulo)" th:text="${titulo}"></div>
+
+    <!-- Dados do formulario de Estudante -->
+    <div class="navbar-nav" th:fragment="formEstu">
+        <input type="hidden" required th:field="*{id}" />
+        <label for="nome" class="form-label">Nome:</label>
+            <input type="text" class="form-control" required th:field="*{nome}" maxlength="50"/></br>
+        <label for="nome" class="form-label">Matrícula:</label>
+            <input type="number" class="form-control" required th:field="*{matricula}" /></br>
+        <label for="nome" class="form-label">Data Nascimento:</label>
+            <input type="date" class="form-control" required th:field="*{dataNascimento}" /></br> 
+        <label for="nome" class="form-label">E-mail:</label>
+            <input type="email" required th:field="*{email}" class="form-control"/></br>
+        <label for="nome" class="form-label">Senha:</label>
+            <input type="password" required th:field="*{senha}" class="form-control" minlength="3"/></br>
+    </div>
       
 </body>
 </html>
