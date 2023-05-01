@@ -45,6 +45,8 @@ public class EstudanteController {
     }
 
     // Rota para acessar a lista ao usar o REDIRECT
+    // REQFUNC 4 - CRUD
+    // REQNFUNC - Layout e Fragments
     @RequestMapping()
     public String listAll(Model model) {
         model.addAttribute("estudantes", estudanteRepository.findAll());
@@ -52,6 +54,10 @@ public class EstudanteController {
     }
 
     // Rota para acessar o formunário
+    // REQFUNC 6 - Instituição Atual
+    // REQFUNC 8 - Instituição Atual
+    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC - Layout e Fragments
     @RequestMapping("/formEstu")
     public ModelAndView getFormEstu(Estudante estudante, ModelAndView model) {
         model.addObject("estudante", estudante);
@@ -60,6 +66,10 @@ public class EstudanteController {
     }
 
     // Rota para acessar o formunlário de atualização ou a lista se não for atualizar 
+    // REQFUNC 6 - Instituição Atual
+    // REQFUNC 8 - Instituição Atual
+    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC - Layout e Fragments
     @RequestMapping("/{id}")
     public ModelAndView getEstudanteById(@PathVariable(value = "id") Integer id, ModelAndView model) {
         Optional<Estudante> opEstudante = estudanteRepository.findById(id);
@@ -76,6 +86,9 @@ public class EstudanteController {
     }
 
     // Rota para salvar novo objeto na lista
+    // REQFUNC 4 - CRUD
+    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView save(Estudante estudante, ModelAndView model, RedirectAttributes redAttrs) {
         Optional<Estudante> opEmail = estudanteRepository.findByEmail(estudante.getEmail());
@@ -98,6 +111,11 @@ public class EstudanteController {
     }
 
     // Rota para atualizar um objeto na lista pelo formUpEstu
+    // REQFUNC 4 - CRUD
+    // REQFUNC 6 - Instituição Atual
+    // REQFUNC 8 - Instituição Atual
+    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(value="/update", method = RequestMethod.POST)
     public ModelAndView updade(Estudante estudante, ModelAndView model) {
         //Optional<Instituicao> listaInstituicao = instituicaoRepository.findBySigla(instituicao.getSigla());
@@ -114,6 +132,9 @@ public class EstudanteController {
     }
 
     // Rota para deletar um objeto da lista
+    // REQFUNC 4 - CRUD
+    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping("{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView model, RedirectAttributes redAtt) {
         Optional<Estudante> opEstudante = estudanteRepository.findById(id);
@@ -147,6 +168,8 @@ public class EstudanteController {
     }
 
     // Rota para acessar a Instituição em Estudante
+    // REQFUNC 6 - Instituição Atual
+    // REQFUNC 8 - Declaração Atual
     @ModelAttribute("instituicaoItems")
     public List<Instituicao> getInstituicao() {
         return instituicaoRepository.findAll();

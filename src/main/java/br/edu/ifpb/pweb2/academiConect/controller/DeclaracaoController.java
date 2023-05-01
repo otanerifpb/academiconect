@@ -42,6 +42,7 @@ public class DeclaracaoController implements Serializable {
     }
 
     // Rota para acessar a lista com o uso do REDIRECT
+    // REQFUNC 4 - CRUD
     @RequestMapping()
     public String listAll(Model model) {
         model.addAttribute("declaracoes", declaracaoRepository.findAll());
@@ -49,6 +50,9 @@ public class DeclaracaoController implements Serializable {
     }
 
     // Rota para acessar o formulário
+    // REQFUNC 6 - Instituição Atual
+    // REQFUNC 8 - Instituição Atual
+    // REQNFUNC - Mostrar Erro nos Formulários
     @RequestMapping("/formDecl")
     public ModelAndView getFormDecl(Declaracao declaracao, ModelAndView model) {
         model.addObject("declaracao", declaracao);
@@ -57,6 +61,9 @@ public class DeclaracaoController implements Serializable {
     }
 
     // Rota para acessar o formunlário de atualização ou a lista se não for atualizar 
+    // REQFUNC 6 - Instituição Atual
+    // REQFUNC 8 - Instituição Atual
+    // REQNFUNC - Mostrar Erro nos Formulários
     @RequestMapping("/{id}")
     public ModelAndView getInstituicaoById(@PathVariable(value = "id") Integer id, ModelAndView model) {
         Optional<Declaracao> opDeclaracao = declaracaoRepository.findById(id);
@@ -72,6 +79,9 @@ public class DeclaracaoController implements Serializable {
     }
 
     // Rota para salvar novo objeto na lista com o uso do POST
+    // REQFUNC 4 - CRUD
+    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView save(Declaracao declaracao, ModelAndView model, RedirectAttributes redAttrs) {
         Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
@@ -96,6 +106,11 @@ public class DeclaracaoController implements Serializable {
     }
 
     // Rota para atualizar um objeto na lista com o uso do POST
+    // REQFUNC 4 - CRUD
+    // REQFUNC 6 - Instituição Atual
+    // REQFUNC 8 - Instituição Atual
+    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(value="/update", method = RequestMethod.POST)
     public ModelAndView updade(Declaracao declaracao, ModelAndView model, RedirectAttributes redAttrs) {
         Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
@@ -118,6 +133,9 @@ public class DeclaracaoController implements Serializable {
     }
 
     // Rota para deletar um objeto da lista
+    // REQFUNC 4 - CRUD
+    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping("{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView model, RedirectAttributes redAtt) {
         Optional<Declaracao> opDeclaracao = declaracaoRepository.findById(id);

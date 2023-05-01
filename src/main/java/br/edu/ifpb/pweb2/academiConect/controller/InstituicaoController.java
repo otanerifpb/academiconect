@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.academiConect.model.Estudante;
 import br.edu.ifpb.pweb2.academiConect.model.Instituicao;
-import br.edu.ifpb.pweb2.academiConect.model.Periodo;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.InstituicaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.PeriodoRepository;
@@ -42,6 +41,7 @@ public class InstituicaoController {
     }
 
     // Rota para acessar a lista ao usar a Rota da class
+    // REQFUNC 1 - CRUD
     @RequestMapping()
     public String listAll(Model model) {
         model.addAttribute("instituicoes", instituicaoRepository.findAll());
@@ -49,6 +49,7 @@ public class InstituicaoController {
     }
     
     // Rota para acessar o formunário
+    // REQNFUNC - Mostrar Erro nos Formulários
     @RequestMapping("/formInst")
     public ModelAndView getForm(ModelAndView model) {
         model.addObject("instituicao", new Instituicao());
@@ -57,6 +58,7 @@ public class InstituicaoController {
     }
 
     // Rota para acessar o formunlário de atualização ou a lista se não for atualizar 
+    // REQNFUNC - Mostrar Erro nos Formulários
     @RequestMapping("/{id}")
     public ModelAndView getInstituicaoById(@PathVariable(value = "id") Integer id, ModelAndView model) {
         Optional<Instituicao> opInstituicao = instituicaoRepository.findById(id);
@@ -72,6 +74,9 @@ public class InstituicaoController {
     }
 
     // Rota para salvar novo objeto na lista
+    // REQFUNC 1 - CRUD
+    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView save(Instituicao instituicao, ModelAndView model, RedirectAttributes redAttrs) {
         Optional<Instituicao> opInstituicao = instituicaoRepository.findBySigla(instituicao.getSigla());
@@ -90,6 +95,9 @@ public class InstituicaoController {
     }
 
     // Rota para atualizar um objeto na lista
+    // REQFUNC 1 - CRUD
+    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(value="/update", method = RequestMethod.POST)
     public ModelAndView updade(Instituicao instituicao, ModelAndView model) {
         //Optional<Instituicao> listaInstituicao = instituicaoRepository.findBySigla(instituicao.getSigla());
@@ -103,6 +111,9 @@ public class InstituicaoController {
     }
 
     // Rota para deletar um objeto da lista
+    // REQFUNC 1 - CRUD
+    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping("{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView model, RedirectAttributes redAtt) {
         Optional<Instituicao> opInstituicao = instituicaoRepository.findById(id);

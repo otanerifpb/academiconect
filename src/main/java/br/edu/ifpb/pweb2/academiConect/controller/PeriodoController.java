@@ -3,9 +3,7 @@ package br.edu.ifpb.pweb2.academiConect.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.mapping.Set;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.support.Repositories;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,6 +41,8 @@ public class PeriodoController {
     }
 
     // Rota para acessar a lista ao usar a Rota da class
+    // REQFUNC 2 - CRUD
+    // REQNFUNC - Layout e Fragments
     @RequestMapping()
     public String listAll(Model model) {
         model.addAttribute("periodos", periodoRepository.findAll());
@@ -50,6 +50,9 @@ public class PeriodoController {
     }
 
     // Rota para acessar o formunário
+    // REQFUNC 5 - Período Atual
+    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC - Layout e Fragments
     @RequestMapping("/formPeri")
     public ModelAndView getFormPeri(ModelAndView model) {
         model.addObject("periodo", new Periodo());
@@ -58,6 +61,9 @@ public class PeriodoController {
     }
 
     // Rota para acessar o formunlário de atualização ou a lista se não for atualizar 
+    // REQFUNC 5 - Período Atual
+    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC - Layout e Fragments
     @RequestMapping("/{id}")
     public ModelAndView getPeriodoById(@PathVariable(value = "id") Integer id, ModelAndView model) {
         Optional<Periodo> opPeriodo = periodoRepository.findById(id);
@@ -73,6 +79,9 @@ public class PeriodoController {
     }
 
     // Rota para salvar novo objeto na lista
+    // REQFUNC 2 - CRUD
+    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView save(Periodo periodo, ModelAndView model, RedirectAttributes redAttrs) { 
        Optional<Periodo> opPeriodo = periodoRepository.findByAnoPeriodoInstituicao(periodo.getAno(), periodo.getPeriodo(), periodo.getInstituicoes().get(0).getSigla());
@@ -91,6 +100,9 @@ public class PeriodoController {
     }
 
     // Rota para atualizar um objeto na lista
+    // REQFUNC 2 - CRUD
+    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(value="/update", method = RequestMethod.POST)
     public ModelAndView updade(Periodo periodo, ModelAndView model) {
         periodoRepository.save(periodo);
@@ -102,6 +114,9 @@ public class PeriodoController {
     }
 
     // Rota para deletar um objeto da lista
+    // REQFUNC 2 - CRUD
+    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping("{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView model, RedirectAttributes redAtt) {
         Optional<Periodo> opPeriodo = periodoRepository.findById(id);
