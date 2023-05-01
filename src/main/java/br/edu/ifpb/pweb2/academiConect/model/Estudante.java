@@ -59,8 +59,6 @@ public class Estudante implements Serializable{
     //@JoinColumn(name = "id_declaracao")
     private Set<Declaracao> declaracoes = new HashSet<Declaracao>();  
 
-    
-
     // Para associar um Estudante a uma Instituição
     public Estudante(Instituicao instituicao) {
         this.instituicao = instituicao;

@@ -46,7 +46,7 @@ public class Instituicao implements Serializable {
     // Relação entre Instituição e PeriodoLetivo (1:N)
     @ManyToMany
     @JoinColumn(name = "id_periodo")
-    private List<Periodo> periodo;
+    private List<Periodo> periodos;
 
     // O uso de addEstudante, se o objeto vai ser adicionado à coleção existente
     // O uso de setEstudante, se o objeto ja existe e vai ser atualizado em uma propriedade privada estudanteAtual

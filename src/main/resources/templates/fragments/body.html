@@ -47,6 +47,21 @@
         <label for="nome" class="form-label">Senha:</label>
             <input type="password" required th:field="*{senha}" class="form-control" minlength="3"/></br>
     </div>
+
+    <!-- Dados do formulario de Periodo -->
+    <div class="navbar-nav" th:fragment="formPeri">
+        <input type="hidden" required th:field="*{id}" />
+        <label for="nome" class="form-label">Ano:</label>
+            <input type="number" class="form-control" required th:field="*{ano}" maxlength="4"/></br>
+        <label for="nome" class="form-label">Período:</label>
+            <input type="text" class="form-control" required th:field="*{periodo}" /></br>
+        <label for="nome" class="form-label">Data Início:</label>
+            <input type="date" class="form-control" required th:field="*{dataInicio}" /></br>
+        <label for="nome" class="form-label">Data Fim:</label>
+            <input type="date" class="form-control" required th:field="*{dataFim}" /></br>
+        <label for="nome" class="form-label">Período Atual?</label>
+            <input type="checkbox" th:field="*{periodoAtual}" class="form-check-input"/></br></br>
+    </div>
       
 </body>
 </html>

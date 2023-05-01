@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.academiConect.model.Estudante;
 import br.edu.ifpb.pweb2.academiConect.model.Instituicao;
+import br.edu.ifpb.pweb2.academiConect.model.Periodo;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.InstituicaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.PeriodoRepository;
@@ -83,7 +84,7 @@ public class InstituicaoController {
             model.addObject("instituicoes", instituicaoRepository.findAll());
             redAttrs.addFlashAttribute("succesMensagem", "Instituição cadastrada com sucesso!");
             //model.addObject("successMensagem", "Instituição cadastrado com sucesso!");
-            model.setViewName("redirect:/instituicoes");
+            model.setViewName("/instituicoes/listInst");
         }  
         return model;
     }
@@ -171,5 +172,11 @@ public class InstituicaoController {
      public String activeMenu(){
          return "instituicoes";
      }
+
+    // Rota para acessar a Instituição em um Periodo
+    @ModelAttribute("instituicaoItems")
+    public List<Instituicao> getInstituicao() {
+        return instituicaoRepository.findAll();
+    }
     
 }

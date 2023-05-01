@@ -3,7 +3,9 @@ package br.edu.ifpb.pweb2.academiConect.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.mapping.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.support.Repositories;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -59,9 +61,9 @@ public class PeriodoController {
     @RequestMapping("/{id}")
     public ModelAndView getPeriodoById(@PathVariable(value = "id") Integer id, ModelAndView model) {
         Optional<Periodo> opPeriodo = periodoRepository.findById(id);
-        //Periodo periodo = opPeriodo.get();
         if (opPeriodo.isPresent()) {
-            model.addObject("periodo", opPeriodo.get());
+            Periodo periodo = opPeriodo.get();
+            model.addObject("periodo", periodo);
             model.setViewName("periodos/formUpPeri");
         } else {
             model.addObject("errorMensagem", "Periodo informado não encontrado.");
@@ -72,17 +74,18 @@ public class PeriodoController {
 
     // Rota para salvar novo objeto na lista
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView save(Periodo periodo, ModelAndView model, RedirectAttributes redAttrs) {
-        Optional<Periodo> opPeriodo = periodoRepository.findByPeriodo(periodo.getPeriodo());
-        //Optional<Periodo> opPeriodo = periodoRepository.findByAno(periodo.getAno());
+    public ModelAndView save(Periodo periodo, ModelAndView model, RedirectAttributes redAttrs) { 
+       Optional<Periodo> opPeriodo = periodoRepository.findByAnoPeriodoInstituicao(periodo.getAno(), periodo.getPeriodo(), periodo.getInstituicoes().get(0).getSigla());
         if (opPeriodo.isPresent()) {
-            redAttrs.addFlashAttribute("errorMensagem", "Periodo "+periodo.getPeriodo()+" já cadastrado no sistema!!");
+            //redAttrs.addFlashAttribute("errorMensagem", "Periodo "+periodo.getPeriodo()+" já cadastrado no sistema!!");
+            redAttrs.addFlashAttribute("errorMensagem", "Periodo já cadastrado no sistema!!");
             model.setViewName("redirect:/periodos");     
         } else {
             periodoRepository.save(periodo);
             model.addObject("periodos", periodoRepository.findAll());
             redAttrs.addFlashAttribute("succesMensagem", "Período "+periodo.getPeriodo()+" cadastrado com sucesso!!");
-            model.setViewName("redirect:/periodos");
+            //model.setViewName("redirect:/periodos");
+            model.setViewName("/periodos/listPeri");
         }  
         return model;
     }
@@ -94,6 +97,7 @@ public class PeriodoController {
         model.addObject("periodos", periodoRepository.findAll());
         model.addObject("succesMensagem", "Período "+periodo.getPeriodo()+", atualizado com sucesso!");
         model.setViewName("redirect:/periodos");
+        //model.setViewName("/periodos/listPeri");
         return model;
     }
 
@@ -103,11 +107,11 @@ public class PeriodoController {
         Optional<Periodo> opPeriodo = periodoRepository.findById(id);
         if (opPeriodo.isPresent()) {
             Periodo periodo = opPeriodo.get();
-            List<Instituicao> listInstituicao = periodo.getInstituicao();
-            if(listInstituicao.isEmpty()){
-                periodoRepository.deleteById(id);
+            List<Instituicao> listInstituicao = periodo.getInstituicoes();
+            for (Instituicao instituicao: listInstituicao) {
+                instituicao.getPeriodos().remove(periodo);
             }
-            //declaracao.setDeclaracao(null);
+            periodoRepository.deleteById(id);
             redAtt.addFlashAttribute("succesMensagem", "Período "+periodo.getPeriodo()+" deletado com sucesso!!");
         } else {
             redAtt.addFlashAttribute("errorMensagem", "Período não pode ser deletada, contem instituição cadastrada.");
@@ -121,5 +125,11 @@ public class PeriodoController {
      public String activeMenu(){
          return "periodos";
      }
-    
+
+     // Rota para acessar a lista de Instituições no <select> do Form 
+    @ModelAttribute("instituicoesItems")
+    public List<Instituicao> getInstituicoes() {
+        return instituicaoRepository.findAll();
+    }
+
 }

@@ -30,17 +30,16 @@
             
             <div class="card-body">
                 <form th:action="@{/periodos}" method="POST" th:object="${periodo}">
-                    <input type="hidden" required th:field="*{id}" />
-                    <label for="nome" class="form-label">Ano:</label>
-                        <input type="number" class="form-control" required th:field="*{ano}" maxlength="4"/></br>
-                    <label for="nome" class="form-label">Período:</label>
-                        <input type="text" class="form-control" required th:field="*{periodo}" /></br>
-                    <label for="nome" class="form-label">Data Início:</label>
-                        <input type="date" class="form-control" required th:field="*{dataInicio}" /></br>
-                    <label for="nome" class="form-label">Data Fim:</label>
-                        <input type="date" class="form-control" required th:field="*{dataFim}" /></br>
-                    <label for="nome" class="form-label">Período Atual?</label>
-                        <input type="checkbox" th:field="*{periodoAtual}" class="form-check-input"/></br></br>
+                    <div th:replace="~{/fragments/body :: formPeri}"></div>
+                    <label for="instituicao.id" class="form-label">Instituição:</label>
+                        <select th:field="*{instituicoes}" class="form-select">
+                            <option value=""></option>
+                            <option th:each="inst : ${instituicoesItems}" 
+                                th:value="${inst.id}" 
+                                th:text="${inst.sigla}" 
+                                th:selected="${inst.id == instituicoes}">
+                            </option>
+                        </select></br>
                     <button type="submit" class="btn btn-primary">Salvar</button>
                 </form>
             </div>

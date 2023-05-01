@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +28,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 // Para que não gere um loop na class do relacionamanto usar: exclude = nomeClassRelacionamento  para @OnoToMany ou @ManyToOne
-@EqualsAndHashCode(exclude = {"declaracoes"})
+@EqualsAndHashCode(exclude = {"declaracoes", "instituicoes"})
 @AllArgsConstructor
 @Entity
 public class Periodo implements Serializable {
@@ -40,6 +41,7 @@ public class Periodo implements Serializable {
 
     private Integer ano;
 
+    @Column(name="periodo", columnDefinition = "text")
     private String periodo;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -53,7 +55,8 @@ public class Periodo implements Serializable {
     // Relação entre PerioLetivo e Instituição (1:N)
     @ManyToMany
     @JoinColumn(name = "id_instituicao")
-    private List<Instituicao> instituicao;
+   // private List<Instituicao> instituicao;
+    private List<Instituicao> instituicoes;
 
     // Relação entre PerioLetivo e Declaração (1:N)
     // Quando tem @OneToMany é necessário add a class no @EqualsAndHashCode(exclude = {"declaracoes"})
@@ -62,7 +65,15 @@ public class Periodo implements Serializable {
 
     // public void addDeclaracao(Declaracao declaracao){
     //     this.declaracoes.add(declaracao);
-    //     declaracao.setPeriodoLetivo(this);
+    //     declaracao.setPeriodo(this);
     // }
+
+     // Para associar um Periodo a uma Instituição
+     public Periodo(Instituicao instituicao) {
+       // this.instituicao = (List<Instituicao>) instituicao;
+       this.instituicoes.add(instituicao);
+    }
+
+   
     
 }
