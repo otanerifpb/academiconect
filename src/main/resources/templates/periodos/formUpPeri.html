@@ -31,6 +31,8 @@
             <div class="card-body">
                 <form th:action="@{/periodos/update}" method="POST" th:object="${periodo}">
                     <div th:replace="~{/fragments/body :: formPeri}"></div>
+                    <label for="nome" class="form-label">Período Atual?</label>
+                        <input type="checkbox" th:field="*{periodoAtual}" class="form-check-input"/></br>
                     <label for="instituicoes" class="form-label">Instituição:</label>
                         <select id="instituicoes" name="instituicoes" class="form-select">
                             <option value=""></option>
