@@ -32,15 +32,13 @@
                 <form th:action="@{/periodos/update}" method="POST" th:object="${periodo}">
                     <div th:replace="~{/fragments/body :: formPeri}"></div>
                     <label for="instituicoes" class="form-label">Instituição:</label>
-                        <select id="instituicoes" name="instituicoes"  class="form-select">
-                            <!-- periodo.instituicoes -->
+                        <select id="instituicoes" name="instituicoes" class="form-select">
                             <option value=""></option>
                             <option th:each="inst : ${instituicoesItems}"
                                 th:value="${inst.id}" 
                                 th:text="${inst.sigla}" 
-                                th:selected="${inst.id == instituicoes}">
-                            </option>
-                            
+                                th:selected="${inst.sigla == periodo.getInstituicoes().get(0).getSigla()}">
+                            </option> 
                         </select></br>
                     <button type="submit" class="btn btn-primary">Salvar</button>
                 </form>
