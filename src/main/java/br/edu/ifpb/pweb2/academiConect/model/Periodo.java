@@ -70,10 +70,9 @@ public class Periodo implements Serializable {
 
      // Para associar um Periodo a uma Instituição
      public Periodo(Instituicao instituicao) {
-       // this.instituicao = (List<Instituicao>) instituicao;
        this.instituicoes.add(instituicao);
+       
     }
-
    
     
 }

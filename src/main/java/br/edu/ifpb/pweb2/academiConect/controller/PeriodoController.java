@@ -80,16 +80,26 @@ public class PeriodoController {
 
     // Rota para salvar novo objeto na lista
     // REQFUNC 2 - CRUD
+    // REQFUNC 3 - Último periodo cadastrado se torna atual
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView save(Periodo periodo, ModelAndView model, RedirectAttributes redAttrs) { 
        Optional<Periodo> opPeriodo = periodoRepository.findByAnoPeriodoInstituicao(periodo.getAno(), periodo.getPeriodo(), periodo.getInstituicoes().get(0).getSigla());
         if (opPeriodo.isPresent()) {
-            //redAttrs.addFlashAttribute("errorMensagem", "Periodo "+periodo.getPeriodo()+" já cadastrado no sistema!!");
             redAttrs.addFlashAttribute("errorMensagem", "Periodo já cadastrado no sistema!!");
             model.setViewName("redirect:/periodos");     
         } else {
+            String periodoExistente = periodo.getInstituicoes().get(0).getSigla();
+              List<Periodo> periodosCadastrados =  periodoRepository.findAll();
+              for (Periodo periodoAtual: periodosCadastrados) {
+                for (Instituicao institu: periodoAtual.getInstituicoes() ){
+                    if (institu.getSigla().equals(periodoExistente)){
+                        periodoAtual.setPeriodoAtual(false);
+                    }
+                }    
+              }
+            periodo.setPeriodoAtual(true);
             periodoRepository.save(periodo);
             model.addObject("periodos", periodoRepository.findAll());
             redAttrs.addFlashAttribute("succesMensagem", "Período "+periodo.getPeriodo()+" cadastrado com sucesso!!");
