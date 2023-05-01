@@ -17,14 +17,7 @@
             <div th:replace="~{/fragments/body :: titulo(titulo=' Estudantes Cadastrados')}"></div>
 
             <div class="card-body">
-
-                <div th:text="${errorMensagem}" 
-                    th:if="${errorMensagem ne null}" 
-                    class="alert alert-danger" ></div>
-
-                <div th:text="${succesMensagem}" 
-                    th:if="${succesMensagem ne null}" 
-                    class="alert alert-success" ></div>
+                <div th:replace="~{/fragments/body :: mensagens}"></div>
   
                 <form th:action="@{/estudantes/formEstu}" method="GET">
                     <button class="btn btn-primary" type="submit">

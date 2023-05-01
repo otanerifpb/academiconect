@@ -88,18 +88,15 @@ public class DeclaracaoController implements Serializable {
         if (opEstudante.isPresent()) {
             Estudante estudante = opEstudante.get();
             declaracao.setEstudante(estudante);
-           // estudante.addDeclaracao(declaracao);
             declaracaoRepository.save(declaracao);
             model.addObject("declaracoes", declaracaoRepository.findAll());
-            redAttrs.addFlashAttribute("succesMensagem", "Declaração cadastrado com sucesso!");
-            //redAttrs.addFlashAttribute("errorMensagem", "Declaração já existe!!");
+            //redAttrs.addFlashAttribute("succesMensagem", "Declaração cadastrado com sucesso!");
             //model.setViewName("redirect:declaracoes");
+            model.addObject("succesMensagem", "Declaração cadastrado com sucesso!");
             model.setViewName("declaracoes/listDecl");
         } else {
-            //declaracaoRepository.save(declaracao);
-            //model.addObject("declaracoes", declaracaoRepository.findAll());
+            model.addObject("declaracoes", declaracaoRepository.findAll());
             redAttrs.addFlashAttribute("errorMensagem", "Estudante não encontrado!!");
-            //model.addObject("successMensagem", "Declaração cadastrado com sucesso!");
             model.setViewName("redirect:/declaracoes");
         }  
         return model;
@@ -119,14 +116,13 @@ public class DeclaracaoController implements Serializable {
             declaracao.setEstudante(estudante);
             declaracaoRepository.save(declaracao);
             model.addObject("declaracoes", declaracaoRepository.findAll());
-            redAttrs.addFlashAttribute("succesMensagem", "Instituição "+declaracao.getId()+", atualizada com sucesso!");
+            //redAttrs.addFlashAttribute("succesMensagem", "Instituição "+declaracao.getId()+", atualizada com sucesso!_redAttrs");
             //model.setViewName("redirect:/declaracoes");
+            model.addObject("succesMensagem", "Declaração cadastrado com sucesso!_model");
             model.setViewName("declaracoes/listDecl");
     } else {
-        //declaracaoRepository.save(declaracao);
-        //model.addObject("declaracoes", declaracaoRepository.findAll());
+        model.addObject("declaracoes", declaracaoRepository.findAll());
         redAttrs.addFlashAttribute("errorMensagem", "Estudante não encontrado!!");
-        //model.addObject("successMensagem", "Declaração cadastrado com sucesso!");
         model.setViewName("redirect:/declaracoes");
     }  
         return model;

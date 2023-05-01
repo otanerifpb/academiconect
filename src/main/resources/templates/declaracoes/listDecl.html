@@ -17,13 +17,7 @@
             <div th:replace="~{/fragments/body :: titulo(titulo='Declarações Cadastradas')}"></div>
             
             <div class="card-body">
-                <div th:text="${errorMensagem}" 
-                    th:if="${errorMensagem ne null}" 
-                    class="alert alert-danger" ></div>
-
-                <div th:text="${succesMensagem}" 
-                    th:if="${succesMensagem ne null}" 
-                    class="alert alert-success" ></div>
+                <div th:replace="~{/fragments/body :: mensagens}"></div>
   
                 <form th:action="@{/declaracoes/formDecl}" method="GET">
                     <button class="btn btn-primary" type="submit">
@@ -41,7 +35,6 @@
                         <thead>
                             <tr>
                                 <th>Matrícula:</th>
-                                <!-- <th>Instituição:</th> -->
                                 <th>Data Recebimento:</th>
                                 <th>Observação:</th>
                                 <th style="text-align: center;">Declaração Atual:</th>
@@ -49,15 +42,7 @@
                         </thead>
                         <tbody>
                             <tr th:each="declaracao: ${declaracoes}">
-                                <!-- <td th:text="${declaracao.id}"></td> -->
                                 <td th:text="${declaracao.estudante.matricula}"></td>
-                                <!-- <td >
-                                    <a th:href="@{/declaracoes/{id}(id=${declaracao.id})}"     
-                                    th:text="${declaracao.estudante.matricula}"></a>
-                                </td> -->
-                                <!-- <td th:text="${#dates.format(declaracao.dataRecebimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
-                                    style="text-align: left;" >
-                                </td> -->
                                 <td>
                                     <a th:href="@{/declaracoes/{id}(id=${declaracao.id})}"     
                                         th:text="${#dates.format(declaracao.dataRecebimento, 'dd ''de'' MMMM ''de'' yyyy')}" 

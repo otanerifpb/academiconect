@@ -16,14 +16,7 @@
             <div th:replace="~{/fragments/body :: titulo(titulo='Períodos Letivos Cadastrados')}"></div>
 
             <div class="card-body">
-
-                <div th:text="${succesMensagem}" 
-                    th:if="${succesMensagem ne null}" 
-                    class="alert alert-success"></div> 
-
-                <div th:text="${errorMensagem}" 
-                    th:if="${errorMensagem ne null}" 
-                    class="alert alert-danger"></div> 
+                <div th:replace="~{/fragments/body :: mensagens}"></div>
 
                 <form th:action="@{/periodos/formPeri}" method="GET">
                     <button class="btn btn-primary" type="submit">
@@ -33,7 +26,6 @@
                 <br />
 
                 <div th:if="${not #lists.isEmpty(periodos)}">
-                    <!-- Controle de registros na tabela -->
                     <div th:text="'Total: ' + ${#lists.size(periodos)} + ' registro(s)'" 
                         style="text-align: right; color: gray; font-size: 0.85em;">
                     </div>

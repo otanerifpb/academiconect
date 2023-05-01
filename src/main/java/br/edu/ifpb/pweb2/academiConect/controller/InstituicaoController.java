@@ -87,8 +87,8 @@ public class InstituicaoController {
         } else {
             instituicaoRepository.save(instituicao);
             model.addObject("instituicoes", instituicaoRepository.findAll());
-            redAttrs.addFlashAttribute("succesMensagem", "Instituição cadastrada com sucesso!");
-            //model.addObject("successMensagem", "Instituição cadastrado com sucesso!");
+            //redAttrs.addFlashAttribute("succesMensagem", "Instituição cadastrada com sucesso!");
+            model.addObject("succesMensagem", "Instituição cadastrado com sucesso!");
             model.setViewName("/instituicoes/listInst");
         }  
         return model;
@@ -99,14 +99,13 @@ public class InstituicaoController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(value="/update", method = RequestMethod.POST)
-    public ModelAndView updade(Instituicao instituicao, ModelAndView model) {
-        //Optional<Instituicao> listaInstituicao = instituicaoRepository.findBySigla(instituicao.getSigla());
+    public ModelAndView updade(Instituicao instituicao, ModelAndView model, RedirectAttributes redAttrs) {
         instituicaoRepository.save(instituicao);
         model.addObject("instituicoes", instituicaoRepository.findAll());
         //redAttrs.addFlashAttribute("succesMensagem", "Instituição atualizada com sucesso!");
+        //model.setViewName("redirect:/instituicoes");
         model.addObject("succesMensagem", "Instituição "+instituicao.getNome()+", atualizada com sucesso!");
-        //model.setViewName("redirect:instituicoes");
-        model.setViewName("redirect:/instituicoes");
+        model.setViewName("/instituicoes/listInst");    
         return model;
     }
 
@@ -133,52 +132,7 @@ public class InstituicaoController {
         return model;
     }
 
-    // Rota para a dependência da Class A com a Class B
-    // @ModelAttribute("estudanteItems")
-    // public List<Estudante> getEstudantes() {
-    //     return estudanteRepository.findAll();
-    // }
-
-
-    
-
-    // @RequestMapping("/matricula")
-    // public String getPeriodo() {
-    //     return "intituicoes/periodoAtual";
-    // }
-
-    // @RequestMapping(value = "/periodoAtual")
-    // public String periodoAtualInstituicao(String matricula, Declaracao declaracao, Model model) {
-    //     String proxPagina = "";
-    //     if (matricula != null && declaracao.getDataRecebimento() == null) {
-    //         Instituicao instituicao = instituicaoRepository.findByMatriculaWithDeclaracoes(matricula);
-    //         if (instituicao != null) {
-    //             model.addAttribute("instituicao", instituicao);
-    //             model.addAttribute("declaracao", declaracao);
-    //             proxPagina = "instituicoes/periodoAtual";
-    //         } else {
-    //             model.addAttribute("mensagem", "Instituição inexistente!");
-    //             proxPagina = "instituicoes/periodoAtual";
-    //         }
-    //     } else {
-    //         Instituicao instituicao = instituicaoRepository.findById(null);
-    //        // instituicao.addDeclaracao(declaracao);
-    //         instituicaoRepository.save(instituicao);
-    //         proxPagina = addDeclaracaoInstituicao(instituicao.getId(), model);
-    //     }
-    //     return proxPagina;
-    // }
-
-    // @RequestMapping(value = "/{id}/declaracoes")
-    // public String addDeclaracaoInstituicao(@PathVariable("id") Integer idInstituicao, Model model) {
-    //    // Instituicao instituicao = instituicaoRepository.findByIdWithDeclaracoes(idInstituicao);
-    //    Optional<Instituicao> instituicao = instituicaoRepository.findById(idInstituicao);
-    //    Instituicao intitui = instituicao.get();
-    //     model.addAttribute("instituicao", intitui);
-    //     return "instituicoes/declaracoes";
-    // }
-
-     // Ativa o menu Instituição na barra de navegação
+    // Ativa o menu Instituição na barra de navegação
      @ModelAttribute("menu")
      public String activeMenu(){
          return "instituicoes";

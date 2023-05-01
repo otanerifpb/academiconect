@@ -33,7 +33,18 @@
     <!-- Título do card da página+ -->
     <div class="card-header" th:fragment="titulo(titulo)" th:text="${titulo}"></div>
 
-    <!-- Dados do formulario de Estudante -->
+    <!-- Mensagem de Error/Sucesso do Formulário -->
+    <div style="margin-right: 5px;" th:fragment="mensagens">
+        <div th:text="${errorMensagem}" 
+            th:if="${errorMensagem ne null}" 
+            class="alert alert-danger" ></div>
+
+        <div th:text="${succesMensagem}" 
+            th:if="${succesMensagem ne null}" 
+            class="alert alert-success" ></div>
+    </div>
+
+    <!-- Dados do formulário de Estudante -->
     <div class="navbar-nav" th:fragment="formEstu">
         <input type="hidden" required th:field="*{id}" />
         <label for="nome" class="form-label">Nome:</label>
@@ -48,7 +59,7 @@
             <input type="password" required th:field="*{senha}" class="form-control" minlength="3"/></br>
     </div>
 
-    <!-- Dados do formulario de Periodo -->
+    <!-- Dados do formulário de Periodo -->
     <div class="navbar-nav" th:fragment="formPeri">
         <input type="hidden" required th:field="*{id}" />
         <label for="nome" class="form-label">Ano:</label>
@@ -59,6 +70,17 @@
             <input type="date" class="form-control" required th:field="*{dataInicio}" /></br>
         <label for="nome" class="form-label">Data Fim:</label>
             <input type="date" class="form-control" required th:field="*{dataFim}" /></br>
+    </div>
+
+    <!-- Dados do formulário de Declaração -->
+    <div class="navbar-nav" th:fragment="formDecl">
+        <input type="hidden" required th:field="*{id}" />
+        <label for="estudante">Matrícula:</label>
+            <input type="text" class="form-control" required th:field="*{estudante.matricula}" /></br>
+        <label for="nome" class="form-label">Data Recebimento:</label>
+            <input type="date" class="form-control" required th:field="*{dataRecebimento}" /></br>
+        <label for="nome" class="form-label">Observação:</label>
+            <input type="text" class="form-control" th:field="*{observacao}" /></br>
     </div>
       
 </body>

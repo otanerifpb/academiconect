@@ -103,7 +103,7 @@ public class EstudanteController {
         } else {
             estudanteRepository.save(estudante);
             model.addObject("estudantes", estudanteRepository.findAll());
-            redAttrs.addFlashAttribute("succesMensagem", "Estudante cadastrado com sucesso!");
+            model.addObject("succesMensagem", "Estudante cadastrado com sucesso!");
             model.setViewName("estudantes/listEstu");
             //model.setViewName("redirect:/estudantes");
         }
@@ -115,9 +115,8 @@ public class EstudanteController {
     // REQFUNC 6 - Instituição Atual
     // REQFUNC 8 - Instituição Atual
     // REQNFUNC - Mostrar Erro nos Formulários
-    // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(value="/update", method = RequestMethod.POST)
-    public ModelAndView updade(Estudante estudante, ModelAndView model) {
+    public ModelAndView updade(Estudante estudante, ModelAndView model, RedirectAttributes redAttrs) {
         //Optional<Instituicao> listaInstituicao = instituicaoRepository.findBySigla(instituicao.getSigla());
         if (estudante.getInstituicao().getId() == null){
             estudante.setInstituicao(null);
@@ -125,9 +124,9 @@ public class EstudanteController {
         estudanteRepository.save(estudante);
         model.addObject("estudantes", estudanteRepository.findAll());
         //redAttrs.addFlashAttribute("succesMensagem", "Instituição atualizada com sucesso!");
+        //model.setViewName("redirect:/estudantes");
         model.addObject("succesMensagem", "Estudante "+estudante.getNome()+", atualizado com sucesso!");
-        //model.setViewName("/instituicoes/formUpEstu");
-        model.setViewName("redirect:/estudantes");
+        model.setViewName("/estudantes/listEstu"); 
         return model;
     }
 
@@ -136,7 +135,7 @@ public class EstudanteController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping("{id}/delete")
-    public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView model, RedirectAttributes redAtt) {
+    public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView model, RedirectAttributes redAttrs) {
         Optional<Estudante> opEstudante = estudanteRepository.findById(id);
         if (opEstudante.isPresent()) {
             Estudante estudante = opEstudante.get();
@@ -144,9 +143,9 @@ public class EstudanteController {
             declaracaoRepository.deleteAll(listaDeclaracao);
             estudante.setInstituicao(null);
             estudanteRepository.deleteById(id);
-            redAtt.addFlashAttribute("succesMensagem", "Estudante "+estudante.getNome()+" deletado com sucesso!!");
+            redAttrs.addFlashAttribute("succesMensagem", "Estudante "+estudante.getNome()+" deletado com sucesso!!");
         } else {
-            redAtt.addFlashAttribute("errorMensagem", "Estudante Não encontrado!!");
+            redAttrs.addFlashAttribute("errorMensagem", "Estudante Não encontrado!!");
         }
         model.setViewName("redirect:/estudantes");
         return model;

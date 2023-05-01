@@ -102,7 +102,8 @@ public class PeriodoController {
             periodo.setPeriodoAtual(true);
             periodoRepository.save(periodo);
             model.addObject("periodos", periodoRepository.findAll());
-            redAttrs.addFlashAttribute("succesMensagem", "Período "+periodo.getPeriodo()+" cadastrado com sucesso!!");
+            model.addObject("succesMensagem", "Período "+periodo.getPeriodo()+" cadastrado com sucesso!!");
+            //redAttrs.addFlashAttribute("succesMensagem", "Período "+periodo.getPeriodo()+" cadastrado com sucesso!!");
             //model.setViewName("redirect:/periodos");
             model.setViewName("/periodos/listPeri");
         }  
@@ -112,14 +113,14 @@ public class PeriodoController {
     // Rota para atualizar um objeto na lista
     // REQFUNC 2 - CRUD
     // REQNFUNC - Mostrar Erro nos Formulários
-    // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(value="/update", method = RequestMethod.POST)
     public ModelAndView updade(Periodo periodo, ModelAndView model) {
         periodoRepository.save(periodo);
         model.addObject("periodos", periodoRepository.findAll());
         model.addObject("succesMensagem", "Período "+periodo.getPeriodo()+", atualizado com sucesso!");
-        model.setViewName("redirect:/periodos");
-        //model.setViewName("/periodos/listPeri");
+        //redAtt.addFlashAttribute("succesMensagem", "Período "+periodo.getPeriodo()+", atualizado com sucesso!");
+        //model.setViewName("redirect:/periodos");
+        model.setViewName("/periodos/listPeri");
         return model;
     }
 
