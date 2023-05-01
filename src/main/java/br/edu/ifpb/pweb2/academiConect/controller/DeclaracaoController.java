@@ -3,6 +3,8 @@ package br.edu.ifpb.pweb2.academiConect.controller;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -87,6 +89,13 @@ public class DeclaracaoController implements Serializable {
         Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
         if (opEstudante.isPresent()) {
             Estudante estudante = opEstudante.get();
+            Set<Declaracao> declaracoesEstudante = estudante.getDeclaracoes();
+            for (Declaracao declaracaoAtual: declaracoesEstudante) {
+                if (declaracaoAtual.isDeclaracaoAtual() == true){
+                    declaracaoAtual.setDeclaracaoAtual(false);
+                }
+            }
+            declaracao.setDeclaracaoAtual(true);
             declaracao.setEstudante(estudante);
             declaracaoRepository.save(declaracao);
             model.addObject("declaracoes", declaracaoRepository.findAll());
@@ -95,7 +104,6 @@ public class DeclaracaoController implements Serializable {
             model.addObject("succesMensagem", "Declaração cadastrado com sucesso!");
             model.setViewName("declaracoes/listDecl");
         } else {
-            model.addObject("declaracoes", declaracaoRepository.findAll());
             redAttrs.addFlashAttribute("errorMensagem", "Estudante não encontrado!!");
             model.setViewName("redirect:/declaracoes");
         }  
@@ -158,7 +166,6 @@ public class DeclaracaoController implements Serializable {
     @ModelAttribute("menu")
     public String activeMenu(){
         return "declaracoes";
-    }
-    
+    }   
      
 }
