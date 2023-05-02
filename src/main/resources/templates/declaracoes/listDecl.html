@@ -42,7 +42,7 @@
                             </form>
                         </th>
                     </tr>
-                </table><br/>
+                </table>
                 
                 <div th:if="${not #lists.isEmpty(declaracoes)}">
                     <div th:text="'Total: ' + ${#lists.size(declaracoes)} + ' registro(s)'" 
@@ -55,6 +55,7 @@
                                 <th>Matrícula:</th>
                                 <th>Data Recebimento:</th>
                                 <th>Observação:</th>
+                                <th style="text-align: center;">Período Letivo:</th>
                                 <th style="text-align: center;">Declaração Atual:</th>
                             </tr>
                         </thead>
@@ -68,6 +69,9 @@
                                 </td>
                                 <td 
                                     th:text="${declaracao.observacao != null and declaracao.observacao != '' ?declaracao.observacao: 'Sem observações!!'}">
+                                </td>
+                                <td th:text="${declaracao.periodo != null and declaracao.periodo != '' ?declaracao.periodo.periodoLetivo: 'Não Informado'}"
+                                    style="text-align: center;">
                                 </td>
                                 <td style="text-align: center;">
                                     <img th:if="${declaracao.declaracaoAtual}" th:src="@{/imagens/ok.png}" />

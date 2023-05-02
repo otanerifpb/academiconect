@@ -42,7 +42,7 @@ public class Periodo implements Serializable {
     private Integer ano;
 
     @Column(name="periodo", columnDefinition = "text")
-    private String periodo;
+    private String periodoLetivo;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataInicio;
@@ -63,15 +63,14 @@ public class Periodo implements Serializable {
     @OneToMany(mappedBy = "periodo", cascade = CascadeType.ALL)
     private Set<Declaracao> declaracoes = new HashSet<Declaracao>();
 
-    // public void addDeclaracao(Declaracao declaracao){
-    //     this.declaracoes.add(declaracao);
-    //     declaracao.setPeriodo(this);
-    // }
+    public void addDeclaracao(Declaracao declaracao){
+        this.declaracoes.add(declaracao);
+        declaracao.setPeriodo(this);
+    }
 
      // Para associar um Periodo a uma Instituição
      public Periodo(Instituicao instituicao) {
-       this.instituicoes.add(instituicao);
-       
+       this.instituicoes.add(instituicao); 
     }
    
     

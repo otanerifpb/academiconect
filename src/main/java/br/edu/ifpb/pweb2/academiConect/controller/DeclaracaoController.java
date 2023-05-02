@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
 import br.edu.ifpb.pweb2.academiConect.model.Estudante;
+import br.edu.ifpb.pweb2.academiConect.model.Periodo;
 import br.edu.ifpb.pweb2.academiConect.repository.DeclaracaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.PeriodoRepository;
@@ -158,7 +159,7 @@ public class DeclaracaoController implements Serializable {
             model.addObject("declaracoes", declaracaoRepository.findAll());
             //redAttrs.addFlashAttribute("succesMensagem", "Instituição "+declaracao.getId()+", atualizada com sucesso!_redAttrs");
             //model.setViewName("redirect:/declaracoes");
-            model.addObject("succesMensagem", "Declaração cadastrado com sucesso!_model");
+            model.addObject("succesMensagem", "Declaração atualizada com sucesso!!");
             model.setViewName("declaracoes/listDecl");
     } else {
         model.addObject("declaracoes", declaracaoRepository.findAll());
@@ -193,6 +194,12 @@ public class DeclaracaoController implements Serializable {
     public List<Estudante> getEstudantes() {
         return estudanteRepository.findAll();
     }
+
+     // Relacionamento class Declaração com class Período Letivo para Form
+     @ModelAttribute("periodosItems")
+     public List<Periodo> getPeriodos() {
+         return periodoRepository.findAll();
+     }
 
     // Ativa o menu Declaração na barra de navegação
     @ModelAttribute("menu")

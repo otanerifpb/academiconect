@@ -85,7 +85,7 @@ public class PeriodoController {
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView save(Periodo periodo, ModelAndView model, RedirectAttributes redAttrs) { 
-       Optional<Periodo> opPeriodo = periodoRepository.findByAnoPeriodoInstituicao(periodo.getAno(), periodo.getPeriodo(), periodo.getInstituicoes().get(0).getSigla());
+       Optional<Periodo> opPeriodo = periodoRepository.findByAnoPeriodoInstituicao(periodo.getAno(), periodo.getPeriodoLetivo(), periodo.getInstituicoes().get(0).getSigla());
         if (opPeriodo.isPresent()) {
             redAttrs.addFlashAttribute("errorMensagem", "Periodo já cadastrado no sistema!!");
             model.setViewName("redirect:/periodos");     
@@ -102,7 +102,7 @@ public class PeriodoController {
             periodo.setPeriodoAtual(true);
             periodoRepository.save(periodo);
             model.addObject("periodos", periodoRepository.findAll());
-            model.addObject("succesMensagem", "Período "+periodo.getPeriodo()+" cadastrado com sucesso!!");
+            model.addObject("succesMensagem", "Período "+periodo.getPeriodoLetivo()+" cadastrado com sucesso!!");
             //redAttrs.addFlashAttribute("succesMensagem", "Período "+periodo.getPeriodo()+" cadastrado com sucesso!!");
             //model.setViewName("redirect:/periodos");
             model.setViewName("/periodos/listPeri");
@@ -117,7 +117,7 @@ public class PeriodoController {
     public ModelAndView updade(Periodo periodo, ModelAndView model) {
         periodoRepository.save(periodo);
         model.addObject("periodos", periodoRepository.findAll());
-        model.addObject("succesMensagem", "Período "+periodo.getPeriodo()+", atualizado com sucesso!");
+        model.addObject("succesMensagem", "Período "+periodo.getPeriodoLetivo()+", atualizado com sucesso!");
         //redAtt.addFlashAttribute("succesMensagem", "Período "+periodo.getPeriodo()+", atualizado com sucesso!");
         //model.setViewName("redirect:/periodos");
         model.setViewName("/periodos/listPeri");
@@ -138,7 +138,7 @@ public class PeriodoController {
                 instituicao.getPeriodos().remove(periodo);
             }
             periodoRepository.deleteById(id);
-            redAtt.addFlashAttribute("succesMensagem", "Período "+periodo.getPeriodo()+" deletado com sucesso!!");
+            redAtt.addFlashAttribute("succesMensagem", "Período "+periodo.getPeriodoLetivo()+" deletado com sucesso!!");
         } else {
             redAtt.addFlashAttribute("errorMensagem", "Período não pode ser deletada, contem instituição cadastrada.");
         }

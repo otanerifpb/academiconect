@@ -54,7 +54,6 @@
                                 </td>
                                 <td th:text="${instituicao.sigla}"></td>
                                 <td th:text="${instituicao.fone}"></td>
-                                <!-- <td th:text="${#strings.format('%s-%s, #strings.substrings(instituicao.fone, 0, 3), #strings.substrings(instituicao.fone, 3))}"></td> -->
                                 <td>
                                     <form th:action="@{/instituicoes/{id}/delete(id=${instituicao.id})}">
                                         <button type="submit" class="btn btn-primary btn-sm" >

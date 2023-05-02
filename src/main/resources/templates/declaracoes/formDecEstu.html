@@ -24,16 +24,17 @@
 
             <div class="card-body">
                 <form th:action="@{/declaracoes/getDecEstudante}" th:object="${declaracao}">
-                    <!-- <div th:replace="~{/fragments/body :: formDecl}"></div> -->
                     <label for="estudante">Matrícula:</label>
                         <input type="text" class="form-control" required th:field="*{estudante.matricula}" /></br>
                     <button type="submit" class="btn btn-primary">Consultar</button>
-                </form></br> 
+                </form></br>
+
+                <!-- <form th:action="@{/declaracoes/formDecl}" th:object="${declaracao}">
+                    <button class="btn btn-primary" type="submit">Cadastrar</button>
+                </form></br> -->
 
                 <form th:action="@{/declaracoes}" method="GET" th:object="${declaracao}">
-                    <!-- <div th:replace="~{/fragments/body :: formDecl}"></div> -->
                     <label for="nome">Declarações Cadastradas:</label></br></br>
-                        <!-- <input type="text" class="form-control" /></br> -->
                     <button type="submit" class="btn btn-primary">Consultar</button>
                 </form>
             </div>

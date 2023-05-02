@@ -9,10 +9,10 @@ import br.edu.ifpb.pweb2.academiConect.model.Periodo;
 
 public interface PeriodoRepository extends JpaRepository<Periodo, Integer> {
 
-    Optional<Periodo> findByPeriodo(String string);
+    Optional<Periodo> findByPeriodoLetivo(String string);
 
     Optional<Periodo> findByAno(Integer ano);
     
-    @Query(value = "select distinct p from Periodo p left join fetch p.instituicoes i where i.sigla = :instituicao and p.ano = :ano and p.periodo = :periodo ")
-    Optional<Periodo> findByAnoPeriodoInstituicao(Integer ano, String periodo, String instituicao);
+    @Query(value = "select distinct p from Periodo p left join fetch p.instituicoes i where i.sigla = :instituicao and p.ano = :ano and p.periodoLetivo = :periodoLetivo ")
+    Optional<Periodo> findByAnoPeriodoInstituicao(Integer ano, String periodoLetivo, String instituicao);
 }

@@ -25,6 +25,16 @@
             <div class="card-body">
                 <form th:action="@{/declaracoes/update}" method="POST" th:object="${declaracao}">
                     <div th:replace="~{/fragments/body :: formDecl}"></div>
+                    <label for="periodos" class="form-label">Período Letivo:</label>
+                        <select id="periodos" name="periodos" class="form-select">
+                            <option value=""></option>
+                            <option th:each="peri : ${periodosItems}"
+                                th:value="${peri.id}" 
+                                th:text="${peri.periodoLetivo}" 
+                                th:selected="${peri.id == periodo}">
+                            </option> 
+                        </select></br>
+                        <!-- th:selected="${peri.periodoLetivo == declaracao.getperiodos().get(0).getperiodoLetivo()}" -->
                     <label for="nome" class="form-label">Declaração Atual?</label>
                         <input type="checkbox" th:field="*{declaracaoAtual}" class="form-check-input"/></br></br>
                     <button type="submit" class="btn btn-primary">Atualizar</button>

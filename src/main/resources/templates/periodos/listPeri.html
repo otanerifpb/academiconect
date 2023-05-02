@@ -34,11 +34,12 @@
                         <thead>
                             <tr>
                                 <th>Ano:</th>
-                                <th style="text-align: center;">Período:</th>
+                                <th style="text-align: center;">Período Letivo:</th>
                                 <th style="text-align: center;">Data Início:</th>
                                 <th style="text-align: center;">Data Fim:</th>
-                                <th style="text-align: center;">Período Atual:</th>
                                 <th style="text-align: center;">Instituição:</th>
+                                <th style="text-align: center;">Período Atual:</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -46,18 +47,19 @@
                                 <td>
                                     <a th:href="@{/periodos/{id}(id=${periodo.id})}" th:text="${periodo.ano}"></a>
                                 </td>
-                                <td th:text="${periodo.periodo}" style="text-align: center;"></td>
+                                <td th:text="${periodo.periodoLetivo}" style="text-align: center;"></td>
                                 <td th:text="${#dates.format(periodo.dataInicio, 'dd ''de'' MMMM ''de'' yyyy')}" 
                                     style="text-align: center;"></td>
                                 <td th:text="${#dates.format(periodo.dataFim, 'dd ''de'' MMMM ''de'' yyyy')}" 
                                     style="text-align: center;"></td>
+                                <td th:each="instituicao: ${periodo.instituicoes}" 
+                                    th:text="${instituicao.sigla}"
+                                    style="text-align: center;">
+                                </td>
                                 <td style="text-align: center;">
                                     <img th:if="${periodo.periodoAtual}" th:src="@{/imagens/ok.png}" />
                                     <img th:unless="${periodo.periodoAtual}" th:src="@{/imagens/nok.png}" />
                                 </td>
-                                <td th:each="instituicao: ${periodo.instituicoes}" 
-                                    th:text="${instituicao.sigla}"
-                                    style="text-align: center;"></td>
                                 <td>
                                     <form th:action="@{/periodos/{id}/delete(id=${periodo.id})}">
                                         <button type="submit" class="btn btn-primary btn-sm" >
