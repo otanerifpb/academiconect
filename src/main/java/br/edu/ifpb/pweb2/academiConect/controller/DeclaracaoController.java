@@ -1,6 +1,7 @@
 package br.edu.ifpb.pweb2.academiConect.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -35,7 +36,7 @@ public class DeclaracaoController implements Serializable {
     @Autowired
     PeriodoRepository periodoRepository; 
 
-    // Rota para acessar a lista pelo menu com o GET
+    // Rota para acessar a lista pelo formDecEstu
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView listAll(ModelAndView model) {
         model.addObject("declaracoes", declaracaoRepository.findAll());
@@ -51,7 +52,7 @@ public class DeclaracaoController implements Serializable {
         return "declaracoes/listDecl";
     }
 
-    // Rota para acessar o formulário
+    // Rota para acessar o Formulário de Cadastrar Declaração
     // REQFUNC 6 - Instituição Atual
     // REQFUNC 8 - Instituição Atual
     // REQNFUNC - Mostrar Erro nos Formulários
@@ -59,6 +60,37 @@ public class DeclaracaoController implements Serializable {
     public ModelAndView getFormDecl(Declaracao declaracao, ModelAndView model) {
         model.addObject("declaracao", declaracao);
         model.setViewName("declaracoes/formDecl");
+        return model;
+    }
+
+    // Rota para acessar o Formulário de Declaração de Estudante pelo menu
+    @RequestMapping("/formDecEstu")
+    public ModelAndView getFormDecEstu(Declaracao declaracao, ModelAndView model) {
+        model.addObject("declaracao", declaracao);
+        model.setViewName("declaracoes/formDecEstu");
+        return model;
+    }
+
+    // Mapeamanto para buscar as declarações de um Estudante, ao pasar uma matricula cadastrada
+    @RequestMapping("/getDecEstudante")
+    public ModelAndView getDeclaracaoEstudante(Declaracao declaracao, ModelAndView model) {
+        Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
+        if (opEstudante.isPresent()) {
+            //model.addObject("declaracoes", declaracaoRepository.findAll());
+            Estudante estudante = opEstudante.get();
+            Set<Declaracao> declaracoesEstudante = estudante.getDeclaracoes();
+            List<Declaracao> listDeclaracoes = new ArrayList<>();
+            for (Declaracao declaracaoEstudante: declaracoesEstudante) {
+                listDeclaracoes.add(declaracaoEstudante);
+            }
+            model.addObject("declaracoes", listDeclaracoes);
+            model.addObject("succesMensagem", "Estudante encontrado com sucesso!!");
+            model.setViewName("declaracoes/listDecl");
+            //model.setViewName("redirect:/declaracoes");
+        }else {
+            model.addObject("errorMensagem", "Estudante não encontrado!!");
+            model.setViewName("/declaracoes/formDecEstu");
+        }  
         return model;
     }
 
@@ -156,7 +188,7 @@ public class DeclaracaoController implements Serializable {
         return model;
     }
 
-    // Rota para relacionamento class Declaração com class Estudante para Form
+    // Relacionamento class Declaração com class Estudante para Form
     @ModelAttribute("estudanteItems")
     public List<Estudante> getEstudantes() {
         return estudanteRepository.findAll();

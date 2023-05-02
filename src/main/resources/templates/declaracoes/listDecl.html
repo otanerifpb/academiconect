@@ -8,24 +8,42 @@
 
     <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
         <div th:replace="~{/fragments/body :: menu}"></div>
-        <div th:replace="~{/fragments/body :: sair(titulo='Sair')}"></div> 
+
+        <div style="margin-right: 5px;">
+            <a class="nav-item nav-link" th:href="@{/declaracoes/formDecEstu}">
+                <button class="btn btn-outline-secondary my-2 my-sm-0">Sair</button>
+            </a>
+        </div> 
     </nav>
 
     <div class="container">
 
         <div class="card">
-            <div th:replace="~{/fragments/body :: titulo(titulo='Declarações Cadastradas')}"></div>
+            <div th:replace="~{/fragments/body :: titulo(titulo='Declaração Cadastrada(s)')}"></div>
             
             <div class="card-body">
                 <div th:replace="~{/fragments/body :: mensagens}"></div>
-  
-                <form th:action="@{/declaracoes/formDecl}" method="GET">
-                    <button class="btn btn-primary" type="submit">
-                        Novo
-                    </button>
-                </form>
-                <br />
+                
+                <table class="table table-striped table-hover">
+                    <tr>
+                        <th>
+                            <form th:action="@{/declaracoes/formDecl}" method="GET">
+                                <button class="btn btn-primary" type="submit">
+                                    Novo
+                                </button>
+                            </form>
+                        </th>
 
+                        <th>
+                            <form th:action="@{/declaracoes/formDecEstu}" method="GET">
+                                <button class="btn btn-primary" type="submit">
+                                    Consultar
+                                </button>
+                            </form>
+                        </th>
+                    </tr>
+                </table><br/>
+                
                 <div th:if="${not #lists.isEmpty(declaracoes)}">
                     <div th:text="'Total: ' + ${#lists.size(declaracoes)} + ' registro(s)'" 
                         style="text-align: right; color: gray; font-size: 0.85em;">

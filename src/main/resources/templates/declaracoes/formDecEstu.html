@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt_BR" xmlns:th="www.thymeleaf.org" th:import="org.thymeleaf.spring5.util.SpringSelectedValueComparator">
+<head>
+    <meta th:insert="~{/fragments/head(titulo='Cadastro de Declaração')}">
+</head>
+<body>
+    <div th:replace="~{/fragments/body :: logo(titulo=' AcademiConect')}"></div>
+
+    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+        <div th:replace="~{/fragments/body :: menu}"></div>
+
+        <div style="margin-right: 5px;">
+            <a class="nav-item nav-link" th:href="@{/home}">
+                <button class="btn btn-outline-secondary my-2 my-sm-0">Sair</button>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div th:replace="~{/fragments/body :: mensagens}"></div>
+
+        <div class="card">
+            <div th:replace="~{/fragments/body :: titulo(titulo='Declaração Estudante')}"></div>
+
+            <div class="card-body">
+                <form th:action="@{/declaracoes/getDecEstudante}" th:object="${declaracao}">
+                    <!-- <div th:replace="~{/fragments/body :: formDecl}"></div> -->
+                    <label for="estudante">Matrícula:</label>
+                        <input type="text" class="form-control" required th:field="*{estudante.matricula}" /></br>
+                    <button type="submit" class="btn btn-primary">Consultar</button>
+                </form></br> 
+
+                <form th:action="@{/declaracoes}" method="GET" th:object="${declaracao}">
+                    <!-- <div th:replace="~{/fragments/body :: formDecl}"></div> -->
+                    <label for="nome">Declarações Cadastradas:</label></br></br>
+                        <!-- <input type="text" class="form-control" /></br> -->
+                    <button type="submit" class="btn btn-primary">Consultar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
