@@ -9,11 +9,7 @@
     <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
         <div th:replace="~{/fragments/body :: menu}"></div>
 
-        <div style="margin-right: 5px;">
-            <a class="nav-item nav-link" th:href="@{/declaracoes}">
-                <button class="btn btn-outline-secondary my-2 my-sm-0">Sair</button>
-            </a>
-        </div>
+        <div th:replace="~{/fragments/body :: voltarDecl}"></div>
     </nav>
 
     <div class="container">

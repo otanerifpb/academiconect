@@ -30,6 +30,34 @@
         </a>
     </div>
 
+    <!-- Botão Voltar dos Formulários Instituição -->
+    <div style="margin-right: 5px;" th:fragment="voltarInst">
+        <a class="nav-item nav-link" th:href="@{/instituicoes}">
+            <button class="btn btn-outline-secondary my-2 my-sm-0">Voltar</button>
+        </a>
+    </div>
+
+    <!-- Botão Voltar dos Formulários Declaração -->
+    <div style="margin-right: 5px;" th:fragment="voltarDecl">
+        <a class="nav-item nav-link" th:href="@{/declaracoes}">
+            <button class="btn btn-outline-secondary my-2 my-sm-0">Voltar</button>
+        </a>
+    </div>
+
+    <!-- Botão Voltar dos Formulários Estudante -->
+    <div style="margin-right: 5px;" th:fragment="voltarEstu">
+        <a class="nav-item nav-link" th:href="@{/estudantes}">
+            <button class="btn btn-outline-secondary my-2 my-sm-0">Voltar</button>
+        </a>
+    </div>
+
+    <!-- Botão Voltar dos Formulários Período Letivo -->
+    <div style="margin-right: 5px;" th:fragment="voltarPeri">
+        <a class="nav-item nav-link" th:href="@{/periodos}">
+            <button class="btn btn-outline-secondary my-2 my-sm-0">Voltar</button>
+        </a>
+    </div>
+
     <!-- Título do card da página+ -->
     <div class="card-header" th:fragment="titulo(titulo)" th:text="${titulo}"></div>
 
