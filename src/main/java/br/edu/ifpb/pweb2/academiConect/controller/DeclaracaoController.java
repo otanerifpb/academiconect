@@ -60,7 +60,9 @@ public class DeclaracaoController implements Serializable {
     // REQNFUNC - Mostrar Erro nos Formulários
     @RequestMapping("/formDecl")
     public ModelAndView getFormDecl(Declaracao declaracao, ModelAndView model) {
+        String formPreenchido = "false";
         model.addObject("declaracao", declaracao);
+        model.addObject("formPreenchido", formPreenchido);
         model.setViewName("declaracoes/formDecl");
         return model;
     }
@@ -119,8 +121,8 @@ public class DeclaracaoController implements Serializable {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView save(Declaracao declaracao, ModelAndView model, RedirectAttributes redAttrs) {
-        Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
+    public ModelAndView save(Declaracao declaracao, String matricula, ModelAndView model, RedirectAttributes redAttrs) {
+        Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(matricula);
         if (opEstudante.isPresent()) {
             Estudante estudante = opEstudante.get();
             Set<Declaracao> declaracoesEstudante = estudante.getDeclaracoes();
@@ -209,16 +211,22 @@ public class DeclaracaoController implements Serializable {
     }
     
     // Rota para pesquisar o Período Letivo de um Estudante pela Matricula
-    @RequestMapping("/periodoInstituicao")
-    public ModelAndView getByPeriodoInstituicao( String matricula, ModelAndView model, RedirectAttributes redAtt) {
+    @RequestMapping("periodoInstituicao")
+    public ModelAndView getByPeriodoInstituicao(String matricula, ModelAndView model, RedirectAttributes redAtt) {
+        String formPreenchido = "true";
         Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(matricula);
+        Estudante estudante = null;
         if (opEstudante.isPresent()) {
-            Estudante estudante = opEstudante.get();
+            estudante = opEstudante.get();
             Instituicao inst = estudante.getInstituicao();
             List<Periodo> periodos = inst.getPeriodos();
             model.addObject("periodosInstituicao", periodos);
+            //model.addObject("declaracao", new Declaracao());
+            //model.addObject("periodosInstituicao", estudante);
         }
         model.addObject("declaracao", new Declaracao());
+        model.addObject("estudante", estudante);
+        model.addObject("formPreenchido", formPreenchido);
         model.setViewName("/declaracoes/formDecl");
         return model;
     }

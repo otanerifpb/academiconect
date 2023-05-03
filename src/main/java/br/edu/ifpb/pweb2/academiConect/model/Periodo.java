@@ -1,6 +1,7 @@
 package br.edu.ifpb.pweb2.academiConect.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -31,6 +33,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(exclude = {"declaracoes", "instituicoes"})
 @AllArgsConstructor
 @Entity
+@Table(name = "periodo")
 public class Periodo implements Serializable {
     // Para garantir que a assinatura de um número seja única , para o uso do @Id
     private static final long serialVersionUID = 1L;
@@ -53,9 +56,8 @@ public class Periodo implements Serializable {
     private boolean PeriodoAtual;
 
     // Relação entre PerioLetivo e Instituição (1:N)
-    @ManyToMany
+    @ManyToMany(mappedBy = "periodos")
    // @JoinColumn(name = "id_instituicao")
-   // private List<Instituicao> instituicao;
     private List<Instituicao> instituicoes;
 
     // Relação entre PerioLetivo e Declaração (1:N)
@@ -72,6 +74,11 @@ public class Periodo implements Serializable {
      public Periodo(Instituicao instituicao) {
        this.instituicoes.add(instituicao); 
     }
-   
+   //add instgituicao na lista de periodos
+    public void addInstituicao(Instituicao inst) {
+        this.instituicoes.add(inst);
+        inst.getPeriodos().add(this);
+      }
+      
     
 }

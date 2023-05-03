@@ -1,6 +1,7 @@
 package br.edu.ifpb.pweb2.academiConect.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +25,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(exclude = {"estudantes"})
 @AllArgsConstructor
 @Entity
+@Table(name = "instituicao")
 public class Instituicao implements Serializable {
     // Para garantir que a assinatura de um número seja única , para o uso do "@Id"
     private static final long serialVersionUID = 1L;
@@ -57,5 +60,10 @@ public class Instituicao implements Serializable {
         this.estudantes.add(estudante);
         estudante.setInstituicao(this);
     }
-    
+    //add periodo nalista de intituicao
+    public void addPeriodo(Periodo peri) {
+        this.periodos.add(peri);
+        peri.getInstituicoes().add(this);
+      }
+
 }

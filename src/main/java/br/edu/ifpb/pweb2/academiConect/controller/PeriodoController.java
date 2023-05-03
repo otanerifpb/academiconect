@@ -91,6 +91,7 @@ public class PeriodoController {
             model.setViewName("redirect:/periodos");     
         } else {
             String periodoExistente = periodo.getInstituicoes().get(0).getSigla();
+           
               List<Periodo> periodosCadastrados =  periodoRepository.findAll();
               for (Periodo periodoAtual: periodosCadastrados) {
                 for (Instituicao institu: periodoAtual.getInstituicoes() ){
@@ -100,13 +101,13 @@ public class PeriodoController {
                 }    
               }
            
-
+            Instituicao inst = periodo.getInstituicoes().get(0);//pega inst q esta sendo passada
             periodo.setPeriodoAtual(true);
             periodoRepository.save(periodo);
-
-            Instituicao inst = periodo.getInstituicoes().get(0);
-            inst.getPeriodos().add(periodo);
-            instituicaoRepository.save(inst); //seta periodo do outro lado
+                 
+            //pega o periodo e seta na lista da instituicao
+             inst.getPeriodos().add(periodo);
+             instituicaoRepository.save(inst); //salva periodo na instituicao
 
             model.addObject("periodos", periodoRepository.findAll());
             model.addObject("succesMensagem", "Período "+periodo.getPeriodoLetivo()+" cadastrado com sucesso!!");
