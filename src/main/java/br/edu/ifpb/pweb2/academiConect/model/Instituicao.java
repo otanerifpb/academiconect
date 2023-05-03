@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -44,8 +45,10 @@ public class Instituicao implements Serializable {
     private List<Estudante> estudantes;
 
     // Relação entre Instituição e PeriodoLetivo (1:N)
-    @ManyToMany
-    @JoinColumn(name = "id_periodo")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "periodo_intituicao",
+    joinColumns = @JoinColumn(name = "instituicao_id"),
+    inverseJoinColumns = @JoinColumn(name = "periodo_id") )
     private List<Periodo> periodos;
 
     // O uso de addEstudante, se o objeto vai ser adicionado à coleção existente

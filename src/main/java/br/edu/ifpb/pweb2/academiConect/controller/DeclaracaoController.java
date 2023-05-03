@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
 import br.edu.ifpb.pweb2.academiConect.model.Estudante;
+import br.edu.ifpb.pweb2.academiConect.model.Instituicao;
 import br.edu.ifpb.pweb2.academiConect.model.Periodo;
 import br.edu.ifpb.pweb2.academiConect.repository.DeclaracaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
@@ -205,6 +206,20 @@ public class DeclaracaoController implements Serializable {
     @ModelAttribute("menu")
     public String activeMenu(){
         return "declaracoes";
-    }   
-     
+    }
+    
+    // Rota para pesquisar o Período Letivo de um Estudante pela Matricula
+    @RequestMapping("/periodoInstituicao")
+    public ModelAndView getByPeriodoInstituicao( String matricula, ModelAndView model, RedirectAttributes redAtt) {
+        Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(matricula);
+        if (opEstudante.isPresent()) {
+            Estudante estudante = opEstudante.get();
+            Instituicao inst = estudante.getInstituicao();
+            List<Periodo> periodos = inst.getPeriodos();
+            model.addObject("periodosInstituicao", periodos);
+        }
+        model.addObject("declaracao", new Declaracao());
+        model.setViewName("/declaracoes/formDecl");
+        return model;
+    }
 }

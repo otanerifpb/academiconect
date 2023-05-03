@@ -99,8 +99,15 @@ public class PeriodoController {
                     }
                 }    
               }
+           
+
             periodo.setPeriodoAtual(true);
             periodoRepository.save(periodo);
+
+            Instituicao inst = periodo.getInstituicoes().get(0);
+            inst.getPeriodos().add(periodo);
+            instituicaoRepository.save(inst); //seta periodo do outro lado
+
             model.addObject("periodos", periodoRepository.findAll());
             model.addObject("succesMensagem", "Período "+periodo.getPeriodoLetivo()+" cadastrado com sucesso!!");
             //redAttrs.addFlashAttribute("succesMensagem", "Período "+periodo.getPeriodo()+" cadastrado com sucesso!!");
