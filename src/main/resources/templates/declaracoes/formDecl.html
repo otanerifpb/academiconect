@@ -23,57 +23,31 @@
             <div th:replace="~{/fragments/body :: titulo(titulo='Cadastro de Declaração')}"></div>
 
             <div class="card-body">
-                
-                    <!-- <div th:replace="~{/fragments/body :: formDecl}"></div> -->
-                    <!-- <input type="hidden" required th:field="*{id}" /> -->
-                    <!-- <label for="estudante">Matrícula:</label>
-                        <input type="text" class="form-control" required th:field="*{estudante.matricula}" /></br> -->
-                        <!-- <div th:text="${estudante.matricula == ' '}" 
-                            th:if="${succesMensagem ne null}" 
-                            class="alert alert-success" >
-                        </div>    -->
-                        <!-- <form th:action="@{/declaracoes/{id}/delete(id=${declaracao.id})}"> -->
-                            <!-- <form th:action="@{/declaracoes/{id}/delete(id=${declaracao.id})}">
-                                        <button type="submit" class="btn btn-primary btn-sm" >
-                                            Excluir
-                                        </button>
-                                    </form> 
-                <form th:action="@{/declaracoes/{matricula}/periodoInstituicao(matricula=${declaracao.matricula})}" >-->
                 <div th:if="${formPreenchido == 'false'}">
-                <form th:action="@{/declaracoes/periodoInstituicao}">
-                    <label for="estudante">Matrícula:</label></br>
-                        <input type="text" class="form-control" required th:name="matricula"/></br>
-                    <button class="btn btn-primary" type="submit">Consulta Períodos</button>
-                </form></br>
+                    <form th:action="@{/declaracoes/periodoInstituicao}">
+                        <label for="estudante">Matrícula:</label></br>
+                            <input type="text" class="form-control" required th:name="matricula"/></br>
+                        <button class="btn btn-primary" type="submit">Consulta Períodos</button>
+                    </form></br>
                 </div>
+
                 <div  th:unless="${formPreenchido == 'false'}">
-                <form th:action="@{/declaracoes}" method="POST" th:object="${declaracao}">
-                    <input type="hidden" required th:field="*{id}"/>
-                    <!-- <label for="estudante" >Matrícula:</label></br> -->
-                        <input type="text" class="form-control" th:name="matricula"  th:value="${estudante.matricula}" readonly/></br>
-                        <!-- <span type="text" class="form-control" th:text="${estudante.matricula}"  ></span></br> -->
-                        <!-- <input type="text" class="form-control" required th:text="${param.matricula}"/></br> -->
-                        <!-- <input type="text" class="form-control" th:field="*{estudante.matricula}"/></br>   -->
-                    <label for="nome" class="form-label">Data Recebimento:</label></br>
-                        <input type="date" class="form-control" required th:field="*{dataRecebimento}"/></br>
-                    <label for="nome" class="form-label">Observação:</label>
-                        <input type="text" class="form-control" th:field="*{observacao}"/></br>
-                    <label for="periodos" class="form-label">Período Letivo:</label>
-                        <select th:field="*{periodo}" class="form-select">
-                            <option value=""></option>
-                            <option th:each="peri : ${periodosInstituicao}" 
-                                th:value="${peri.id}" 
-                                th:text="${peri.periodoLetivo}" >
-                            </option>
-                            <!-- <option th:each="peri : ${periodosItems}" 
-                                th:value="${peri.id}" 
-                                th:text="${peri.periodoLetivo}" 
-                                th:selected="${peri.periodoLetivo == periodo}">
-                            </option> -->
-                        </select></br>
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-                </form>
-            </div>
+                    <form th:action="@{/declaracoes}" method="POST" th:object="${declaracao}">
+                        <input type="hidden" required th:field="*{id}"/>
+                        <label for="estudante">Matrícula:</label></br>
+                            <input type="text" class="form-control" th:name="matricula"  th:value="${estudante.matricula}" readonly/></br>
+                        <div th:replace="~{/fragments/body :: formDecl}"></div>
+                        <label for="periodos" class="form-label">Período Letivo:</label>
+                            <select th:field="*{periodo}" class="form-select">
+                                <option value=""></option>
+                                <option th:each="peri : ${periodosInstituicao}" 
+                                    th:value="${peri.id}" 
+                                    th:text="${peri.periodoLetivo}" >
+                                </option>
+                            </select></br>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

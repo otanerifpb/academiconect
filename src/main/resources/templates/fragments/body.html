@@ -75,8 +75,6 @@
     <!-- Dados do formulário de Declaração -->
     <div class="navbar-nav" th:fragment="formDecl">
         <input type="hidden" required th:field="*{id}" />
-        <label for="estudante">Matrícula:</label>
-            <input type="text" class="form-control" required th:field="*{estudante.matricula}" /></br>
         <label for="nome" class="form-label">Data Recebimento:</label>
             <input type="date" class="form-control" required th:field="*{dataRecebimento}" /></br>
         <label for="nome" class="form-label">Observação:</label>

@@ -23,36 +23,19 @@
             <div th:replace="~{/fragments/body :: titulo(titulo='Atualização de Declaração')}"></div>
 
             <div class="card-body">
-                <!-- <form th:action="@{/declaracoes/periodoInstituicao}" >
-                    <label for="estudante">Matrícula:</label>
-                        <input type="text" class="form-control" required th:name="matricula" /></br>
-                    <button class="btn btn-primary" type="submit">Consulta Períodos</button>
-                </form></br> -->
-
                 <form th:action="@{/declaracoes/update}" method="POST" th:object="${declaracao}">
+                    <label for="estudante">Matrícula:</label></br>
+                        <input type="text" class="form-control" required th:field="*{estudante.matricula}" /></br>
                     <div th:replace="~{/fragments/body :: formDecl}"></div>
                     <label for="periodos" class="form-label">Período Letivo:</label>
-                        <!-- <input type="text" class="form-control" th:field="*{periodo.periodoLetivo}" /></br> -->
-                        <!-- <select id="periodos" name="periodos" class="form-select"> -->
                         <select th:field="*{periodo.id}" class="form-select">
                             <option value=""></option>
-                            <!-- <option th:each="peri : ${periodosInstituicao}" 
-                                th:value="${peri.id}" 
-                                th:text="${peri.periodoLetivo}" 
-                                th:selected="${peri.id == periodo}">
-                            </option> -->
                             <option th:each="peri : ${periodosItems}" 
                                 th:value="${peri.id}" 
                                 th:text="${peri.periodoLetivo}" 
-                                th:selected="${peri.id == periodo}">
+                                th:selected="${peri.periodoLetivo == periodo}">
                             </option>
-                            <!-- <option th:each="peri : ${periodosInstituicao}"
-                                th:value="${peri.id}" 
-                                th:text="${peri.periodoLetivo}" 
-                                th:selected="${peri.id == periodo}">
-                            </option>  -->
                         </select></br>
-                        <!-- th:selected="${peri.periodoLetivo == declaracao.getperiodos().get(0).getperiodoLetivo()}" -->
                     <label for="nome" class="form-label">Declaração Atual?</label>
                         <input type="checkbox" th:field="*{declaracaoAtual}" class="form-check-input"/></br></br>
                     <button type="submit" class="btn btn-primary">Atualizar</button>
