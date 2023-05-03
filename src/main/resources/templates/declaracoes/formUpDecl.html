@@ -4,12 +4,12 @@
     <meta th:insert="~{/fragments/head(titulo='Atualização de Declaração')}">
 </head>
 <body>
-    <div th:replace="~{/fragments/body :: logo(titulo=' AcademiConect')}"></div>
+    <div th:replace="~{/fragments/body :: logo(titulo='AcademiConect')}"></div>
 
     <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
         <div th:replace="~{/fragments/body :: menu}"></div>
 
-        <div th:replace="~{/fragments/body :: voltarDecl}"></div>
+        <div th:replace="~{/fragments/body :: voltarDecl(titulo='Voltar')}"></div>
     </nav>
 
     <div class="container">

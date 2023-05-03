@@ -92,7 +92,7 @@ public class DeclaracaoController implements Serializable {
             model.setViewName("declaracoes/listDecl");
             //model.setViewName("redirect:/declaracoes");
         }else {
-            model.addObject("errorMensagem", "Estudante não encontrado!!");
+            model.addObject("errorMensagem", "Estudante não tem declaração cadastrada!!");
             model.setViewName("/declaracoes/formDecEstu");
         }  
         return model;

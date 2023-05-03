@@ -31,30 +31,30 @@
     </div>
 
     <!-- Botão Voltar dos Formulários Instituição -->
-    <div style="margin-right: 5px;" th:fragment="voltarInst">
+    <div style="margin-right: 5px;" th:fragment="voltarInst(titulo)">
         <a class="nav-item nav-link" th:href="@{/instituicoes}">
-            <button class="btn btn-outline-secondary my-2 my-sm-0">Voltar</button>
+            <button class="btn btn-outline-secondary my-2 my-sm-0" th:text="${titulo}">Voltar</button>
         </a>
     </div>
 
     <!-- Botão Voltar dos Formulários Declaração -->
-    <div style="margin-right: 5px;" th:fragment="voltarDecl">
+    <div style="margin-right: 5px;" th:fragment="voltarDecl(titulo)">
         <a class="nav-item nav-link" th:href="@{/declaracoes}">
-            <button class="btn btn-outline-secondary my-2 my-sm-0">Voltar</button>
+            <button class="btn btn-outline-secondary my-2 my-sm-0" th:text="${titulo}">Voltar</button>
         </a>
     </div>
 
     <!-- Botão Voltar dos Formulários Estudante -->
-    <div style="margin-right: 5px;" th:fragment="voltarEstu">
+    <div style="margin-right: 5px;" th:fragment="voltarEstu(titulo)">
         <a class="nav-item nav-link" th:href="@{/estudantes}">
-            <button class="btn btn-outline-secondary my-2 my-sm-0">Voltar</button>
+            <button class="btn btn-outline-secondary my-2 my-sm-0" th:text="${titulo}">Voltar</button>
         </a>
     </div>
 
     <!-- Botão Voltar dos Formulários Período Letivo -->
-    <div style="margin-right: 5px;" th:fragment="voltarPeri">
+    <div style="margin-right: 5px;" th:fragment="voltarPeri(titulo)">
         <a class="nav-item nav-link" th:href="@{/periodos}">
-            <button class="btn btn-outline-secondary my-2 my-sm-0">Voltar</button>
+            <button class="btn btn-outline-secondary my-2 my-sm-0" th:text="${titulo}">Voltar</button>
         </a>
     </div>
 

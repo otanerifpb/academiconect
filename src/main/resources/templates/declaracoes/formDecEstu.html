@@ -11,7 +11,7 @@
 
         <div style="margin-right: 5px;">
             <a class="nav-item nav-link" th:href="@{/home}">
-                <button class="btn btn-outline-secondary my-2 my-sm-0">Sair</button>
+                <button class="btn btn-outline-secondary my-2 my-sm-0" >Sair</button>
             </a>
         </div>
     </nav>
@@ -24,7 +24,7 @@
 
             <div class="card-body">
                 <form th:action="@{/declaracoes/getDecEstudante}" th:object="${declaracao}">
-                    <label for="estudante">Matrícula:</label>
+                    <label for="estudante">Consultar por Matrícula:</label>
                         <input type="text" class="form-control" required th:field="*{estudante.matricula}" /></br>
                     <button type="submit" class="btn btn-primary">Consultar</button>
                 </form></br>
@@ -34,7 +34,7 @@
                 </form></br> -->
 
                 <form th:action="@{/declaracoes}" method="GET" th:object="${declaracao}">
-                    <label for="nome">Declarações Cadastradas:</label></br></br>
+                    <label for="nome">Conssultar todas Declarações Cadastradas:</label></br></br>
                     <button type="submit" class="btn btn-primary">Consultar</button>
                 </form>
             </div>
