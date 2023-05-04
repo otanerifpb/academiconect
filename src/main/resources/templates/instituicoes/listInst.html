@@ -1,71 +1,48 @@
 <!DOCTYPE html>
-<html lang="pt_BR" xmlns:th="www.thymeleaf.org" th:import="org.thymeleaf.spring5.util.SpringSelectedValueComparator">
-<head>
-    <meta th:insert="~{/fragments/head(titulo='Instituições Cadastradas')}">
-</head>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}"
+    th:with="titulo1='Instituição', titulo2='Instituições Cadastradas'">
+
 <body>
-    <div th:replace="~{/fragments/body :: logo(titulo=' AcademiConect')}"></div>
+    <div layout:fragment="content">
+        <form th:action="@{/instituicoes/formInst}" method="GET">
+            <button class="btn btn-primary" type="submit">
+                Novo
+            </button>
+        </form>
 
-    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
-        <div th:replace="~{/fragments/body :: menu}"></div>
-        <div th:replace="~{/fragments/body :: sair(titulo='Sair')}"></div> 
-    </nav>
-
-    <div class="container">
-        <div class="card">
-            <div th:replace="~{/fragments/body :: titulo(titulo='Instituições Cadastradas')}"></div>
-
-            <div class="card-body">
-
-                <div th:text="${succesMensagem}" 
-                    th:if="${succesMensagem ne null}" 
-                    class="alert alert-success"></div> 
-
-                <div th:text="${errorMensagem}" 
-                    th:if="${errorMensagem ne null}" 
-                    class="alert alert-danger"></div> 
-
-                <form th:action="@{/instituicoes/formInst}" method="GET">
-                    <button class="btn btn-primary" type="submit">
-                        Novo
-                    </button>
-                </form>
-                <br />
-
-                <div th:if="${not #lists.isEmpty(instituicoes)}">
-                    <!-- Controle de registros na tabela -->
-                    <div th:text="'Total: ' + ${#lists.size(instituicoes)} + ' registro(s)'" 
-                        style="text-align: right; color: gray; font-size: 0.85em;">
-                    </div>
-
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>Nome:</th>
-                                <th>Sigla:</th>
-                                <th>Fone:</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="instituicao : ${instituicoes}">
-                                <td>
-                                    <a th:href="@{/instituicoes/{id}(id=${instituicao.id})}"     
-                                    th:text="${instituicao.nome != null and instituicao.nome != '' ?instituicao.nome: 'Não Informado'}"></a>
-                                </td>
-                                <td th:text="${instituicao.sigla}"></td>
-                                <td th:text="${instituicao.fone}"></td>
-                                <td>
-                                    <form th:action="@{/instituicoes/{id}/delete(id=${instituicao.id})}">
-                                        <button type="submit" class="btn btn-primary btn-sm" >
-                                            Excluir
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <div th:if="${not #lists.isEmpty(instituicoes)}">
+            <!-- Controle de registros na tabela -->
+            <div th:text="'Total: ' + ${#lists.size(instituicoes)} + ' registro(s)'" 
+                style="text-align: right; color: gray; font-size: 0.85em;">
             </div>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Nome:</th>
+                        <th>Sigla:</th>
+                        <th>Fone:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="instituicao : ${instituicoes}">
+                        <td>
+                            <a th:href="@{/instituicoes/{id}(id=${instituicao.id})}"     
+                            th:text="${instituicao.nome != null and instituicao.nome != '' ?instituicao.nome: 'Não Informado'}"></a>
+                        </td>
+                        <td th:text="${instituicao.sigla}"></td>
+                        <td th:text="${instituicao.fone}"></td>
+                        <td>
+                            <form th:action="@{/instituicoes/{id}/delete(id=${instituicao.id})}">
+                                <button type="submit" class="btn btn-primary btn-sm" >
+                                    Excluir
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>

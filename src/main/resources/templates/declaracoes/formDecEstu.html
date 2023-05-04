@@ -1,44 +1,20 @@
 <!DOCTYPE html>
-<html lang="pt_BR" xmlns:th="www.thymeleaf.org" th:import="org.thymeleaf.spring5.util.SpringSelectedValueComparator">
-<head>
-    <meta th:insert="~{/fragments/head(titulo='Cadastro de Declaração')}">
-</head>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}"
+    th:with="titulo1='Declaração', titulo2='Declaração Estudante'">
+    
 <body>
-    <div th:replace="~{/fragments/body :: logo(titulo=' AcademiConect')}"></div>
+    <div layout:fragment="content">
+        <form th:action="@{/declaracoes/getDecEstudante}" th:object="${declaracao}">
+            <label for="estudante">Consultar por Matrícula:</label>
+                <input type="text" class="form-control" required th:field="*{estudante.matricula}" /></br>
+            <button type="submit" class="btn btn-primary">Consultar</button>
+        </form></br>
 
-    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
-        <div th:replace="~{/fragments/body :: menu}"></div>
-
-        <div style="margin-right: 5px;">
-            <a class="nav-item nav-link" th:href="@{/home}">
-                <button class="btn btn-outline-secondary my-2 my-sm-0" >Sair</button>
-            </a>
-        </div>
-    </nav>
-
-    <div class="container">
-        <div th:replace="~{/fragments/body :: mensagens}"></div>
-
-        <div class="card">
-            <div th:replace="~{/fragments/body :: titulo(titulo='Declaração Estudante')}"></div>
-
-            <div class="card-body">
-                <form th:action="@{/declaracoes/getDecEstudante}" th:object="${declaracao}">
-                    <label for="estudante">Consultar por Matrícula:</label>
-                        <input type="text" class="form-control" required th:field="*{estudante.matricula}" /></br>
-                    <button type="submit" class="btn btn-primary">Consultar</button>
-                </form></br>
-
-                <!-- <form th:action="@{/declaracoes/formDecl}" th:object="${declaracao}">
-                    <button class="btn btn-primary" type="submit">Cadastrar</button>
-                </form></br> -->
-
-                <form th:action="@{/declaracoes}" method="GET" th:object="${declaracao}">
-                    <label for="nome">Conssultar todas Declarações Cadastradas:</label></br></br>
-                    <button type="submit" class="btn btn-primary">Consultar</button>
-                </form>
-            </div>
-        </div>
+        <form th:action="@{/declaracoes}" method="GET" th:object="${declaracao}">
+            <label for="nome">Conssultar todas Declarações Cadastradas:</label></br></br>
+            <button type="submit" class="btn btn-primary">Consultar</button>
+        </form>
     </div>
 </body>
 </html>

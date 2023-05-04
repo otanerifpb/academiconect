@@ -1,43 +1,27 @@
 <!DOCTYPE html>
-<html lang="pt_BR" xmlns:th="www.thymeleaf.org" th:import="org.thymeleaf.spring5.util.SpringSelectedValueComparator">
-<head>
-    <meta th:insert="~{/fragments/head(titulo='Atualização de Declaração')}">
-</head>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}"
+    th:with="titulo1='Atualizar Declaração', titulo2='Atualização de Declaração'">
+
 <body>
-    <div th:replace="~{/fragments/body :: logo(titulo='AcademiConect')}"></div>
-
-    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
-        <div th:replace="~{/fragments/body :: menu}"></div>
-
-        <div th:replace="~{/fragments/body :: voltarDecl(titulo='Voltar')}"></div>
-    </nav>
-
-    <div class="container">
-        <div th:replace="~{/fragments/body :: mensagens}"></div>
-
-        <div class="card">
-            <div th:replace="~{/fragments/body :: titulo(titulo='Atualização de Declaração')}"></div>
-
-            <div class="card-body">
-                <form th:action="@{/declaracoes/update}" method="POST" th:object="${declaracao}">
-                    <label for="estudante">Matrícula:</label></br>
-                        <input type="text" class="form-control" required th:field="*{estudante.matricula}" /></br>
-                    <div th:replace="~{/fragments/body :: formDecl}"></div>
-                    <label for="periodos" class="form-label">Período Letivo:</label>
-                        <select th:field="*{periodo.id}" class="form-select">
-                            <option value=""></option>
-                            <option th:each="peri : ${periodosItems}" 
-                                th:value="${peri.id}" 
-                                th:text="${peri.periodoLetivo}" 
-                                th:selected="${peri.periodoLetivo == periodo}">
-                            </option>
-                        </select></br>
-                    <label for="nome" class="form-label">Declaração Atual?</label>
-                        <input type="checkbox" th:field="*{declaracaoAtual}" class="form-check-input"/></br></br>
-                    <button type="submit" class="btn btn-primary">Atualizar</button>
-                </form>
-            </div>
-        </div>
+    <div layout:fragment="content">
+        <form th:action="@{/declaracoes/update}" method="POST" th:object="${declaracao}">
+            <label for="estudante">Matrícula:</label></br>
+                <input type="text" class="form-control" required th:field="*{estudante.matricula}" /></br>
+            <div th:replace="~{/fragments/body :: formDecl}"></div>
+            <label for="periodos" class="form-label">Período Letivo:</label>
+                <select th:field="*{periodo.id}" class="form-select">
+                    <option value=""></option>
+                    <option th:each="peri : ${periodosItems}" 
+                        th:value="${peri.id}" 
+                        th:text="${peri.periodoLetivo}" 
+                        th:selected="${peri.periodoLetivo == periodo}">
+                    </option>
+                </select></br>
+            <label for="nome" class="form-label">Declaração Atual?</label>
+                <input type="checkbox" th:field="*{declaracaoAtual}" class="form-check-input"/></br></br>
+            <button type="submit" class="btn btn-primary">Atualizar</button>
+        </form>
     </div>
 </body>
 </html>

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt_BR" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<html lang="pt_BR" 
+    xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+    
 <head>
-    <meta th:insert="~{/fragments/head(${titulo1})}">
+    <meta th:insert="~{/fragments/head :: head(${titulo1})}">
 </head>
 <body>
-    <div th:replace="~{/fragments/body :: logo(titulo=' AcademiConect')}"></div>
+    <div th:replace="~{/fragments/body :: logo(titulo='AcademiConect')}"></div>
 
     <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
         <div th:replace="~{/fragments/body :: menu}"></div>
@@ -17,16 +19,15 @@
         <div th:text="${errorMensagem}"  th:if="${errorMensagem ne null}" class="alert alert-danger"></div>
                      
         <div class="card">
-            <div th:replace="~{/fragments/body :: titulo(titulo='${titulo2}')}"></div>
+            <div th:replace="~{/fragments/body :: titulo(${titulo2})}"></div>
             <!-- <span th:text="${titulo2}">Teste Nome da Página</span> -->
             <!-- Para passar + de titulo usar: th:with="titulo1='Nome Titulo 1', titulo2='Nome Titulo 2'" -->
-
             <div class="card-body">
 
                 <div layout:fragment="content">
-
                     <h1>Conteúdo do Template</h1>
                 </div>
+
             </div>
         </div>            
     </div>

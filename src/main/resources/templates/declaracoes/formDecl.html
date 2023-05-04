@@ -1,51 +1,56 @@
 <!DOCTYPE html>
-<html lang="pt_BR" xmlns:th="www.thymeleaf.org" th:import="org.thymeleaf.spring5.util.SpringSelectedValueComparator">
-<head>
-    <meta th:insert="~{/fragments/head(titulo='Cadastro de Declaração')}">
-</head>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}"
+    th:with="titulo1='Cadastrar Declaração', titulo2='Cadastro de Declaração'">
+
 <body>
-    <div th:replace="~{/fragments/body :: logo(titulo='AcademiConect')}"></div>
+    <div layout:fragment="content">
+        
+        <div th:if="${formPreenchido == 'false'}">
+            <form th:action="@{/declaracoes/periodoInstituicao}">
+                <label for="estudante">Matrícula:</label></br>
+                    <input type="text" class="form-control" required th:name="matricula"/></br>
+                <button class="btn btn-primary" type="submit">Consulta Períodos</button>
+            </form></br>
+        </div>
+
+        <div  th:unless="${formPreenchido == 'false'}">
+            <form th:action="@{/declaracoes}" method="POST" th:object="${declaracao}">
+                <input type="hidden" required th:field="*{id}"/>
+                <label for="estudante">Matrícula:</label></br>
+                    <input type="text" class="form-control" th:name="matricula"  th:value="${estudante.matricula}" readonly/></br>
+                <div th:replace="~{/fragments/body :: formDecl}"></div>
+                <label for="periodos" class="form-label">Período Letivo:</label>
+                    <select th:field="*{periodo}" class="form-select">
+                        <option value=""></option>
+                        <option th:each="peri : ${periodosInstituicao}" 
+                            th:value="${peri.id}" 
+                            th:text="${peri.periodoLetivo}" >
+                        </option>
+                    </select></br>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- <div th:replace="~{/fragments/body :: logo(titulo='AcademiConect')}"></div>
 
     <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
         <div th:replace="~{/fragments/body :: menu}"></div>
 
         <div th:replace="~{/fragments/body :: voltarDecl(titulo='Voltar')}"></div>
-    </nav>
+    </nav> -->
 
-    <div class="container">
+    <!-- <div class="container">
         <div th:replace="~{/fragments/body :: mensagens}"></div>
 
         <div class="card">
             <div th:replace="~{/fragments/body :: titulo(titulo='Cadastro de Declaração')}"></div>
 
             <div class="card-body">
-                <div th:if="${formPreenchido == 'false'}">
-                    <form th:action="@{/declaracoes/periodoInstituicao}">
-                        <label for="estudante">Matrícula:</label></br>
-                            <input type="text" class="form-control" required th:name="matricula"/></br>
-                        <button class="btn btn-primary" type="submit">Consulta Períodos</button>
-                    </form></br>
-                </div>
-
-                <div  th:unless="${formPreenchido == 'false'}">
-                    <form th:action="@{/declaracoes}" method="POST" th:object="${declaracao}">
-                        <input type="hidden" required th:field="*{id}"/>
-                        <label for="estudante">Matrícula:</label></br>
-                            <input type="text" class="form-control" th:name="matricula"  th:value="${estudante.matricula}" readonly/></br>
-                        <div th:replace="~{/fragments/body :: formDecl}"></div>
-                        <label for="periodos" class="form-label">Período Letivo:</label>
-                            <select th:field="*{periodo}" class="form-select">
-                                <option value=""></option>
-                                <option th:each="peri : ${periodosInstituicao}" 
-                                    th:value="${peri.id}" 
-                                    th:text="${peri.periodoLetivo}" >
-                                </option>
-                            </select></br>
-                        <button type="submit" class="btn btn-primary">Salvar</button>
-                    </form>
-                </div>
+                
             </div>
         </div>
-    </div>
+    </div> -->
 </body>
 </html>

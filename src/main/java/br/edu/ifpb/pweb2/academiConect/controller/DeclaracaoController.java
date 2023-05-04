@@ -211,6 +211,7 @@ public class DeclaracaoController implements Serializable {
     }
     
     // Rota para pesquisar o Período Letivo de um Estudante pela Matricula
+    // REQFUNC 7 - Nova Declaração
     @RequestMapping("periodoInstituicao")
     public ModelAndView getByPeriodoInstituicao(String matricula, ModelAndView model, RedirectAttributes redAtt) {
         String formPreenchido = "true";

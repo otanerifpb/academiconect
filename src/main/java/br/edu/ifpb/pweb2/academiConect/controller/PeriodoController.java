@@ -111,8 +111,6 @@ public class PeriodoController {
 
             model.addObject("periodos", periodoRepository.findAll());
             model.addObject("succesMensagem", "Período "+periodo.getPeriodoLetivo()+" cadastrado com sucesso!!");
-            //redAttrs.addFlashAttribute("succesMensagem", "Período "+periodo.getPeriodo()+" cadastrado com sucesso!!");
-            //model.setViewName("redirect:/periodos");
             model.setViewName("/periodos/listPeri");
         }  
         return model;
