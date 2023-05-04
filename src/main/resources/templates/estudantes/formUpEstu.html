@@ -1,40 +1,23 @@
 <!DOCTYPE html>
-<html lang="pt_BR" xmlns:th="www.thymeleaf.org" th:import="org.thymeleaf.spring5.util.SpringSelectedValueComparator">
-<head>
-    <meta th:insert="~{/fragments/head(titulo='Atualizar Estudante')}">
-</head>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}"
+    th:with="titulo1='Atualizar Estudante', titulo2='Atualizar Estudante'">
+
 <body>
-    <div th:replace="~{/fragments/body :: logo(titulo='AcademiConect')}"></div>
-
-    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
-        <div th:replace="~{/fragments/body :: menu}"></div>
-
-        <div th:replace="~{/fragments/body :: voltarEstu(titulo='Voltar')}"></div>
-    </nav>
-
-    <div class="container">
-        <div th:replace="~{/fragments/body :: mensagens}"></div>
-
-        <div class="card">
-            <div th:replace="~{/fragments/body :: titulo(titulo='Atualizar Estudante')}"></div>
-
-            <div class="card-body">
-                
-                <form th:action="@{/estudantes/update}" method="POST" th:object="${estudante}">
-                    <div th:replace="~{/fragments/body :: formEstu}"></div>
-                    <label for="instituicao" class="form-label">Instituição:</label>
-                        <select th:field="*{instituicao.id}" class="form-select">
-                            <option value=""></option>
-                            <option th:each="insti : ${instituicaoItems}" 
-                                th:value="${insti.id}" 
-                                th:text="${insti.sigla}" 
-                                th:selected="${insti.id == instituicao}">
-                            </option>
-                        </select></br>
-                    <button type="submit" class="btn btn-primary">Atualizar</button>
-                </form>
-            </div>
-        </div>
-    </div>   
+    <div layout:fragment="content">
+        <form th:action="@{/estudantes/update}" method="POST" th:object="${estudante}">
+            <div th:replace="~{/fragments/body :: formEstu}"></div>
+            <label for="instituicao" class="form-label">Instituição:</label>
+                <select th:field="*{instituicao.id}" class="form-select">
+                    <option value=""></option>
+                    <option th:each="insti : ${instituicaoItems}" 
+                        th:value="${insti.id}" 
+                        th:text="${insti.sigla}" 
+                        th:selected="${insti.id == instituicao}">
+                    </option>
+                </select></br>
+            <button type="submit" class="btn btn-primary">Atualizar</button>
+        </form>
+    </div>
 </body>
 </html>
