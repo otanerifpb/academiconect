@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -121,8 +123,14 @@ public class DeclaracaoController implements Serializable {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView save(Declaracao declaracao, String matricula, ModelAndView model, RedirectAttributes redAttrs) {
+    public ModelAndView save( Declaracao declaracao, String matricula,  ModelAndView model, RedirectAttributes redAttrs) {
+        
+        //Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
         Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(matricula);
+        // if(result.hasErrors()) {
+        //     model.setViewName("declaracoes/formDecl");
+        //     return model;
+        // }
         if (opEstudante.isPresent()) {
             Estudante estudante = opEstudante.get();
             Set<Declaracao> declaracoesEstudante = estudante.getDeclaracoes();
@@ -131,12 +139,14 @@ public class DeclaracaoController implements Serializable {
                     declaracaoAtual.setDeclaracaoAtual(false);
                 }
             }
+          
             declaracao.setDeclaracaoAtual(true);
             declaracao.setEstudante(estudante);
+          
             declaracaoRepository.save(declaracao);
             model.addObject("declaracoes", declaracaoRepository.findAll());
             //redAttrs.addFlashAttribute("succesMensagem", "Declaração cadastrado com sucesso!");
-            //model.setViewName("redirect:declaracoes");
+            //model.setViewName("redirect:/declaracoes");
             model.addObject("succesMensagem", "Declaração cadastrado com sucesso!");
             model.setViewName("declaracoes/listDecl");
         } else {

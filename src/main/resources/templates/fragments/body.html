@@ -30,28 +30,28 @@
         </a>
     </div>
 
-    <!-- Botão Voltar dos Formulários Instituição -->
+    <!-- Botão Voltar dos Formulários Instituição / Não foi possível usar depois de aplicar o Layout -->
     <div style="margin-right: 5px;" th:fragment="voltarInst(titulo)">
         <a class="nav-item nav-link" th:href="@{/instituicoes}">
             <button class="btn btn-outline-secondary my-2 my-sm-0" th:text="${titulo}">Voltar</button>
         </a>
     </div>
 
-    <!-- Botão Voltar dos Formulários Declaração -->
+    <!-- Botão Voltar dos Formulários Declaração / Não foi possível usar depois de aplicar o Layout -->
     <div style="margin-right: 5px;" th:fragment="voltarDecl(titulo)">
         <a class="nav-item nav-link" th:href="@{/declaracoes}">
             <button class="btn btn-outline-secondary my-2 my-sm-0" th:text="${titulo}">Voltar</button>
         </a>
     </div>
 
-    <!-- Botão Voltar dos Formulários Estudante -->
+    <!-- Botão Voltar dos Formulários Estudante / Não foi possível usar depois de aplicar o Layout-->
     <div style="margin-right: 5px;" th:fragment="voltarEstu(titulo)">
         <a class="nav-item nav-link" th:href="@{/estudantes}">
             <button class="btn btn-outline-secondary my-2 my-sm-0" th:text="${titulo}">Voltar</button>
         </a>
     </div>
 
-    <!-- Botão Voltar dos Formulários Período Letivo -->
+    <!-- Botão Voltar dos Formulários Período Letivo / Não foi possível usar depois de aplicar o Layout -->
     <div style="margin-right: 5px;" th:fragment="voltarPeri(titulo)">
         <a class="nav-item nav-link" th:href="@{/periodos}">
             <button class="btn btn-outline-secondary my-2 my-sm-0" th:text="${titulo}">Voltar</button>
@@ -77,6 +77,7 @@
         <input type="hidden" required th:field="*{id}" />
         <label for="nome" class="form-label">Nome:</label>
             <input type="text" class="form-control" required th:field="*{nome}" maxlength="50"/></br>
+            <p th:if="${#fields.hasErrors('nome')}" th:errorclass="error" th:errors="*{nome}"></p>
         <label for="nome" class="form-label">Matrícula:</label>
             <input type="number" class="form-control" required th:field="*{matricula}" /></br>
         <label for="nome" class="form-label">Data Nascimento:</label>
@@ -103,8 +104,13 @@
     <!-- Dados do formulário de Declaração -->
     <div class="navbar-nav" th:fragment="formDecl">
         <input type="hidden" required th:field="*{id}" />
-        <label for="nome" class="form-label">Data Recebimento:</label>
-            <input type="date" class="form-control" required th:field="*{dataRecebimento}" /></br>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="nome" class="form-label">Data Recebimento:</label>
+            <input type="date" class="form-control"  th:field="*{dataRecebimento}" /></br>
+            <!-- <div th:if="${#fields.hasErrors('dataRecebimento')}" th:errors="*{dataRecebimento}">Necessário preencher este campo</div> -->
+            <p th:if="${#fields.hasErrors('dataRecebimento')}" th:errorclass="error" 
+                th:errors="*{dataRecebimento}" class="alert alert-danger"></p>
+        </div>
         <label for="nome" class="form-label">Observação:</label>
             <input type="text" class="form-control" th:field="*{observacao}" /></br>
     </div>

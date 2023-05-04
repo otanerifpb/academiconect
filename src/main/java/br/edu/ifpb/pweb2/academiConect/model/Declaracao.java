@@ -1,7 +1,7 @@
 package br.edu.ifpb.pweb2.academiConect.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 //import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,8 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
-//import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,7 +38,9 @@ public class Declaracao implements Serializable {
     // Para gerar a String com o formato da data da entrada de dados na View (form.html)
     // Para o mês usar MM, mm é para minuto, MM = mês numerico; MMM = nome mês abreviado; >MMM = nome do mês
     // Para add "de" na data ${#dates.format(conta.data,"dd''de''MMM''de''yyyy")} para a saída de dados na View (list.html)
-    //@DateTimeFormat(pattern = "yyyy/MM/dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    //@NotNull(message = "Necessário preencher este campo")
+   // @Past(message = "Data não pode ser no passado")
     private Date dataRecebimento;
 
     private String observacao;

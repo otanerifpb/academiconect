@@ -3,6 +3,7 @@ package br.edu.ifpb.pweb2.academiConect.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,8 @@ import java.time.Period;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import javax.validation.Valid;
 
 @Controller
 // Rota para o acesso da class
@@ -90,7 +93,11 @@ public class EstudanteController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView save(Estudante estudante, ModelAndView model, RedirectAttributes redAttrs) {
+    public ModelAndView save( Estudante estudante, ModelAndView model, RedirectAttributes redAttrs) {
+        // if(result.hasErrors()) {
+        //     model.setViewName("estudantes/formEstu");
+        //     return model;
+        // }
         Optional<Estudante> opEmail = estudanteRepository.findByEmail(estudante.getEmail());
         Optional<Estudante> opMatricula = estudanteRepository.findByMatricula(estudante.getMatricula());
         //if (opMatricula.isPresent() || opEmail.isPresent()) {

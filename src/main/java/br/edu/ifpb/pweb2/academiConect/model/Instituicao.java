@@ -1,7 +1,6 @@
 package br.edu.ifpb.pweb2.academiConect.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -38,7 +37,6 @@ public class Instituicao implements Serializable {
 
     private String sigla;
 
-    //@DateTimeFormat(pattern = "yyyy-MM-dd")
     private String fone;
 
     // Relação entre Instituição e Estudante (1:N)

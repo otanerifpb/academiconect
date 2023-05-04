@@ -19,7 +19,9 @@
                 <input type="hidden" required th:field="*{id}"/>
                 <label for="estudante">Matrícula:</label></br>
                     <input type="text" class="form-control" th:name="matricula"  th:value="${estudante.matricula}" readonly/></br>
-                <div th:replace="~{/fragments/body :: formDecl}"></div>
+                    <!-- <p type="text" class="form-control" th:value="${estudante.nome}" readonly></p></br> -->
+                    <!-- <input type="hidden" class="form-control" th:name="matricula"  th:field="*{estudante.matricula}"  readonly/></br> -->
+                    <div th:replace="~{/fragments/body :: formDecl}"></div>
                 <label for="periodos" class="form-label">Período Letivo:</label>
                     <select th:field="*{periodo}" class="form-select">
                         <option value=""></option>

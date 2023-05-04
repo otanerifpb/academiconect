@@ -24,3 +24,7 @@
 /* .alert-error {
     background-color: #cc3a3a;
 } */
+
+.error {
+    color: red;
+}
