@@ -17,7 +17,7 @@
         <div th:text="${succesMensagem}" th:if="${succesMensagem ne null}" class="alert alert-success"></div>
           
         <div th:text="${errorMensagem}"  th:if="${errorMensagem ne null}" class="alert alert-danger"></div>
-                     
+             
         <div class="card">
             <div th:replace="~{/fragments/body :: titulo(${titulo2})}"></div>
             <!-- <span th:text="${titulo2}">Teste Nome da Página</span> -->

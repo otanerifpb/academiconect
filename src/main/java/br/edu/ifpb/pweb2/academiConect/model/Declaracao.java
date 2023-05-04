@@ -3,7 +3,6 @@ package br.edu.ifpb.pweb2.academiConect.model;
 import java.io.Serializable;
 import java.util.Date;
 
-//import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,7 +38,7 @@ public class Declaracao implements Serializable {
     // Para o mês usar MM, mm é para minuto, MM = mês numerico; MMM = nome mês abreviado; >MMM = nome do mês
     // Para add "de" na data ${#dates.format(conta.data,"dd''de''MMM''de''yyyy")} para a saída de dados na View (list.html)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    //@NotNull(message = "Necessário preencher este campo")
+    @NotNull(message = "Necessário preencher este campo")
    // @Past(message = "Data não pode ser no passado")
     private Date dataRecebimento;
 
@@ -50,7 +49,7 @@ public class Declaracao implements Serializable {
     // Relação entre Declaração e Estudante (1:1)
     // Quando tem @OneToMany é necessário add a class no @EqualsAndHashCode(exclude = {"estudante", "periodo"})
     @ManyToOne
-  // @JoinColumn(name = "id_estudante")
+    @JoinColumn(name = "id_estudante")
     private Estudante estudante;
 
     // Relação entre Declaração e PeriodoLetivo (1:1)

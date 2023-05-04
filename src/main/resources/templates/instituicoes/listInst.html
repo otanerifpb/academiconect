@@ -12,7 +12,6 @@
         </form>
 
         <div th:if="${not #lists.isEmpty(instituicoes)}">
-            <!-- Controle de registros na tabela -->
             <div th:text="'Total: ' + ${#lists.size(instituicoes)} + ' registro(s)'" 
                 style="text-align: right; color: gray; font-size: 0.85em;">
             </div>

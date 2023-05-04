@@ -93,11 +93,11 @@ public class EstudanteController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView save( Estudante estudante, ModelAndView model, RedirectAttributes redAttrs) {
-        // if(result.hasErrors()) {
-        //     model.setViewName("estudantes/formEstu");
-        //     return model;
-        // }
+    public ModelAndView save(@Valid Estudante estudante, BindingResult validation, ModelAndView model, RedirectAttributes redAttrs) {
+        if(validation.hasErrors()) {
+            model.setViewName("estudantes/formEstu");
+            return model;
+        }
         Optional<Estudante> opEmail = estudanteRepository.findByEmail(estudante.getEmail());
         Optional<Estudante> opMatricula = estudanteRepository.findByMatricula(estudante.getMatricula());
         //if (opMatricula.isPresent() || opEmail.isPresent()) {

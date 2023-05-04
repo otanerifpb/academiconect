@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -36,14 +37,17 @@ public class Estudante implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Necessário preencher este campo")
+    @NotBlank(message = "Este campo é obrigatório")
     private String nome;
 
+    @NotBlank(message = "Este campo é obrigatório")
     private String matricula;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataNascimento;
 
+    @NotBlank(message = "Este campo é obrigatório")
+    @Email
     private String email;
 
     private String senha;

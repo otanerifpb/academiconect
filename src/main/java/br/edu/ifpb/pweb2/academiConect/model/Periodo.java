@@ -57,7 +57,7 @@ public class Periodo implements Serializable {
 
     // Relação entre PerioLetivo e Instituição (1:N)
     @ManyToMany(mappedBy = "periodos")
-   // @JoinColumn(name = "id_instituicao")
+    //@JoinColumn(name = "id_instituicao")
     private List<Instituicao> instituicoes;
 
     // Relação entre PerioLetivo e Declaração (1:N)

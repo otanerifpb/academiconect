@@ -123,14 +123,14 @@ public class DeclaracaoController implements Serializable {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView save( Declaracao declaracao, String matricula,  ModelAndView model, RedirectAttributes redAttrs) {
-        
+    public ModelAndView save(@Valid Declaracao declaracao, BindingResult validation, String matricula,  ModelAndView model, RedirectAttributes redAttrs) {
+        if(validation.hasErrors()) {
+            model.setViewName("declaracoes/formDecl");
+            return model;
+        }
         //Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
         Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(matricula);
-        // if(result.hasErrors()) {
-        //     model.setViewName("declaracoes/formDecl");
-        //     return model;
-        // }
+        
         if (opEstudante.isPresent()) {
             Estudante estudante = opEstudante.get();
             Set<Declaracao> declaracoesEstudante = estudante.getDeclaracoes();
