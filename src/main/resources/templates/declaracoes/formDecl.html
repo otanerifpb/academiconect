@@ -6,20 +6,20 @@
 <body>
     <div layout:fragment="content">
         
-        <div th:if="${formPreenchido == 'false'}">
+        <div th:if="${mostrarForm == 'false'}">
             <form th:action="@{/declaracoes/periodoInstituicao}">
                 <label for="estudante">Matrícula:</label></br>
                     <input type="text" class="form-control" required th:name="matricula"/></br>
                 <button class="btn btn-primary" type="submit">Consulta Períodos</button>
-            </form></br>
+            </form>
         </div>
 
-        <div  th:unless="${formPreenchido == 'false'}">
+        <div  th:unless="${mostrarForm == 'false'}">
             <form th:action="@{/declaracoes}" method="POST" th:object="${declaracao}">
                 <!-- <input type="hidden" required th:field="*{id}"/> -->
                 <label for="estudante">Matrícula:</label></br>
                     <input type="text" class="form-control" th:name="matricula"  th:value="${estudante.matricula}" readonly/></br>
-                <!-- <p type="text" class="form-control" th:value="${estudante.nome}" readonly></p></br> -->
+                <!-- <span type="text" class="form-control" th:value="${estudante.nome}" readonly></span></br> -->
                 <!-- <input type="hidden" class="form-control" th:name="matricula"  th:field="*{estudante.matricula}"  readonly/></br> -->
 
                 <div th:replace="~{/fragments/body :: formDecl}"></div>

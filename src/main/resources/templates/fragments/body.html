@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt_BR" xmlns:th="www.thymeleaf.org" th:import="org.thymeleaf.spring5.util.SpringSelectedValueComparator">
+<html lang="pt_BR" 
+    xmlns:th="www.thymeleaf.org" 
+    th:import="org.thymeleaf.spring5.util.SpringSelectedValueComparator">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fragments</title>
+    <title>Fragments Body</title>
 </head>
 <body>
     <!-- Logo + título da página -->
@@ -81,35 +83,35 @@
                 <p th:if="${#fields.hasErrors('nome')}" th:errorclass="error" th:errors="*{nome}" class="alert alert-danger"></p></br>
         </div>
         <div class="form-group mx-sm-0 mb-2">
-            <label for="nome" class="form-label">Matrícula:</label>
+            <label for="matricula" class="form-label">Matrícula:</label>
             <input type="text" class="form-control" required th:field="*{matricula}" />
             <p th:if="${#fields.hasErrors('matricula')}" th:errorclass="error" th:errors="*{matricula}" class="alert alert-danger"></p></br>
         </div>
         <div class="form-group mx-sm-0 mb-2">
-            <label for="nome" class="form-label">Data Nascimento:</label>
+            <label for="dataNascimento" class="form-label">Data Nascimento:</label>
             <input type="date" class="form-control" required th:field="*{dataNascimento}" /></br> 
         </div>
         <div class="form-group mx-sm-0 mb-2">
-            <label for="nome" class="form-label">E-mail:</label>
+            <label for="email" class="form-label">E-mail:</label>
             <input type="email" required th:field="*{email}" class="form-control"/>
             <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" class="alert alert-danger"></p></br>
         </div>
-        <div class="form-group mx-sm-0 mb-2">
-            <label for="nome" class="form-label">Senha:</label>
+        <!-- <div class="form-group mx-sm-0 mb-2">
+            <label for="senha" class="form-label">Senha:</label>
             <input type="password" required th:field="*{senha}" class="form-control" minlength="3"/></br>
-        </div>
+        </div> -->
     </div>
 
     <!-- Dados do formulário de Periodo -->
     <div class="navbar-nav" th:fragment="formPeri">
         <input type="hidden" required th:field="*{id}" />
-        <label for="nome" class="form-label">Ano:</label>
+        <label for="ano" class="form-label">Ano:</label>
             <input type="number" class="form-control" required th:field="*{ano}" maxlength="4"/></br>
-        <label for="nome" class="form-label">Período Letivo:</label>
+        <label for="periodoLetivo" class="form-label">Período Letivo:</label>
             <input type="text" class="form-control" required th:field="*{periodoLetivo}" /></br>
-        <label for="nome" class="form-label">Data Início:</label>
+        <label for="dataInicio" class="form-label">Data Início:</label>
             <input type="date" class="form-control" required th:field="*{dataInicio}" /></br>
-        <label for="nome" class="form-label">Data Fim:</label>
+        <label for="dataFim" class="form-label">Data Fim:</label>
             <input type="date" class="form-control" required th:field="*{dataFim}" /></br>
     </div>
 
@@ -117,13 +119,13 @@
     <div class="navbar-nav" th:fragment="formDecl">
         <input type="hidden" required th:field="*{id}" />
         <div class="form-group mx-sm-0 mb-2">
-            <label for="nome" class="form-label">Data Recebimento:</label>
+            <label for="dataRecebimento" class="form-label">Data Recebimento:</label>
                 <input type="date" class="form-control"  required th:field="*{dataRecebimento}" /></br>
                 <!-- <div th:if="${#fields.hasErrors('dataRecebimento')}" th:errors="*{dataRecebimento}">Necessário preencher este campo</div> -->
                 <p th:if="${#fields.hasErrors('dataRecebimento')}" th:errorclass="error" 
                     th:errors="*{dataRecebimento}" class="alert alert-danger"></p>
         </div>
-        <label for="nome" class="form-label">Observação:</label>
+        <label for="observacao" class="form-label">Observação:</label>
             <input type="text" class="form-control" th:field="*{observacao}" /></br>
     </div>
       

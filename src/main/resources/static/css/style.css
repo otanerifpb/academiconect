@@ -28,3 +28,15 @@
 .error {
     color: red;
 }
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #090909;
+    color:white;
+    text-align: center;
+    padding: 5px;
+    font-size: 12px;
+  }

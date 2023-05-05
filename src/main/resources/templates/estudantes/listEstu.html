@@ -24,7 +24,7 @@
                         <th style="text-align: center;">Matrícula:</th>
                         <th style="text-align: center;">Data Nascimento:</th>
                         <th>E-mail:</th>
-                        <th style="text-align: center;">Senha:</th>
+                        <!-- <th style="text-align: center;">Senha:</th> -->
                         <th style="text-align: center;">Instituição:</th>
                     </tr>
                 </thead>
@@ -37,7 +37,7 @@
                         <td th:text="${#dates.format(estudante.dataNascimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
                             style="text-align: center;"></td>
                         <td th:text="${estudante.email}"></td>
-                        <td th:text="'**' + ${#strings.substring(estudante.senha,0,3)} + '****'" style="text-align: center;"></td>                                
+                        <!-- <td th:text="'**' + ${#strings.substring(estudante.senha,0,3)} + '****'" style="text-align: center;"></td>                                 -->
                         <td th:text="${estudante.instituicao != null and estudante.instituicao != '' ?estudante.instituicao.sigla: 'Não Informada'}"
                             style="text-align: center;"></td>
                         <td>

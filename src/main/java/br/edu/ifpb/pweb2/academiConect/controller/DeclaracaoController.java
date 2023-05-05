@@ -42,10 +42,10 @@ public class DeclaracaoController implements Serializable {
 
     // Rota para acessar a lista pelo formDecEstu
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView listAll(ModelAndView model) {
-        model.addObject("declaracoes", declaracaoRepository.findAll());
-        model.setViewName("declaracoes/listDecl");
-        return model;
+    public ModelAndView listAll(ModelAndView mav) {
+        mav.addObject("declaracoes", declaracaoRepository.findAll());
+        mav.setViewName("declaracoes/listDecl");
+        return mav;
     }
 
     // Rota para acessar a lista com o uso do REDIRECT
@@ -61,43 +61,41 @@ public class DeclaracaoController implements Serializable {
     // REQFUNC 8 - Instituição Atual
     // REQNFUNC - Mostrar Erro nos Formulários
     @RequestMapping("/formDecl")
-    public ModelAndView getFormDecl(Declaracao declaracao, ModelAndView model) {
-        String formPreenchido = "false";
-        model.addObject("declaracao", declaracao);
-        model.addObject("formPreenchido", formPreenchido);
-        model.setViewName("declaracoes/formDecl");
-        return model;
+    public ModelAndView getFormDecl(Declaracao declaracao, ModelAndView mav) {
+        String mostrarForm = "false";
+        mav.addObject("declaracao", declaracao);
+        mav.addObject("mostrarForm", mostrarForm);
+        mav.setViewName("declaracoes/formDecl");
+        return mav;
     }
 
     // Rota para acessar o Formulário de Declaração de Estudante pelo menu
     @RequestMapping("/formDecEstu")
-    public ModelAndView getFormDecEstu(Declaracao declaracao, ModelAndView model) {
-        model.addObject("declaracao", declaracao);
-        model.setViewName("declaracoes/formDecEstu");
-        return model;
+    public ModelAndView getFormDecEstu(Declaracao declaracao, ModelAndView mav) {
+        mav.addObject("declaracao", declaracao);
+        mav.setViewName("declaracoes/formDecEstu");
+        return mav;
     }
 
     // Mapeamanto para buscar as declarações de um Estudante, ao pasar uma matricula cadastrada
     @RequestMapping("/getDecEstudante")
-    public ModelAndView getDeclaracaoEstudante(Declaracao declaracao, ModelAndView model) {
+    public ModelAndView getDeclaracaoEstudante(Declaracao declaracao, ModelAndView mav) {
         Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
         if (opEstudante.isPresent()) {
-            //model.addObject("declaracoes", declaracaoRepository.findAll());
             Estudante estudante = opEstudante.get();
             Set<Declaracao> declaracoesEstudante = estudante.getDeclaracoes();
             List<Declaracao> listDeclaracoes = new ArrayList<>();
             for (Declaracao declaracaoEstudante: declaracoesEstudante) {
                 listDeclaracoes.add(declaracaoEstudante);
             }
-            model.addObject("declaracoes", listDeclaracoes);
-            model.addObject("succesMensagem", "Estudante encontrado com sucesso!!");
-            model.setViewName("declaracoes/listDecl");
-            //model.setViewName("redirect:/declaracoes");
+            mav.addObject("declaracoes", listDeclaracoes);
+            mav.addObject("succesMensagem", "Estudante encontrado com sucesso!!");
+            mav.setViewName("declaracoes/listDecl");
         }else {
-            model.addObject("errorMensagem", "Estudante não tem declaração cadastrada!!");
-            model.setViewName("/declaracoes/formDecEstu");
+            mav.addObject("errorMensagem", "Estudante não tem declaração cadastrada!!");
+            mav.setViewName("/declaracoes/formDecEstu");
         }  
-        return model;
+        return mav;
     }
 
     // Rota para acessar o formunlário de atualização ou a lista se não for atualizar 
@@ -105,17 +103,17 @@ public class DeclaracaoController implements Serializable {
     // REQFUNC 8 - Instituição Atual
     // REQNFUNC - Mostrar Erro nos Formulários
     @RequestMapping("/{id}")
-    public ModelAndView getInstituicaoById(@PathVariable(value = "id") Integer id, ModelAndView model) {
+    public ModelAndView getInstituicaoById(@PathVariable(value = "id") Integer id, ModelAndView mav) {
         Optional<Declaracao> opDeclaracao = declaracaoRepository.findById(id);
         if (opDeclaracao.isPresent()) {
             Declaracao declaracao = opDeclaracao.get();
-            model.addObject("declaracao", declaracao);
-            model.setViewName("declaracoes/formUpDecl");
+            mav.addObject("declaracao", declaracao);
+            mav.setViewName("declaracoes/formUpDecl");
         } else {
-            model.addObject("errorMensagem", "Declaração não encontrado.");
-            model.setViewName("declaracoes/listDecl");
+            mav.addObject("errorMensagem", "Declaração não encontrado.");
+            mav.setViewName("declaracoes/listDecl");
         }
-        return model;
+        return mav;
     }
 
     // Rota para salvar novo objeto na lista com o uso do POST
@@ -123,10 +121,12 @@ public class DeclaracaoController implements Serializable {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView save(@Valid Declaracao declaracao, BindingResult validation, String matricula,  ModelAndView model, RedirectAttributes redAttrs) {
+    public ModelAndView save(@Valid Declaracao declaracao, BindingResult validation, String matricula,  
+        ModelAndView mav, RedirectAttributes redAttrs) {
         if(validation.hasErrors()) {
-            model.setViewName("declaracoes/formDecl");
-            return model;
+            //mav.setViewName("declaracoes/formDecl");
+            mav.setViewName("redirect:/declaracoes");
+            return mav;
         }
         //Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
         Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(matricula);
@@ -144,16 +144,16 @@ public class DeclaracaoController implements Serializable {
             declaracao.setEstudante(estudante);
           
             declaracaoRepository.save(declaracao);
-            model.addObject("declaracoes", declaracaoRepository.findAll());
+            mav.addObject("declaracoes", declaracaoRepository.findAll());
             //redAttrs.addFlashAttribute("succesMensagem", "Declaração cadastrado com sucesso!");
             //model.setViewName("redirect:/declaracoes");
-            model.addObject("succesMensagem", "Declaração cadastrado com sucesso!");
-            model.setViewName("declaracoes/listDecl");
+            mav.addObject("succesMensagem", "Declaração cadastrado com sucesso!");
+            mav.setViewName("declaracoes/listDecl");
         } else {
             redAttrs.addFlashAttribute("errorMensagem", "Estudante não encontrado!!");
-            model.setViewName("redirect:/declaracoes");
+            mav.setViewName("redirect:/declaracoes");
         }  
-        return model;
+        return mav;
     }
 
     // Rota para atualizar um objeto na lista com o uso do POST
@@ -163,23 +163,23 @@ public class DeclaracaoController implements Serializable {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(value="/update", method = RequestMethod.POST)
-    public ModelAndView updade(Declaracao declaracao, ModelAndView model, RedirectAttributes redAttrs) {
+    public ModelAndView updade(Declaracao declaracao, ModelAndView mav, RedirectAttributes redAttrs) {
         Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
         if (opEstudante.isPresent()) {
             Estudante estudante = opEstudante.get();
             declaracao.setEstudante(estudante);
             declaracaoRepository.save(declaracao);
-            model.addObject("declaracoes", declaracaoRepository.findAll());
+            mav.addObject("declaracoes", declaracaoRepository.findAll());
             //redAttrs.addFlashAttribute("succesMensagem", "Instituição "+declaracao.getId()+", atualizada com sucesso!_redAttrs");
             //model.setViewName("redirect:/declaracoes");
-            model.addObject("succesMensagem", "Declaração atualizada com sucesso!!");
-            model.setViewName("declaracoes/listDecl");
+            mav.addObject("succesMensagem", "Declaração atualizada com sucesso!!");
+            mav.setViewName("declaracoes/listDecl");
     } else {
-        model.addObject("declaracoes", declaracaoRepository.findAll());
+        mav.addObject("declaracoes", declaracaoRepository.findAll());
         redAttrs.addFlashAttribute("errorMensagem", "Estudante não encontrado!!");
-        model.setViewName("redirect:/declaracoes");
+        mav.setViewName("redirect:/declaracoes");
     }  
-        return model;
+        return mav;
     }
 
     // Rota para deletar um objeto da lista
@@ -187,7 +187,7 @@ public class DeclaracaoController implements Serializable {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping("{id}/delete")
-    public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView model, RedirectAttributes redAtt) {
+    public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView mav, RedirectAttributes redAtt) {
         Optional<Declaracao> opDeclaracao = declaracaoRepository.findById(id);
         if (opDeclaracao.isPresent()) {
             Declaracao declaracao = opDeclaracao.get();
@@ -198,8 +198,8 @@ public class DeclaracaoController implements Serializable {
         } else {
             redAtt.addFlashAttribute("errorMensagem", "Declaração não encontrada.");
         }
-        model.setViewName("redirect:/declaracoes");
-        return model;
+        mav.setViewName("redirect:/declaracoes");
+        return mav;
     }
 
     // Relacionamento class Declaração com class Estudante para Form
@@ -223,22 +223,22 @@ public class DeclaracaoController implements Serializable {
     // Rota para pesquisar o Período Letivo de um Estudante pela Matricula
     // REQFUNC 7 - Nova Declaração
     @RequestMapping("periodoInstituicao")
-    public ModelAndView getByPeriodoInstituicao(String matricula, ModelAndView model, RedirectAttributes redAtt) {
-        String formPreenchido = "true";
+    public ModelAndView getByPeriodoInstituicao(String matricula, ModelAndView mav, RedirectAttributes redAtt) {
+        String mostrarForm = "true";
         Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(matricula);
         Estudante estudante = null;
         if (opEstudante.isPresent()) {
             estudante = opEstudante.get();
             Instituicao inst = estudante.getInstituicao();
             List<Periodo> periodos = inst.getPeriodos();
-            model.addObject("periodosInstituicao", periodos);
+            mav.addObject("periodosInstituicao", periodos);
             //model.addObject("declaracao", new Declaracao());
             //model.addObject("periodosInstituicao", estudante);
         }
-        model.addObject("declaracao", new Declaracao());
-        model.addObject("estudante", estudante);
-        model.addObject("formPreenchido", formPreenchido);
-        model.setViewName("/declaracoes/formDecl");
-        return model;
+        mav.addObject("declaracao", new Declaracao());
+        mav.addObject("estudante", estudante);
+        mav.addObject("mostrarForm", mostrarForm);
+        mav.setViewName("/declaracoes/formDecl");
+        return mav;
     }
 }
