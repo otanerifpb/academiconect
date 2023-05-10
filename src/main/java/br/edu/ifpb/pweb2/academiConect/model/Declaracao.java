@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -41,6 +42,7 @@ public class Declaracao implements Serializable {
    // @Past(message = "Data não pode ser no passado")
     private Date dataRecebimento;
 
+    @NotBlank(message = "Necessário preencher este campo")
     private String observacao;
 
     private boolean declaracaoAtual;
