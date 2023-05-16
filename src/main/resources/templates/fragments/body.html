@@ -127,6 +127,9 @@
         </div>
         <label for="observacao" class="form-label">Observação:</label>
             <input type="text" class="form-control" th:field="*{observacao}" /></br>
+
+            abc
+            <div th:if="${#fields.hasErrors('observacao')}" th:errors="*{observacao}" th:errorclass="error">Necessário preencher este campo</div>
     </div>
       
 </body>

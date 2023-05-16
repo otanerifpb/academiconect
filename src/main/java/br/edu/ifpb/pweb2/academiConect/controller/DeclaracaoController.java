@@ -32,13 +32,13 @@ import br.edu.ifpb.pweb2.academiConect.repository.PeriodoRepository;
 @RequestMapping("/declaracoes")
 public class DeclaracaoController implements Serializable {
     @Autowired
-    DeclaracaoRepository declaracaoRepository; 
+    DeclaracaoRepository declaracaoRepository;
 
     @Autowired
     EstudanteRepository estudanteRepository;
-    
+
     @Autowired
-    PeriodoRepository periodoRepository; 
+    PeriodoRepository periodoRepository;
 
     // Rota para acessar a lista pelo formDecEstu
     @RequestMapping(method = RequestMethod.GET)
@@ -77,7 +77,8 @@ public class DeclaracaoController implements Serializable {
         return mav;
     }
 
-    // Mapeamanto para buscar as declarações de um Estudante, ao pasar uma matricula cadastrada
+    // Mapeamanto para buscar as declarações de um Estudante, ao pasar uma matricula
+    // cadastrada
     @RequestMapping("/getDecEstudante")
     public ModelAndView getDeclaracaoEstudante(Declaracao declaracao, ModelAndView mav) {
         Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
@@ -85,20 +86,21 @@ public class DeclaracaoController implements Serializable {
             Estudante estudante = opEstudante.get();
             Set<Declaracao> declaracoesEstudante = estudante.getDeclaracoes();
             List<Declaracao> listDeclaracoes = new ArrayList<>();
-            for (Declaracao declaracaoEstudante: declaracoesEstudante) {
+            for (Declaracao declaracaoEstudante : declaracoesEstudante) {
                 listDeclaracoes.add(declaracaoEstudante);
             }
             mav.addObject("declaracoes", listDeclaracoes);
             mav.addObject("succesMensagem", "Estudante encontrado com sucesso!!");
             mav.setViewName("declaracoes/listDecl");
-        }else {
+        } else {
             mav.addObject("errorMensagem", "Estudante não tem declaração cadastrada!!");
             mav.setViewName("/declaracoes/formDecEstu");
-        }  
+        }
         return mav;
     }
 
-    // Rota para acessar o formunlário de atualização ou a lista se não for atualizar 
+    // Rota para acessar o formunlário de atualização ou a lista se não for
+    // atualizar
     // REQFUNC 6 - Instituição Atual
     // REQFUNC 8 - Instituição Atual
     // REQNFUNC - Mostrar Erro nos Formulários
@@ -121,38 +123,44 @@ public class DeclaracaoController implements Serializable {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView save(@Valid Declaracao declaracao, BindingResult validation, String matricula,  
-        ModelAndView mav, RedirectAttributes redAttrs) {
-        if(validation.hasErrors()) {
-            //mav.setViewName("declaracoes/formDecl");
-            mav.setViewName("redirect:/declaracoes");
+    public ModelAndView save(@Valid Declaracao declaracao, BindingResult validation, String matricula,
+            ModelAndView mav, RedirectAttributes redAttrs) {
+        if (validation.hasErrors()) {
+            mav.addObject("declaracao", declaracao);
+            Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(matricula);
+            mav.addObject("estudante", opEstudante.get());
+            mav.addObject("mostrarForm", true);
+            mav.setViewName("declaracoes/formDecl");
+            // mav.setViewName("declaracoes/listDecl");
             return mav;
         }
-        //Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
+        // Optional<Estudante> opEstudante =
+        // estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
         Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(matricula);
-        
+
         if (opEstudante.isPresent()) {
             Estudante estudante = opEstudante.get();
             Set<Declaracao> declaracoesEstudante = estudante.getDeclaracoes();
-            for (Declaracao declaracaoAtual: declaracoesEstudante) {
-                if (declaracaoAtual.isDeclaracaoAtual() == true){
+            for (Declaracao declaracaoAtual : declaracoesEstudante) {
+                if (declaracaoAtual.isDeclaracaoAtual() == true) {
                     declaracaoAtual.setDeclaracaoAtual(false);
                 }
             }
-          
+
             declaracao.setDeclaracaoAtual(true);
             declaracao.setEstudante(estudante);
-          
+
             declaracaoRepository.save(declaracao);
             mav.addObject("declaracoes", declaracaoRepository.findAll());
-            //redAttrs.addFlashAttribute("succesMensagem", "Declaração cadastrado com sucesso!");
-            //model.setViewName("redirect:/declaracoes");
+            // redAttrs.addFlashAttribute("succesMensagem", "Declaração cadastrado com
+            // sucesso!");
+            // model.setViewName("redirect:/declaracoes");
             mav.addObject("succesMensagem", "Declaração cadastrado com sucesso!");
             mav.setViewName("declaracoes/listDecl");
         } else {
             redAttrs.addFlashAttribute("errorMensagem", "Estudante não encontrado!!");
             mav.setViewName("redirect:/declaracoes");
-        }  
+        }
         return mav;
     }
 
@@ -162,7 +170,7 @@ public class DeclaracaoController implements Serializable {
     // REQFUNC 8 - Instituição Atual
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
-    @RequestMapping(value="/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ModelAndView updade(Declaracao declaracao, ModelAndView mav, RedirectAttributes redAttrs) {
         Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
         if (opEstudante.isPresent()) {
@@ -170,15 +178,16 @@ public class DeclaracaoController implements Serializable {
             declaracao.setEstudante(estudante);
             declaracaoRepository.save(declaracao);
             mav.addObject("declaracoes", declaracaoRepository.findAll());
-            //redAttrs.addFlashAttribute("succesMensagem", "Instituição "+declaracao.getId()+", atualizada com sucesso!_redAttrs");
-            //model.setViewName("redirect:/declaracoes");
+            // redAttrs.addFlashAttribute("succesMensagem", "Instituição
+            // "+declaracao.getId()+", atualizada com sucesso!_redAttrs");
+            // model.setViewName("redirect:/declaracoes");
             mav.addObject("succesMensagem", "Declaração atualizada com sucesso!!");
             mav.setViewName("declaracoes/listDecl");
-    } else {
-        mav.addObject("declaracoes", declaracaoRepository.findAll());
-        redAttrs.addFlashAttribute("errorMensagem", "Estudante não encontrado!!");
-        mav.setViewName("redirect:/declaracoes");
-    }  
+        } else {
+            mav.addObject("declaracoes", declaracaoRepository.findAll());
+            redAttrs.addFlashAttribute("errorMensagem", "Estudante não encontrado!!");
+            mav.setViewName("redirect:/declaracoes");
+        }
         return mav;
     }
 
@@ -187,11 +196,13 @@ public class DeclaracaoController implements Serializable {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping("{id}/delete")
-    public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView mav, RedirectAttributes redAtt) {
+    public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView mav,
+            RedirectAttributes redAtt) {
         Optional<Declaracao> opDeclaracao = declaracaoRepository.findById(id);
         if (opDeclaracao.isPresent()) {
             Declaracao declaracao = opDeclaracao.get();
-            declaracao.setEstudante(null);;
+            declaracao.setEstudante(null);
+            ;
             declaracao.setPeriodo(null);
             declaracaoRepository.deleteById(id);
             redAtt.addFlashAttribute("succesMensagem", "Declarção deletada com sucesso!!");
@@ -208,18 +219,18 @@ public class DeclaracaoController implements Serializable {
         return estudanteRepository.findAll();
     }
 
-     // Relacionamento class Declaração com class Período Letivo para Form
-     @ModelAttribute("periodosItems")
-     public List<Periodo> getPeriodos() {
-         return periodoRepository.findAll();
-     }
+    // Relacionamento class Declaração com class Período Letivo para Form
+    @ModelAttribute("periodosItems")
+    public List<Periodo> getPeriodos() {
+        return periodoRepository.findAll();
+    }
 
     // Ativa o menu Declaração na barra de navegação
     @ModelAttribute("menu")
-    public String activeMenu(){
+    public String activeMenu() {
         return "declaracoes";
     }
-    
+
     // Rota para pesquisar o Período Letivo de um Estudante pela Matricula
     // REQFUNC 7 - Nova Declaração
     @RequestMapping("periodoInstituicao")
@@ -232,8 +243,8 @@ public class DeclaracaoController implements Serializable {
             Instituicao inst = estudante.getInstituicao();
             List<Periodo> periodos = inst.getPeriodos();
             mav.addObject("periodosInstituicao", periodos);
-            //model.addObject("declaracao", new Declaracao());
-            //model.addObject("periodosInstituicao", estudante);
+            // model.addObject("declaracao", new Declaracao());
+            // model.addObject("periodosInstituicao", estudante);
         }
         mav.addObject("declaracao", new Declaracao());
         mav.addObject("estudante", estudante);
