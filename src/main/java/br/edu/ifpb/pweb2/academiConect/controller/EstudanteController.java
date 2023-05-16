@@ -80,7 +80,7 @@ public class EstudanteController {
         if (opEstudante.isPresent()) {
             Estudante estudante = opEstudante.get();
             model.addObject("estudante",estudante);
-            model.setViewName("estudantes/formUpEstu");
+            model.setViewName("estudantes/formEstu");
         } else {
             model.addObject("errorMensagem", "Estudante  não encontrado.");
             model.setViewName("estudantes/listInst");
@@ -93,28 +93,30 @@ public class EstudanteController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView save(@Valid Estudante estudante, BindingResult validation, ModelAndView model, RedirectAttributes redAttrs) {
+    public ModelAndView save(@Valid Estudante estudante, BindingResult validation, ModelAndView mav, RedirectAttributes redAttrs) {
         if(validation.hasErrors()) {
-            model.setViewName("estudantes/formEstu");
-            return model;
-        }
-        Optional<Estudante> opEmail = estudanteRepository.findByEmail(estudante.getEmail());
-        Optional<Estudante> opMatricula = estudanteRepository.findByMatricula(estudante.getMatricula());
-        //if (opMatricula.isPresent() || opEmail.isPresent()) {
-        if (opMatricula.isPresent()) {
-            redAttrs.addFlashAttribute("errorMensagem", "Matrícula já cadastrada no sistema!!");
-            model.setViewName("redirect:/estudantes");
-        } else if (opEmail.isPresent()) {
-            redAttrs.addFlashAttribute("errorMensagem", "E-mail já cadastrado no sistema!!");
-            model.setViewName("redirect:/estudantes");
+            mav.addObject("estudante", estudante);
+            mav.setViewName("/estudantes/formEstu");
+            //return mav;
         } else {
-            estudanteRepository.save(estudante);
-            model.addObject("estudantes", estudanteRepository.findAll());
-            model.addObject("succesMensagem", "Estudante cadastrado com sucesso!");
-            model.setViewName("estudantes/listEstu");
-            //model.setViewName("redirect:/estudantes");
+            Optional<Estudante> opEmail = estudanteRepository.findByEmail(estudante.getEmail());
+            Optional<Estudante> opMatricula = estudanteRepository.findByMatricula(estudante.getMatricula());
+            //if (opMatricula.isPresent() || opEmail.isPresent()) {
+            if (opMatricula.isPresent()) {
+                redAttrs.addFlashAttribute("errorMensagem", "Matrícula já cadastrada no sistema!!");
+                mav.setViewName("redirect:/estudantes");
+            } else if (opEmail.isPresent()) {
+                redAttrs.addFlashAttribute("errorMensagem", "E-mail já cadastrado no sistema!!");
+                mav.setViewName("redirect:/estudantes");
+            } else {
+                estudanteRepository.save(estudante);
+                mav.addObject("estudantes", estudanteRepository.findAll());
+                mav.addObject("succesMensagem", "Estudante cadastrado com sucesso!");
+                mav.setViewName("estudantes/listEstu");
+                //model.setViewName("redirect:/estudantes");
+            }
         }
-        return model;
+        return mav;
     }
 
     // Rota para atualizar um objeto na lista pelo formUpEstu

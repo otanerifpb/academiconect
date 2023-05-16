@@ -14,7 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -38,16 +41,19 @@ public class Estudante implements Serializable{
     private Integer id;
 
     @NotBlank(message = "Este campo é obrigatório")
+    @Max(value = 50, message = "Valor máximo para este campo é 50 caracteres!")
     private String nome;
 
     @NotBlank(message = "Este campo é obrigatório")
     private String matricula;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Past(message = "Data deve ser no passado")
+    @NotNull(message = "Campo obrigatório!")
     private Date dataNascimento;
 
     @NotBlank(message = "Este campo é obrigatório")
-    @Email
+    @Email(message = "Informe um e-mail válido")
     private String email;
 
     private String senha;
