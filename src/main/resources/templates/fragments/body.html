@@ -76,6 +76,27 @@
 
     <!-- Dados do formulário de Estudante -->
     <div class="navbar-nav" th:fragment="formEstu">
+        <input type="hidden" required th:field="*{id}" />
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="nome" class="form-label">Nome:</label>
+            <input type="text" class="form-control" th:field="*{nome}" maxlength="50"/>
+            <p th:if="${#fields.hasErrors('nome')}" th:errorclass="error" th:errors="*{nome}"></p>
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="matricula" class="form-label">Matrícula:</label>
+            <input type="text" class="form-control" th:field="*{matricula}" />
+            <p th:if="${#fields.hasErrors('matricula')}" th:errorclass="error" th:errors="*{matricula}"></p>
+        </div>
+         <div class="form-group mx-sm-0 mb-2">
+            <label for="dataNascimento" class="form-label">Data Nascimento:</label>
+            <input type="date" class="form-control" th:field="*{dataNascimento}" />
+            <p th:if="${#fields.hasErrors('dataNascimento')}" th:errorclass="error" th:errors="*{dataNascimento}"></p> 
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="email" class="form-label">E-mail:</label>
+            <input type="email" th:field="*{email}" class="form-control"/>
+            <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}"></p>
+        </div>
         <!-- <input type="hidden" required th:field="*{id}" />
         <div class="form-group mx-sm-0 mb-2">
             <label for="nome" class="form-label">Nome:</label>

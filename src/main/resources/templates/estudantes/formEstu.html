@@ -6,8 +6,8 @@
 <body>
     <div layout:fragment="content">
         <form th:action="@{/estudantes}" method="POST" th:object="${estudante}">
-            <!-- <div th:replace="~{/fragments/body :: formEstu}"></div> -->
-            <input type="hidden" required th:field="*{id}" />
+            <div th:replace="~{/fragments/body :: formEstu}"></div>
+            <!-- <input type="hidden" required th:field="*{id}" />
             <div class="form-group mx-sm-0 mb-2">
                 <label for="nome" class="form-label">Nome:</label>
                 <input type="text" class="form-control" th:field="*{nome}" maxlength="50"/>
@@ -27,7 +27,7 @@
                 <label for="email" class="form-label">E-mail:</label>
                 <input type="email" th:field="*{email}" class="form-control"/>
                 <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}"></p>
-            </div>
+            </div> -->
             <label for="instituicao" class="form-label">Instituição:</label>
                 <select th:field="*{instituicao}" class="form-select">
                     <option value=""></option>

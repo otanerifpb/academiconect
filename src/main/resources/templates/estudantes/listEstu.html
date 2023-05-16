@@ -30,6 +30,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="estudante : ${estudantes}">
+                        <!-- <a th:href="@{/estudantes/{id}(id=${estudante.id})}"  -->
                         <td><a th:href="@{/estudantes/{id}(id=${estudante.id})}"     
                             th:text="${estudante.nome != null and estudante.nome != '' ?estudante.nome: 'Anônimo'}"></a>
                         </td>

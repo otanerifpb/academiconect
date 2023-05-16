@@ -41,10 +41,10 @@ public class EstudanteController {
 
     // Rota para acessar a lista pelo menu
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView listAll(ModelAndView model) {
-        model.addObject("estudantes", estudanteRepository.findAll());
-        model.setViewName("estudantes/listEstu");
-        return model;
+    public ModelAndView listAll(ModelAndView mav) {
+        mav.addObject("estudantes", estudanteRepository.findAll());
+        mav.setViewName("estudantes/listEstu");
+        return mav;
     }
 
     // Rota para acessar a lista ao usar o REDIRECT
@@ -62,10 +62,10 @@ public class EstudanteController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Layout e Fragments
     @RequestMapping("/formEstu")
-    public ModelAndView getFormEstu(Estudante estudante, ModelAndView model) {
-        model.addObject("estudante", estudante);
-        model.setViewName("estudantes/formEstu");
-        return model;
+    public ModelAndView getFormEstu(Estudante estudante, ModelAndView mav) {
+        mav.addObject("estudante", estudante);
+        mav.setViewName("estudantes/formEstu");
+        return mav;
     }
 
     // Rota para acessar o formunlário de atualização ou a lista se não for atualizar 
@@ -74,18 +74,18 @@ public class EstudanteController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Layout e Fragments cvb
     @RequestMapping("/{id}")
-    public ModelAndView getEstudanteById(@PathVariable(value = "id") Integer id, ModelAndView model) {
+    public ModelAndView getEstudanteById(@PathVariable(value = "id") Integer id, ModelAndView mav) {
         Optional<Estudante> opEstudante = estudanteRepository.findById(id);
        
         if (opEstudante.isPresent()) {
             Estudante estudante = opEstudante.get();
-            model.addObject("estudante",estudante);
-            model.setViewName("estudantes/formEstu");
+            mav.addObject("estudante", estudante);
+            mav.setViewName("estudantes/formUpEstu");
         } else {
-            model.addObject("errorMensagem", "Estudante  não encontrado.");
-            model.setViewName("estudantes/listInst");
+            mav.addObject("errorMensagem", "Estudante  não encontrado.");
+            mav.setViewName("estudantes/listInst");
         }
-        return model;
+        return mav;
     }
 
     // Rota para salvar novo objeto na lista
@@ -96,9 +96,10 @@ public class EstudanteController {
     public ModelAndView save(@Valid Estudante estudante, BindingResult validation, ModelAndView mav, RedirectAttributes redAttrs) {
         if(validation.hasErrors()) {
             mav.addObject("estudante", estudante);
-            mav.setViewName("/estudantes/formEstu");
-            //return mav;
-        } else {
+            //mav.setViewName("redirect:/estudantes");
+            mav.setViewName("estudantes/formEstu");
+            return mav;
+        }
             Optional<Estudante> opEmail = estudanteRepository.findByEmail(estudante.getEmail());
             Optional<Estudante> opMatricula = estudanteRepository.findByMatricula(estudante.getMatricula());
             //if (opMatricula.isPresent() || opEmail.isPresent()) {
@@ -115,7 +116,7 @@ public class EstudanteController {
                 mav.setViewName("estudantes/listEstu");
                 //model.setViewName("redirect:/estudantes");
             }
-        }
+        
         return mav;
     }
 
@@ -125,18 +126,18 @@ public class EstudanteController {
     // REQFUNC 8 - Instituição Atual
     // REQNFUNC - Mostrar Erro nos Formulários
     @RequestMapping(value="/update", method = RequestMethod.POST)
-    public ModelAndView updade(Estudante estudante, ModelAndView model, RedirectAttributes redAttrs) {
+    public ModelAndView updade(Estudante estudante, ModelAndView mav, RedirectAttributes redAttrs) {
         //Optional<Instituicao> listaInstituicao = instituicaoRepository.findBySigla(instituicao.getSigla());
         if (estudante.getInstituicao().getId() == null){
             estudante.setInstituicao(null);
         }
         estudanteRepository.save(estudante);
-        model.addObject("estudantes", estudanteRepository.findAll());
+        mav.addObject("estudantes", estudanteRepository.findAll());
         //redAttrs.addFlashAttribute("succesMensagem", "Instituição atualizada com sucesso!");
         //model.setViewName("redirect:/estudantes");
-        model.addObject("succesMensagem", "Estudante "+estudante.getNome()+", atualizado com sucesso!");
-        model.setViewName("/estudantes/listEstu"); 
-        return model;
+        mav.addObject("succesMensagem", "Estudante "+estudante.getNome()+", atualizado com sucesso!");
+        mav.setViewName("/estudantes/listEstu"); 
+        return mav;
     }
 
     // Rota para deletar um objeto da lista
@@ -144,7 +145,7 @@ public class EstudanteController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping("{id}/delete")
-    public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView model, RedirectAttributes redAttrs) {
+    public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView mav, RedirectAttributes redAttrs) {
         Optional<Estudante> opEstudante = estudanteRepository.findById(id);
         if (opEstudante.isPresent()) {
             Estudante estudante = opEstudante.get();
@@ -156,8 +157,8 @@ public class EstudanteController {
         } else {
             redAttrs.addFlashAttribute("errorMensagem", "Estudante Não encontrado!!");
         }
-        model.setViewName("redirect:/estudantes");
-        return model;
+        mav.setViewName("redirect:/estudantes");
+        return mav;
     }
 
     // Ativa o menu Estudante na barra de navegação

@@ -18,6 +18,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -40,20 +41,20 @@ public class Estudante implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Este campo é obrigatório")
-    @Max(value = 50, message = "Valor máximo para este campo é 50 caracteres!")
+    @NotBlank(message = "Este campo é obrigatório!")
+    //@Size(max = 50, message = "Valor máximo para este campo é 50 caracteres!")
     private String nome;
 
-    @NotBlank(message = "Este campo é obrigatório")
+    @NotBlank(message = "Este campo é obrigatório!")
     private String matricula;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Past(message = "Data deve ser no passado")
-    @NotNull(message = "Campo obrigatório!")
+    @NotNull(message = "Este campo é obrigatório!")
     private Date dataNascimento;
 
-    @NotBlank(message = "Este campo é obrigatório")
-    @Email(message = "Informe um e-mail válido")
+    @NotBlank(message = "Este campo é obrigatório!")
+    @Email(message = "Informe um e-mail válido!")
     private String email;
 
     private String senha;
