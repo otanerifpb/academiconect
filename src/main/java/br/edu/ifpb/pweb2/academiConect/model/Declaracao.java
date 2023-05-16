@@ -38,11 +38,10 @@ public class Declaracao implements Serializable {
     // Para o mês usar MM, mm é para minuto, MM = mês numerico; MMM = nome mês abreviado; >MMM = nome do mês
     // Para add "de" na data ${#dates.format(conta.data,"dd''de''MMM''de''yyyy")} para a saída de dados na View (list.html)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "Necessário preencher este campo")
-   // @Past(message = "Data não pode ser no passado")
+    @NotNull(message = "Este campo é obrigatório!")
     private Date dataRecebimento;
 
-    @NotBlank(message = "Necessário preencher este campo")
+    @NotBlank(message = "Este campo é obrigatório!")
     private String observacao;
 
     private boolean declaracaoAtual;

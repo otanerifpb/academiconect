@@ -131,13 +131,9 @@ public class DeclaracaoController implements Serializable {
             mav.addObject("estudante", opEstudante.get());
             mav.addObject("mostrarForm", true);
             mav.setViewName("declaracoes/formDecl");
-            // mav.setViewName("declaracoes/listDecl");
             return mav;
         }
-        // Optional<Estudante> opEstudante =
-        // estudanteRepository.findByMatricula(declaracao.getEstudante().getMatricula());
         Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(matricula);
-
         if (opEstudante.isPresent()) {
             Estudante estudante = opEstudante.get();
             Set<Declaracao> declaracoesEstudante = estudante.getDeclaracoes();
@@ -146,15 +142,10 @@ public class DeclaracaoController implements Serializable {
                     declaracaoAtual.setDeclaracaoAtual(false);
                 }
             }
-
             declaracao.setDeclaracaoAtual(true);
             declaracao.setEstudante(estudante);
-
             declaracaoRepository.save(declaracao);
             mav.addObject("declaracoes", declaracaoRepository.findAll());
-            // redAttrs.addFlashAttribute("succesMensagem", "Declaração cadastrado com
-            // sucesso!");
-            // model.setViewName("redirect:/declaracoes");
             mav.addObject("succesMensagem", "Declaração cadastrado com sucesso!");
             mav.setViewName("declaracoes/listDecl");
         } else {
@@ -178,9 +169,6 @@ public class DeclaracaoController implements Serializable {
             declaracao.setEstudante(estudante);
             declaracaoRepository.save(declaracao);
             mav.addObject("declaracoes", declaracaoRepository.findAll());
-            // redAttrs.addFlashAttribute("succesMensagem", "Instituição
-            // "+declaracao.getId()+", atualizada com sucesso!_redAttrs");
-            // model.setViewName("redirect:/declaracoes");
             mav.addObject("succesMensagem", "Declaração atualizada com sucesso!!");
             mav.setViewName("declaracoes/listDecl");
         } else {
@@ -243,13 +231,14 @@ public class DeclaracaoController implements Serializable {
             Instituicao inst = estudante.getInstituicao();
             List<Periodo> periodos = inst.getPeriodos();
             mav.addObject("periodosInstituicao", periodos);
-            // model.addObject("declaracao", new Declaracao());
-            // model.addObject("periodosInstituicao", estudante);
+            mav.addObject("declaracao", new Declaracao());
+            mav.addObject("estudante", estudante);
+            mav.addObject("mostrarForm", mostrarForm);
+            mav.setViewName("/declaracoes/formDecl");
+        } else {
+            redAtt.addFlashAttribute("errorMensagem", "Matrícula não encontrada!");
+            mav.setViewName("redirect:/declaracoes");
         }
-        mav.addObject("declaracao", new Declaracao());
-        mav.addObject("estudante", estudante);
-        mav.addObject("mostrarForm", mostrarForm);
-        mav.setViewName("/declaracoes/formDecl");
         return mav;
     }
 }

@@ -19,9 +19,6 @@
                 <!-- <input type="hidden" required th:field="*{id}"/> -->
                 <label for="estudante">Matrícula:</label></br>
                     <input type="text" class="form-control" name="matricula"  th:value="${estudante.matricula}" readonly/></br>
-                <!-- <span type="text" class="form-control" th:value="${estudante.nome}" readonly></span></br> -->
-                <!-- <input type="hidden" class="form-control" th:name="matricula"  th:field="*{estudante.matricula}"  readonly/></br> -->
-
                 <div th:replace="~{/fragments/body :: formDecl}"></div>
                     
                 <label for="periodos" class="form-label">Período Letivo:</label>
