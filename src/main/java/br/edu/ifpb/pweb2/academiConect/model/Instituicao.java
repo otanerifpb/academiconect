@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,10 +34,13 @@ public class Instituicao implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "Este campo é obrigatório!")
     private String nome;
 
+    @NotBlank(message = "Este campo é obrigatório!")
     private String sigla;
 
+    @NotBlank(message = "Este campo é obrigatório!")
     private String fone;
 
     // Relação entre Instituição e Estudante (1:N)

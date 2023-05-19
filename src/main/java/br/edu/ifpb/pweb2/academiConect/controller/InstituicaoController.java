@@ -34,10 +34,10 @@ public class InstituicaoController {
 
     // Rota para acessar a lista pelo menu com o GET
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView listAll(ModelAndView model) {
-        model.addObject("instituicoes", instituicaoRepository.findAll());
-        model.setViewName("instituicoes/listInst");
-        return model;
+    public ModelAndView listAll(ModelAndView mav) {
+        mav.addObject("instituicoes", instituicaoRepository.findAll());
+        mav.setViewName("instituicoes/listInst");
+        return mav;
     }
 
     // Rota para acessar a lista ao usar a Rota da class
@@ -51,26 +51,26 @@ public class InstituicaoController {
     // Rota para acessar o formunário
     // REQNFUNC - Mostrar Erro nos Formulários
     @RequestMapping("/formInst")
-    public ModelAndView getForm(ModelAndView model) {
-        model.addObject("instituicao", new Instituicao());
-        model.setViewName("instituicoes/formInst");
-        return model;
+    public ModelAndView getForm(ModelAndView mav) {
+        mav.addObject("instituicao", new Instituicao());
+        mav.setViewName("instituicoes/formInst");
+        return mav;
     }
 
     // Rota para acessar o formunlário de atualização ou a lista se não for atualizar 
     // REQNFUNC - Mostrar Erro nos Formulários
     @RequestMapping("/{id}")
-    public ModelAndView getInstituicaoById(@PathVariable(value = "id") Integer id, ModelAndView model) {
+    public ModelAndView getInstituicaoById(@PathVariable(value = "id") Integer id, ModelAndView mav) {
         Optional<Instituicao> opInstituicao = instituicaoRepository.findById(id);
         Instituicao instituicao = opInstituicao.get();
         if (opInstituicao.isPresent()) {
-            model.addObject("instituicao", opInstituicao.get());
-            model.setViewName("instituicoes/formUpInst");
+            mav.addObject("instituicao", opInstituicao.get());
+            mav.setViewName("instituicoes/formUpInst");
         } else {
-            model.addObject("errorMensagem", "Instituição "+instituicao.getNome()+" não encontrado.");
-            model.setViewName("instituicoes/listInst");
+            mav.addObject("errorMensagem", "Instituição "+instituicao.getNome()+" não encontrado.");
+            mav.setViewName("instituicoes/listInst");
         }
-        return model;
+        return mav;
     }
 
     // Rota para salvar novo objeto na lista
@@ -78,20 +78,20 @@ public class InstituicaoController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView save(Instituicao instituicao, ModelAndView model, RedirectAttributes redAttrs) {
+    public ModelAndView save(Instituicao instituicao, ModelAndView mav, RedirectAttributes redAttrs) {
         Optional<Instituicao> opInstituicao = instituicaoRepository.findBySigla(instituicao.getSigla());
         if (opInstituicao.isPresent()) {
             redAttrs.addFlashAttribute("errorMensagem", "Instituição "+instituicao.getSigla()+" já cadastrado no sistema!!");
             //model.addObject("errorMensagem", "Instituição "+instituicao.getSigla()+" já existe!!");
-            model.setViewName("redirect:/instituicoes");
+            mav.setViewName("redirect:/instituicoes");
         } else {
             instituicaoRepository.save(instituicao);
-            model.addObject("instituicoes", instituicaoRepository.findAll());
+            mav.addObject("instituicoes", instituicaoRepository.findAll());
             //redAttrs.addFlashAttribute("succesMensagem", "Instituição cadastrada com sucesso!");
-            model.addObject("succesMensagem", "Instituição cadastrado com sucesso!");
-            model.setViewName("/instituicoes/listInst");
+            mav.addObject("succesMensagem", "Instituição cadastrado com sucesso!");
+            mav.setViewName("/instituicoes/listInst");
         }  
-        return model;
+        return mav;
     }
 
     // Rota para atualizar um objeto na lista
@@ -99,14 +99,14 @@ public class InstituicaoController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(value="/update", method = RequestMethod.POST)
-    public ModelAndView updade(Instituicao instituicao, ModelAndView model, RedirectAttributes redAttrs) {
+    public ModelAndView updade(Instituicao instituicao, ModelAndView mav, RedirectAttributes redAttrs) {
         instituicaoRepository.save(instituicao);
-        model.addObject("instituicoes", instituicaoRepository.findAll());
+        mav.addObject("instituicoes", instituicaoRepository.findAll());
         //redAttrs.addFlashAttribute("succesMensagem", "Instituição atualizada com sucesso!");
         //model.setViewName("redirect:/instituicoes");
-        model.addObject("succesMensagem", "Instituição "+instituicao.getNome()+", atualizada com sucesso!");
-        model.setViewName("/instituicoes/listInst");    
-        return model;
+        mav.addObject("succesMensagem", "Instituição "+instituicao.getNome()+", atualizada com sucesso!");
+        mav.setViewName("/instituicoes/listInst");    
+        return mav;
     }
 
     // Rota para deletar um objeto da lista
@@ -114,7 +114,7 @@ public class InstituicaoController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping("{id}/delete")
-    public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView model, RedirectAttributes redAtt) {
+    public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView mav, RedirectAttributes redAtt) {
         Optional<Instituicao> opInstituicao = instituicaoRepository.findById(id);
         Instituicao instituicao = null;
         if (opInstituicao.isPresent()) {
@@ -128,8 +128,8 @@ public class InstituicaoController {
         } else {
             redAtt.addFlashAttribute("errorMensagem", "Instituição não pode ser deletada, contem estudante cadastrado.");
         }
-        model.setViewName("redirect:/instituicoes");
-        return model;
+        mav.setViewName("redirect:/instituicoes");
+        return mav;
     }
 
     // Ativa o menu Instituição na barra de navegação

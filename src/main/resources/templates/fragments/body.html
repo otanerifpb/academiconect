@@ -125,6 +125,26 @@
             <input type="text" class="form-control" th:field="*{observacao}" />
             <p th:if="${#fields.hasErrors('observacao')}" th:errors="*{observacao}" th:errorclass="error"></p>
         </div>
-    </div>     
+    </div>   
+    
+    <!-- Dados do formulário de Instituição -->
+    <div class="navbar-nav" th:fragment="formInst">
+        <input type="hidden" required th:field="*{id}" />
+        <div>
+            <label for="nome" class="form-label">Nome:</label>
+            <input type="text" class="form-control" th:field="*{nome}" maxlength="50"/>
+            <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" th:errorclass="error"></p>
+        </div>
+        <div>
+            <label for="sigla" class="form-label">Sigla:</label>
+            <input type="text" class="form-control" th:field="*{sigla}" />
+            <p th:if="${#fields.hasErrors('sigla')}" th:errors="*{sigla}" th:errorclass="error"></p>
+        </div>
+        <div>
+            <label for="fone" class="form-label">Fone:</label>
+            <input type="text" class="form-control" th:field="*{fone}" />
+            <p th:if="${#fields.hasErrors('fone')}" th:errors="*{fone}" th:errorclass="error"></p>
+        </div>
+    </div>
 </body>
 </html>

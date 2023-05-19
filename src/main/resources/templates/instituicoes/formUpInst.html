@@ -6,13 +6,14 @@
 <body>
     <div layout:fragment="content">
         <form th:action="@{/instituicoes/update}" method="POST" th:object="${instituicao}">
-            <input type="hidden" required th:field="*{id}" />
+            <div th:replace="~{/fragments/body :: formInst}"></div>
+            <!-- <input type="hidden" required th:field="*{id}" />
             <label for="nome" class="form-label">Nome:</label>
                 <input type="text" class="form-control" required th:field="*{nome}" maxlength="50"/></br>
             <label for="sigla" class="form-label">Sigla:</label>
                 <input type="text" class="form-control" required th:field="*{sigla}" /></br>
             <label for="fone" class="form-label">Fone:</label>
-                <input type="text" class="form-control" required th:field="*{fone}" /></br>
+                <input type="text" class="form-control" required th:field="*{fone}" /></br> -->
             <button type="submit" class="btn btn-primary">Atualizar</button>
         </form>
     </div>
