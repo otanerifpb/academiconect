@@ -27,8 +27,11 @@
 
     <!-- Botão Sair da página Home -->
     <div style="margin-right: 5px;" th:fragment="sair(titulo)">
+        <!-- th:text="${titulo}" -->
         <a th:href="@{/home}">
-            <button class="btn btn-outline-secondary my-2 my-sm-0" th:text="${titulo}"></button>
+            <button type="submit" class="btn btn-outline-secondary my-0 my-sm-0" >
+                <img th:src="@{/imagens/sair.png}" alt="Sair"/>
+            </button>
         </a>
     </div>
 

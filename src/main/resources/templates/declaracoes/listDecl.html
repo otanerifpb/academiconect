@@ -8,20 +8,25 @@
         <table class="table table-striped table-hover">
             <tr>
                 <th>
-                    <form th:action="@{/declaracoes/formDecl}" method="GET">
-                        <button class="btn btn-primary" type="submit">
+                    <!-- <form th:action="@{/declaracoes/formDecl}" method="GET">
+                        <button class="btn btn-primary" type="submit" >
                             Novo
                         </button>
-                    </form>
+                    </form> -->
+                    <!-- <form th:action="@{/declaracoes/formDecEstu}" method="GET">
+                        <button class="btn btn-primary" type="submit">
+                            Consultar
+                        </button>
+                    </form> -->
                 </th>
 
-                <th>
+                <!-- <th>
                     <form th:action="@{/declaracoes/formDecEstu}" method="GET">
                         <button class="btn btn-primary" type="submit">
                             Consultar
                         </button>
                     </form>
-                </th>
+                </th> -->
             </tr>
         </table>
 
@@ -59,11 +64,32 @@
                             <img th:unless="${declaracao.declaracaoAtual}" th:src="@{/imagens/nok.png}" />
                         </td>
                         <td>
-                            <form th:action="@{/declaracoes/{id}/delete(id=${declaracao.id})}">
-                                <button type="submit" class="btn btn-primary btn-sm" >
+                            <form th:action="@{/declaracoes/destino}" method="POST">
+                                <button class="btn btn-primary btn-sm" type="submit" name="dest" value="destino1">
+                                    Novo
+                                </button>
+                                <button class="btn btn-primary btn-sm" type="submit" name="dest" value="destino2">
+                                    Consultar
+                                </button>
+                                <button type="submit" class="btn btn-primary btn-sm" name="dest" value="destino3">
                                     Excluir
                                 </button>
                             </form>
+                            <!-- <form th:action="@{/declaracoes/formDecl}" method="GET">
+                                <button class="btn btn-primary" type="submit" >
+                                    Novo
+                                </button>
+                            </form> -->
+                            <!-- <form th:action="@{/declaracoes/{id}/delete(id=${declaracao.id})}">
+                                <button type="submit" class="btn btn-primary btn-sm" >
+                                    Excluir
+                                </button>
+                            </form> -->
+                            <!-- <form th:action="@{/declaracoes/formDecEstu}" method="GET">
+                                <button class="btn btn-primary" type="submit">
+                                    Consultar
+                                </button>
+                            </form> -->
                         </td>
                     </tr>
                 </tbody>

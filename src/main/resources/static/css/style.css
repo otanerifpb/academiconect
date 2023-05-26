@@ -29,6 +29,14 @@
     color: red;
 }
 
+.btn {
+    /* background-color: #f0eded; */
+}
+
+.btn-outline-secondary {
+    border: none;
+}
+
 footer {
     position: fixed;
     left: 0;
