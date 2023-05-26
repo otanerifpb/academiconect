@@ -14,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -241,4 +243,21 @@ public class DeclaracaoController implements Serializable {
         }
         return mav;
     }
+
+    //@PostMapping("/destino")
+    // @RequestMapping(value = "/destino", method = RequestMethod.GET)
+    // public ModelAndView destinoForm(@RequestParam("acao") String acao, ModelAndView mav) {
+    //     String mostrarForm = "false";
+    //     if(acao.equals("destino1")) {
+    //         mav.addObject("mostrarForm", mostrarForm);
+    //         mav.setViewName("declaracoes/formDecl");
+            
+    //         //mav.setViewName("/formDecl");
+    //     } else if (acao.equals("destino2")) {
+    //         mav.setViewName("/declaracoes/formDecEstu");
+    //     } else if (acao.equals("destino3")) {
+    //         mav.setViewName("/declaracoes/{id}/delete(id=${declaracao.id})");
+    //     }
+    //     return mav;
+    // }
 }

@@ -20,7 +20,9 @@
                 </select></br>
             <label for="nome" class="form-label">Declaração Atual?</label>
                 <input type="checkbox" th:field="*{declaracaoAtual}" class="form-check-input"/></br></br>
-            <button type="submit" class="btn btn-primary">Atualizar</button>
+            <button type="submit" class="btn btn-outline-secondary btn-sm">
+                <img th:src="@{/imagens/enviar1.png}" alt="Enviar"/>
+            </button>
         </form>
     </div>
 </body>

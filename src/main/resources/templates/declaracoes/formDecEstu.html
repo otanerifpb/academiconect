@@ -8,7 +8,9 @@
         <form th:action="@{/declaracoes/getDecEstudante}" th:object="${declaracao}">
             <label for="estudante">Consultar por Matrícula:</label>
                 <input type="text" class="form-control" required th:field="*{estudante.matricula}" /></br>
-            <button type="submit" class="btn btn-primary">Consultar</button>
+            <button type="submit" class="btn btn-outline-secondary btn-sm">
+                <img th:src="@{/imagens/consulta.png}" alt="Consultar"/>
+            </button>
         </form></br>
 
         <!-- <form th:action="@{/declaracoes}" method="GET" th:object="${declaracao}">

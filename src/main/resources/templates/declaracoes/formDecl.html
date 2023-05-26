@@ -10,8 +10,8 @@
             <form th:action="@{/declaracoes/periodoInstituicao}">
                 <label for="estudante">Matrícula:</label></br>
                     <input type="text" class="form-control" required th:name="matricula"/></br>
-                <button class="btn btn-primary" type="submit">
-                    Consulta Períodos
+                <button class="btn btn-outline-secondary btn-sm" type="submit">
+                    <img th:src="@{/imagens/consulta.png}" alt="Consulta Períodos"/>
                 </button>
             </form>
         </div>
@@ -31,7 +31,9 @@
                             th:text="${peri.periodoLetivo}" >
                         </option>
                     </select></br>
-                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="submit" class="btn btn-outline-secondary btn-sm">
+                    <img th:src="@{/imagens/enviar1.png}" alt="Salvar"/>
+                </button>
             </form>
         </div>
     </div>
