@@ -6,8 +6,7 @@
 <body>
     <div layout:fragment="content">
         <form th:action="@{/estudantes/formEstu}" method="GET">
-            <!-- btn-outline-secondary  btn-primary-->
-            <button class="btn btn-outline-secondary" type="submit">
+            <button class="btn btn-outline-secondary" type="submit" title="Novo">
                 <img th:src="@{/imagens/novo.png}" alt="Novo"/>
             </button>
         </form>
@@ -32,9 +31,10 @@
                 <tbody>
                     <tr th:each="estudante : ${estudantes}">
                         <!-- <a th:href="@{/estudantes/{id}(id=${estudante.id})}"  -->
-                        <td><a th:href="@{/estudantes/{id}(id=${estudante.id})}"     
+                        <!-- <td><a th:href="@{/estudantes/{id}(id=${estudante.id})}"     
                             th:text="${estudante.nome != null and estudante.nome != '' ?estudante.nome: 'Anônimo'}"></a>
-                        </td>
+                        </td> -->
+                        <td th:text="${estudante.nome != null and estudante.nome != '' ?estudante.nome: 'Anônimo'}"></td>   
                         <td th:text="${estudante.matricula}" style="text-align: center;"></td>
                         <td th:text="${#dates.format(estudante.dataNascimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
                             style="text-align: center;"></td>
@@ -43,9 +43,16 @@
                         <td th:text="${estudante.instituicao != null and estudante.instituicao != '' ?estudante.instituicao.sigla: 'Não Informada'}"
                             style="text-align: center;"></td>
                         <td>
+                            <form th:action="@{/estudantes/{id}(id=${estudante.id})}" method="GET">
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
+                                    <img th:src="@{/imagens/editar.png}" alt="Editar"/>
+                                </button>
+                            </form>
+                        </td>
+                        <td>
                             <form th:action="@{/estudantes/{id}/delete(id=${estudante.id})}">
-                                <button type="submit" class="btn btn-primary btn-sm" >
-                                    Excluir
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
+                                    <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>
                                 </button>
                             </form>
                         </td>

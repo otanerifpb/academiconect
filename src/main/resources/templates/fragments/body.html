@@ -29,7 +29,7 @@
     <div style="margin-right: 5px;" th:fragment="sair(titulo)">
         <!-- th:text="${titulo}" -->
         <a th:href="@{/home}">
-            <button type="submit" class="btn btn-outline-secondary my-0 my-sm-0" >
+            <button class="btn btn-outline-secondary my-0 my-sm-0" type="submit" title="Sair">
                 <img th:src="@{/imagens/sair.png}" alt="Sair"/>
             </button>
         </a>
@@ -38,7 +38,9 @@
     <!-- Botão Voltar dos Formulários Instituição / Não foi possível usar depois de aplicar o Layout -->
     <div style="margin-right: 5px;" th:fragment="voltarInst(titulo)">
         <a class="nav-item nav-link" th:href="@{/instituicoes}">
-            <button class="btn btn-outline-secondary my-2 my-sm-0" th:text="${titulo}">Voltar</button>
+            <button class="btn btn-outline-secondary my-2 my-sm-0" th:text="${titulo}">
+                Voltar
+            </button>
         </a>
     </div>
 

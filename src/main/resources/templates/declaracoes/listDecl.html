@@ -5,30 +5,11 @@
 
 <body>
     <div layout:fragment="content">
-        <!-- <table class="table table-striped table-hover">
-            <tr>
-                <th>
-                    <form th:action="@{/declaracoes/formDecl}" method="GET">
-                        <button class="btn btn-primary" type="submit" >
-                            Novo
-                        </button>
-                    </form>
-                    <form th:action="@{/declaracoes/formDecEstu}" method="GET">
-                        <button class="btn btn-primary" type="submit">
-                            Consultar
-                        </button>
-                    </form>
-                </th>
-
-                <th>
-                    <form th:action="@{/declaracoes/formDecEstu}" method="GET">
-                        <button class="btn btn-primary" type="submit">
-                            Consultar
-                        </button>
-                    </form>
-                </th>
-            </tr>
-        </table> -->
+        <form th:action="@{/declaracoes/formDecl}" method="GET">
+            <button class="btn btn-outline-secondary btn-sm" type="submit" title="Novo">
+                <img th:src="@{/imagens/novo.png}" alt="Novo"/>
+            </button>
+        </form>
 
         <div th:if="${not #lists.isEmpty(declaracoes)}">
             <div th:text="'Total: ' + ${#lists.size(declaracoes)} + ' registro(s)'" 
@@ -48,10 +29,13 @@
                 <tbody>
                     <tr th:each="declaracao: ${declaracoes}">
                         <td th:text="${declaracao.estudante.matricula}"></td>
-                        <td>
+                        <!-- <td>
                             <a th:href="@{/declaracoes/{id}(id=${declaracao.id})}"     
                                 th:text="${#dates.format(declaracao.dataRecebimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
                                 style="text-align: left;"></a>
+                        </td> -->
+                        <td th:text="${#dates.format(declaracao.dataRecebimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
+                            style="text-align: left;">       
                         </td>
                         <td 
                             th:text="${declaracao.observacao != null and declaracao.observacao != '' ?declaracao.observacao: 'Sem observações!!'}">
@@ -63,24 +47,30 @@
                             <img th:if="${declaracao.declaracaoAtual}" th:src="@{/imagens/ok.png}" />
                             <img th:unless="${declaracao.declaracaoAtual}" th:src="@{/imagens/nok.png}" />
                         </td>
-                        <td >
+                        <!-- <td >
                             <form th:action="@{/declaracoes/formDecl}" method="GET">
-                                <button class="btn btn-outline-secondary btn-sm" type="submit" >
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Novo">
                                     <img th:src="@{/imagens/novo.png}" alt="Novo"/>
                                 </button>
                             </form>
-                        </td>
+                        </td> -->
                         <td >
                             <form th:action="@{/declaracoes/formDecEstu}" method="GET">
-                                <button class="btn btn-outline-secondary btn-sm" type="submit">
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Consultar">
                                     <img th:src="@{/imagens/consulta.png}" alt="Consultar"/>
                                 </button>
                             </form>
                         </td>
-                        <!-- class="btn mr-0 ml-0" -->
+                        <td>
+                            <form th:action="@{/declaracoes/{id}(id=${declaracao.id})}" method="GET">
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
+                                    <img th:src="@{/imagens/editar.png}" alt="Editar"/>
+                                </button>
+                            </form>
+                        </td>
                         <td > 
                             <form th:action="@{/declaracoes/{id}/delete(id=${declaracao.id})}" >
-                                <button type="submit" class="btn btn-outline-secondary btn-sm" >
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
                                     <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>
                                 </button>
                             </form>

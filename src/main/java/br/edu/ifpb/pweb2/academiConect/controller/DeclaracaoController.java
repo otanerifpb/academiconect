@@ -244,7 +244,7 @@ public class DeclaracaoController implements Serializable {
         return mav;
     }
 
-    //@PostMapping("/destino")
+    // @PostMapping("/destino")
     // @RequestMapping(value = "/destino", method = RequestMethod.GET)
     // public ModelAndView destinoForm(@RequestParam("acao") String acao, ModelAndView mav) {
     //     String mostrarForm = "false";
