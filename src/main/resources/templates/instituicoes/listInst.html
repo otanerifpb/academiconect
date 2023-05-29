@@ -6,7 +6,7 @@
 <body>
     <div layout:fragment="content">
         <form th:action="@{/instituicoes/formInst}" method="GET">
-            <button class="btn btn-outline-secondary" type="submit">
+            <button class="btn btn-outline-secondary" type="submit" title="Novo">
                 <img th:src="@{/imagens/novo.png}" alt="Novo"/>
             </button>
         </form>
@@ -26,16 +26,24 @@
                 </thead>
                 <tbody>
                     <tr th:each="instituicao : ${instituicoes}">
-                        <td>
+                        <!-- <td>
                             <a th:href="@{/instituicoes/{id}(id=${instituicao.id})}"     
                             th:text="${instituicao.nome != null and instituicao.nome != '' ?instituicao.nome: 'Não Informado'}"></a>
-                        </td>
+                        </td> -->
+                        <td th:text="${instituicao.nome != null and instituicao.nome != '' ?instituicao.nome: 'Não Informado'}"></td>
                         <td th:text="${instituicao.sigla}"></td>
                         <td th:text="${instituicao.fone}"></td>
                         <td>
+                            <form th:action="@{/instituicoes/{id}(id=${instituicao.id})}">
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
+                                    <img th:src="@{/imagens/editar.png}" alt="Editar"/>
+                                </button>
+                            </form>
+                        </td>
+                        <td>
                             <form th:action="@{/instituicoes/{id}/delete(id=${instituicao.id})}">
-                                <button type="submit" class="btn btn-primary btn-sm" >
-                                    Excluir
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
+                                    <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>
                                 </button>
                             </form>
                         </td>

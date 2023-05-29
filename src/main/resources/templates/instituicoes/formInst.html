@@ -6,15 +6,15 @@
 <body>
     <div layout:fragment="content">
         <form th:action="@{/instituicoes}" method="POST" th:object="${instituicao}">
-            <div th:replace="~{/fragments/body :: formInst}"></div>
-            <!-- <input type="hidden" required th:field="*{id}" />
-            <label for="nome" class="form-label">Nome:</label>
-                <input type="text" class="form-control" required th:field="*{nome}" maxlength="50"/></br>
-            <label for="sigla" class="form-label">Sigla:</label>
-                <input type="text" class="form-control" th:field="*{sigla}" /></br>
-            <label for="fone" class="form-label">Fone:</label>
-                <input type="text" class="form-control" th:field="*{fone}" /></br> -->
-            <button type="submit" class="btn btn-primary">Salvar</button>
+            <div th:replace="~{/fragments/body :: formInst}"></div></br>
+            <button class="btn btn-outline-secondary btn-sm" type="submit" title="Salvar">
+                <img th:src="@{/imagens/salvar3.png}" alt="Salvar"/>
+            </button>
+            <a th:href="@{/instituicoes}">
+                <button class="btn btn-outline-secondary btn-sm" type="button" title="Voltar">
+                    <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+                </button>
+            </a>
         </form>
     </div>
 </body>

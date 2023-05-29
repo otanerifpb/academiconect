@@ -6,7 +6,7 @@
 <body>
     <div layout:fragment="content">
         <form th:action="@{/instituicoes/update}" method="POST" th:object="${instituicao}">
-            <div th:replace="~{/fragments/body :: formInst}"></div>
+            <div th:replace="~{/fragments/body :: formInst}"></div><br>
             <!-- <input type="hidden" required th:field="*{id}" />
             <label for="nome" class="form-label">Nome:</label>
                 <input type="text" class="form-control" required th:field="*{nome}" maxlength="50"/></br>
@@ -14,7 +14,14 @@
                 <input type="text" class="form-control" required th:field="*{sigla}" /></br>
             <label for="fone" class="form-label">Fone:</label>
                 <input type="text" class="form-control" required th:field="*{fone}" /></br> -->
-            <button type="submit" class="btn btn-primary">Atualizar</button>
+            <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
+                <img th:src="@{/imagens/editar.png}" alt="Editar"/>
+            </button>
+            <a th:href="@{/instituicoes}">
+                <button class="btn btn-outline-secondary btn-sm" type="button" title="Voltar">
+                    <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+                </button>
+            </a>
         </form>
     </div>
 </body>
