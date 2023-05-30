@@ -87,16 +87,21 @@ public class DeclaracaoController implements Serializable {
         if (opEstudante.isPresent()) {
             Estudante estudante = opEstudante.get();
             Set<Declaracao> declaracoesEstudante = estudante.getDeclaracoes();
-            List<Declaracao> listDeclaracoes = new ArrayList<>();
-            for (Declaracao declaracaoEstudante : declaracoesEstudante) {
-                listDeclaracoes.add(declaracaoEstudante);
+            if (!declaracoesEstudante.isEmpty()) {
+                List<Declaracao> listDeclaracoes = new ArrayList<>();
+                for (Declaracao declaracaoEstudante : declaracoesEstudante) {
+                    listDeclaracoes.add(declaracaoEstudante);
+                }
+                mav.addObject("declaracoes", listDeclaracoes);
+                mav.addObject("succesMensagem", "Estudante encontrado com sucesso!!");
+                mav.setViewName("declaracoes/listDecl");
+            }else{
+                mav.addObject("errorMensagem", "Estudante não tem declaração cadastrada!!");
+                mav.setViewName("/declaracoes/formDecEstu");
             }
-            mav.addObject("declaracoes", listDeclaracoes);
-            mav.addObject("succesMensagem", "Estudante encontrado com sucesso!!");
-            mav.setViewName("declaracoes/listDecl");
         } else {
-            mav.addObject("errorMensagem", "Estudante não tem declaração cadastrada!!");
-            mav.setViewName("/declaracoes/formDecEstu");
+        mav.addObject("errorMensagem", "Estudante não cadastrado no sistema!!");
+        mav.setViewName("/declaracoes/formDecEstu");
         }
         return mav;
     }

@@ -43,6 +43,16 @@
                         <td th:text="${estudante.instituicao != null and estudante.instituicao != '' ?estudante.instituicao.sigla: 'Não Informada'}"
                             style="text-align: center;"></td>
                         <td>
+                            <!-- <form th:action="@{/declaracoes/getDecEstudante}" th:object="${declaracao}"> -->
+                            <form th:action="@{/estudantes/{id}/listaDeclaracoes(id=${estudante.id})}" method="GET">
+                                <!-- <span type="text" class="form-control" th:field="*{estudante.matricula}" /> -->
+                                <!-- <span type="text" class="form-control" name="matricula"  /> -->
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Declaraões">
+                                    <img th:src="@{/imagens/lista1.png}" alt="Declaraões"/>
+                                </button>
+                            </form>
+                        </td>
+                        <td>
                             <form th:action="@{/estudantes/{id}(id=${estudante.id})}" method="GET">
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
                                     <img th:src="@{/imagens/editar.png}" alt="Editar"/>

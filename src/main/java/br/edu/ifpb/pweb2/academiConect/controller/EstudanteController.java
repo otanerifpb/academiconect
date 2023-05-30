@@ -20,6 +20,7 @@ import br.edu.ifpb.pweb2.academiConect.repository.InstituicaoRepository;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -183,6 +184,47 @@ public class EstudanteController {
     public List<Instituicao> getInstituicao() {
         return instituicaoRepository.findAll();
     }
+
+    // Acessar lista das declarações de um Estudante
+    @RequestMapping("{id}/listaDeclaracoes")
+    public ModelAndView getEstudanteByMatricula(@PathVariable(value = "id") Integer id, ModelAndView mav) {
+        Optional<Estudante> opEstudante = estudanteRepository.findById(id);
+        //Optional<Estudante> opEstudante = estudanteRepository.findByMatricula(estudante.matricula);
+        if (opEstudante.isPresent()) {
+            Estudante estudante = opEstudante.get();
+            Set<Declaracao> declaracoesEstudante = estudante.getDeclaracoes();
+            if (!declaracoesEstudante.isEmpty()) {
+                List<Declaracao> listDeclaracoes = new ArrayList<>();
+                for (Declaracao declaracaoEstudante : declaracoesEstudante) {
+                    listDeclaracoes.add(declaracaoEstudante);
+                }
+                mav.addObject("declaracoes", listDeclaracoes);
+                mav.addObject("succesMensagem", "Declaração estudante encontrado com sucesso!!");
+                mav.setViewName("declaracoes/listDecl");
+            }else{
+                mav.addObject("errorMensagem", "Estudante não tem declaração cadastrada!!");
+                mav.setViewName("/estudantes/listEstu");
+            }
+        } else {
+            mav.addObject("errorMensagem", "Estudante não está cadastrado no sistema!!");
+            mav.setViewName("estudantes/listInst");
+        }
+        return mav;
+    }
+    // @RequestMapping("/{id}")
+    // public ModelAndView getEstudanteById(@PathVariable(value = "id") Integer id, ModelAndView mav) {
+    //     Optional<Estudante> opEstudante = estudanteRepository.findById(id);
+       
+    //     if (opEstudante.isPresent()) {
+    //         Estudante estudante = opEstudante.get();
+    //         mav.addObject("estudante", estudante);
+    //         mav.setViewName("estudantes/formUpEstu");
+    //     } else {
+    //         mav.addObject("errorMensagem", "Estudante  não encontrado.");
+    //         mav.setViewName("estudantes/listInst");
+    //     }
+    //     return mav;
+    // }
 
     
 }
