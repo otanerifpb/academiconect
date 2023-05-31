@@ -3,9 +3,12 @@ package br.edu.ifpb.pweb2.academiConect.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -84,11 +87,16 @@ public class PeriodoController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView save(Periodo periodo, ModelAndView model, RedirectAttributes redAttrs) { 
+    public ModelAndView save(@Valid Periodo periodo, BindingResult validation, ModelAndView mav, RedirectAttributes redAttrs) { 
+        if(validation.hasErrors()) {
+            mav.addObject("periodo", periodo);
+			mav.setViewName("/periodos/formPeri");
+			return mav;
+        }
        Optional<Periodo> opPeriodo = periodoRepository.findByAnoPeriodoInstituicao(periodo.getAno(), periodo.getPeriodoLetivo(), periodo.getInstituicoes().get(0).getSigla());
         if (opPeriodo.isPresent()) {
             redAttrs.addFlashAttribute("errorMensagem", "Periodo já cadastrado no sistema!!");
-            model.setViewName("redirect:/periodos");     
+            mav.setViewName("redirect:/periodos");     
         } else {
             String periodoExistente = periodo.getInstituicoes().get(0).getSigla();
            
@@ -106,14 +114,14 @@ public class PeriodoController {
             periodoRepository.save(periodo);
                  
             //pega o periodo e seta na lista da instituicao
-             inst.getPeriodos().add(periodo);
-             instituicaoRepository.save(inst); //salva periodo na instituicao
+            inst.getPeriodos().add(periodo);
+            instituicaoRepository.save(inst); //salva periodo na instituicao
 
-            model.addObject("periodos", periodoRepository.findAll());
-            model.addObject("succesMensagem", "Período "+periodo.getPeriodoLetivo()+" cadastrado com sucesso!!");
-            model.setViewName("/periodos/listPeri");
+            mav.addObject("periodos", periodoRepository.findAll());
+            mav.addObject("succesMensagem", "Período "+periodo.getPeriodoLetivo()+" cadastrado com sucesso!!");
+            mav.setViewName("/periodos/listPeri");
         }  
-        return model;
+        return mav;
     }
 
     // Rota para atualizar um objeto na lista

@@ -109,14 +109,37 @@
     <!-- Dados do formulário de Periodo -->
     <div class="navbar-nav" th:fragment="formPeri">
         <input type="hidden" required th:field="*{id}" />
-        <label for="ano" class="form-label">Ano:</label>
-            <input type="number" class="form-control" required th:field="*{ano}" maxlength="4"/></br>
-        <label for="periodoLetivo" class="form-label">Período Letivo:</label>
-            <input type="text" class="form-control" required th:field="*{periodoLetivo}" /></br>
-        <label for="dataInicio" class="form-label">Data Início:</label>
-            <input type="date" class="form-control" required th:field="*{dataInicio}" /></br>
-        <label for="dataFim" class="form-label">Data Fim:</label>
-            <input type="date" class="form-control" required th:field="*{dataFim}" /></br>
+        <!-- <label for="ano" class="form-label">Ano:</label>
+            <input type="number" class="form-control" th:field="*{ano}" maxlength="4"/>
+            <p th:if="${#fields.hasErrors('ano')}" th:errors="*{ano}" th:errorclass="error"> -->
+        <!-- <label for="periodoLetivo" class="form-label">Período Letivo:</label>
+            <input type="text" class="form-control" th:field="*{periodoLetivo}"/>
+            <p th:if="${#fields.hasErrors('periodoLetivo')}" th:errors="*{periodoLetivo}" th:errorclass="error"></p> -->
+        <!-- <label for="dataInicio" class="form-label">Data Início:</label>
+            <input type="date" class="form-control" required th:field="*{dataInicio}"/> -->
+        <!-- <label for="dataFim" class="form-label">Data Fim:</label>
+            <input type="date" class="form-control" required th:field="*{dataFim}"/> -->
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="ano" class="form-label">Ano:</label>
+            <input type="number" class="form-control" th:field="*{ano}"/>
+            <p th:if="${#fields.hasErrors('ano')}" th:errors="*{ano}" th:errorclass="error">
+        </div></br> 
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="periodoLetivo" class="form-label">Período Letivo:</label>
+            <input type="text" class="form-control" th:field="*{periodoLetivo}"/>
+            <p th:if="${#fields.hasErrors('periodoLetivo')}" th:errors="*{periodoLetivo}" th:errorclass="error"></p>
+        </div></br> 
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="dataInicio" class="form-label">Data Início:</label>
+            <input type="date" class="form-control" th:field="*{dataInicio}"/>
+            <p th:if="${#fields.hasErrors('dataInicio')}" th:errors="*{dataInicio}" th:errorclass="error"></p>
+        </div></br>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="dataFim" class="form-label">Data Fim:</label>
+            <input type="date" class="form-control" th:field="*{dataFim}"/>
+            <p th:if="${#fields.hasErrors('dataFim')}" th:errors="*{dataFim}" th:errorclass="error"></p>
+        </div>
+        
     </div>
 
     <!-- Dados do formulário de Declaração -->

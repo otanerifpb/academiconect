@@ -97,27 +97,24 @@ public class EstudanteController {
     public ModelAndView save(@Valid Estudante estudante, BindingResult validation, ModelAndView mav, RedirectAttributes redAttrs) {
         if(validation.hasErrors()) {
             mav.addObject("estudante", estudante);
-            //mav.setViewName("redirect:/estudantes");
             mav.setViewName("estudantes/formEstu");
             return mav;
         }
-            Optional<Estudante> opEmail = estudanteRepository.findByEmail(estudante.getEmail());
-            Optional<Estudante> opMatricula = estudanteRepository.findByMatricula(estudante.getMatricula());
-            //if (opMatricula.isPresent() || opEmail.isPresent()) {
-            if (opMatricula.isPresent()) {
-                redAttrs.addFlashAttribute("errorMensagem", "Matrícula já cadastrada no sistema!!");
-                mav.setViewName("redirect:/estudantes");
-            } else if (opEmail.isPresent()) {
-                redAttrs.addFlashAttribute("errorMensagem", "E-mail já cadastrado no sistema!!");
-                mav.setViewName("redirect:/estudantes");
-            } else {
-                estudanteRepository.save(estudante);
-                mav.addObject("estudantes", estudanteRepository.findAll());
-                mav.addObject("succesMensagem", "Estudante cadastrado com sucesso!");
-                mav.setViewName("estudantes/listEstu");
-                //model.setViewName("redirect:/estudantes");
-            }
-        
+        Optional<Estudante> opEmail = estudanteRepository.findByEmail(estudante.getEmail());
+        Optional<Estudante> opMatricula = estudanteRepository.findByMatricula(estudante.getMatricula());
+        //if (opMatricula.isPresent() || opEmail.isPresent()) {
+        if (opMatricula.isPresent()) {
+            redAttrs.addFlashAttribute("errorMensagem", "Matrícula já cadastrada no sistema!!");
+             mav.setViewName("redirect:/estudantes");
+        } else if (opEmail.isPresent()) {
+            redAttrs.addFlashAttribute("errorMensagem", "E-mail já cadastrado no sistema!!");
+            mav.setViewName("redirect:/estudantes");
+        } else {
+            estudanteRepository.save(estudante);
+            mav.addObject("estudantes", estudanteRepository.findAll());
+            mav.addObject("succesMensagem", "Estudante cadastrado com sucesso!");
+            mav.setViewName("estudantes/listEstu");
+        }
         return mav;
     }
 
@@ -210,21 +207,5 @@ public class EstudanteController {
             mav.setViewName("estudantes/listInst");
         }
         return mav;
-    }
-    // @RequestMapping("/{id}")
-    // public ModelAndView getEstudanteById(@PathVariable(value = "id") Integer id, ModelAndView mav) {
-    //     Optional<Estudante> opEstudante = estudanteRepository.findById(id);
-       
-    //     if (opEstudante.isPresent()) {
-    //         Estudante estudante = opEstudante.get();
-    //         mav.addObject("estudante", estudante);
-    //         mav.setViewName("estudantes/formUpEstu");
-    //     } else {
-    //         mav.addObject("errorMensagem", "Estudante  não encontrado.");
-    //         mav.setViewName("estudantes/listInst");
-    //     }
-    //     return mav;
-    // }
-
-    
+    }    
 }
