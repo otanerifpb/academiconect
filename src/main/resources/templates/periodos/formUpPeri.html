@@ -18,7 +18,14 @@
                         th:selected="${inst.sigla == periodo.getInstituicoes().get(0).getSigla()}">
                     </option> 
                 </select></br>
-            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button class="btn btn-outline-secondary btn-sm" type="submit" title="Salvar">
+                <img th:src="@{/imagens/salvar3.png}" alt="Salvar"/>
+            </button>
+            <a th:href="@{/periodos}">
+                <button class="btn btn-outline-secondary btn-sm" type="button" title="Voltar">
+                    <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+                </button>
+            </a>
         </form>
     </div>
 </body>

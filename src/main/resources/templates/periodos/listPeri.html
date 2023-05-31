@@ -6,10 +6,10 @@
 <body>
     <div layout:fragment="content">
         <form th:action="@{/periodos/formPeri}" method="GET">
-            <button class="btn btn-outline-secondary" type="submit">
+            <button class="btn btn-outline-secondary" type="submit" title="Novo">
                 <img th:src="@{/imagens/novo.png}" alt="Novo"/>
             </button>
-        </form></br>
+        </form>
 
         <div th:if="${not #lists.isEmpty(periodos)}">
             <div th:text="'Total: ' + ${#lists.size(periodos)} + ' registro(s)'" 
@@ -30,9 +30,7 @@
     
                 <tbody>
                     <tr th:each="periodo : ${periodos}">
-                        <td>
-                            <a th:href="@{/periodos/{id}(id=${periodo.id})}" th:text="${periodo.ano}"></a>
-                        </td>
+                        <td th:text="${periodo.ano}"></td>
                         <td th:text="${periodo.periodoLetivo}" style="text-align: center;"></td>
                         <td th:text="${#dates.format(periodo.dataInicio, 'dd ''de'' MMMM ''de'' yyyy')}" 
                             style="text-align: center;"></td>
@@ -47,9 +45,16 @@
                             <img th:unless="${periodo.periodoAtual}" th:src="@{/imagens/nok.png}" />
                         </td>
                         <td>
+                            <form th:action="@{/periodos/{id}(id=${periodo.id})}" method="GET">
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
+                                    <img th:src="@{/imagens/editar.png}" alt="Editar"/>
+                                </button>
+                            </form>
+                        </td>
+                        <td>
                             <form th:action="@{/periodos/{id}/delete(id=${periodo.id})}">
-                                <button type="submit" class="btn btn-primary btn-sm" >
-                                    Excluir
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
+                                    <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>
                                 </button>
                             </form>
                         </td>
