@@ -27,13 +27,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="declaracao: ${declaracoes}">
+                    <tr th:each="declaracao: ${declaracoes}">   
                         <td th:text="${declaracao.estudante.matricula}"></td>
-                        <!-- <td>
-                            <a th:href="@{/declaracoes/{id}(id=${declaracao.id})}"     
-                                th:text="${#dates.format(declaracao.dataRecebimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
-                                style="text-align: left;"></a>
-                        </td> -->
                         <td th:text="${#dates.format(declaracao.dataRecebimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
                             style="text-align: left;">       
                         </td>
@@ -47,13 +42,6 @@
                             <img th:if="${declaracao.declaracaoAtual}" th:src="@{/imagens/ok.png}" />
                             <img th:unless="${declaracao.declaracaoAtual}" th:src="@{/imagens/nok.png}" />
                         </td>
-                        <!-- <td >
-                            <form th:action="@{/declaracoes/formDecl}" method="GET">
-                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Novo">
-                                    <img th:src="@{/imagens/novo.png}" alt="Novo"/>
-                                </button>
-                            </form>
-                        </td> -->
                         <td >
                             <form th:action="@{/declaracoes/formDecEstu}" method="GET">
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Consultar">
