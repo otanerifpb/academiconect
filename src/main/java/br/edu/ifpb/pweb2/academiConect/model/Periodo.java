@@ -15,15 +15,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Future;
+//import javax.validation.constraints.Digits;
+//import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Range;
+//import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 //import org.springframework.format.annotation.DateTimeFormat;
@@ -48,30 +48,32 @@ public class Periodo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Min(value = 4, message = "Valor para este campo é com 4 caracteres!")
-    //@Max(value = 4, message = "Valor para este campo é com 4 caracteres!")
+    @Min(value = 2020, message = "Ano deve ser superior a 2020!")
+    @Max(value = 9999, message = "Valor para este campo é com 4 caracteres!")
     //@Digits(integer = 4, fraction = 0, message = "Informe um númenro com 4 dígitos!")
     //@Range(min = 4, max = 4, message = "Valor para este campo é de 4 caracteres!")
-    @NotNull(message = "Este campo é obrigatório!")
+    @NotNull(message = "Informe um Ano com 4 dígitosdo tipo 2020!")
     private Integer ano;
 
-    @NotBlank(message = "Este campo é obrigatório!")
+    @NotBlank(message = "Inform o Período Letivo do tipo 2020.1!")
     @Column(name="periodo", columnDefinition = "text")
     private String periodoLetivo;
 
-    @NotNull(message = "Este campo é obrigatório!")
+    @NotNull(message = "Informe a data de início do Período!")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataInicio;
 
-    @Future(message = "Data deve ser no futuro")
-    @NotNull(message = "Este campo é obrigatório!")
+    //@Future(message = "Data deve ser no futuro")
+    @NotNull(message = "Inform a data de fim do Período!")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataFim;
 
     private boolean PeriodoAtual;
 
     // Relação entre PerioLetivo e Instituição (1:N)
+
     @ManyToMany(mappedBy = "periodos")
+    @NotEmpty(message = "Selecione uma Instituição ou cadastre uma Instituição primeiro!")
     //@JoinColumn(name = "id_instituicao")
     private List<Instituicao> instituicoes;
 
@@ -85,10 +87,11 @@ public class Periodo implements Serializable {
         declaracao.setPeriodo(this);
     }
 
-     // Para associar um Periodo a uma Instituição
-     public Periodo(Instituicao instituicao) {
+    // Para associar um Periodo a uma Instituição
+    public Periodo(Instituicao instituicao) {
        this.instituicoes.add(instituicao); 
     }
+
    //add instgituicao na lista de periodos
     public void addInstituicao(Instituicao inst) {
         this.instituicoes.add(inst);

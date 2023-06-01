@@ -7,15 +7,18 @@
     <div layout:fragment="content">
         <form th:action="@{/periodos}" method="POST" th:object="${periodo}">
             <div th:replace="~{/fragments/body :: formPeri}"></div>
-            <label for="instituicao.id" class="form-label">Instituição:</label>
-                <select th:field="*{instituicoes}" class="form-select">
-                    <option value=""></option>
+            <div>
+                <label for="instituicao.id" class="form-label">Instituição:</label>
+                <select id="instituicoes" th:field="*{instituicoes}" class="form-select">
+                    <option value="">Selecione uma opção</option>
                     <option th:each="inst : ${instituicoesItems}" 
                         th:value="${inst.id}" 
                         th:text="${inst.sigla}" 
                         th:selected="${inst.id == instituicoes}">
                     </option>
-                </select></br>
+                </select>
+                <span th:if="${#fields.hasErrors('instituicoes')}" th:errors="*{instituicoes}" th:errorclass="error"></span>
+            </div></br>
             <button class="btn btn-outline-secondary btn-sm" type="submit" title="Salvar">
                 <img th:src="@{/imagens/salvar3.png}" alt="Salvar"/>
             </button>
