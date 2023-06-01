@@ -7,17 +7,21 @@
     <div layout:fragment="content">
         <form th:action="@{/periodos/update}" method="POST" th:object="${periodo}">
             <div th:replace="~{/fragments/body :: formPeri}"></div>
+            <div>  
+                <label for="instituicoes" class="form-label">Instituição:</label>
+                    <select id="instituicoes" name="instituicoes" class="form-select">
+                        <option value=""></option>
+                        <option th:each="inst : ${instituicoesItems}"
+                            th:value="${inst.id}" 
+                            th:text="${inst.sigla}" 
+                            th:selected="${inst.sigla == periodo.getInstituicoes().get(0).getSigla()}">
+                        </option> 
+                    </select>
+                <!-- <label for="nome" class="form-label">Período Atual?</label>
+                    <input type="checkbox" th:field="*{periodoAtual}" class="form-check-input"/> -->
+            </div></br>
             <label for="nome" class="form-label">Período Atual?</label>
-                <input type="checkbox" th:field="*{periodoAtual}" class="form-check-input"/></br>
-            <label for="instituicoes" class="form-label">Instituição:</label>
-                <select id="instituicoes" name="instituicoes" class="form-select">
-                    <option value=""></option>
-                    <option th:each="inst : ${instituicoesItems}"
-                        th:value="${inst.id}" 
-                        th:text="${inst.sigla}" 
-                        th:selected="${inst.sigla == periodo.getInstituicoes().get(0).getSigla()}">
-                    </option> 
-                </select></br>
+                    <input type="checkbox" th:field="*{periodoAtual}" class="form-check-input"/></br>
             <button class="btn btn-outline-secondary btn-sm" type="submit" title="Salvar">
                 <img th:src="@{/imagens/salvar3.png}" alt="Salvar"/>
             </button>

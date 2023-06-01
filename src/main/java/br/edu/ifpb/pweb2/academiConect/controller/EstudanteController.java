@@ -200,11 +200,12 @@ public class EstudanteController {
                 mav.setViewName("declaracoes/listDecl");
             }else{
                 mav.addObject("errorMensagem", "Estudante não tem declaração cadastrada!!");
-                mav.setViewName("/estudantes/listEstu");
+                //mav.setViewName("/estudantes/listEstu");
+                mav.setViewName("/declaracoes/listDecl");
             }
         } else {
             mav.addObject("errorMensagem", "Estudante não está cadastrado no sistema!!");
-            mav.setViewName("estudantes/listInst");
+            mav.setViewName("estudantes/listEstu");
         }
         return mav;
     }    

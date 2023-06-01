@@ -25,6 +25,8 @@
                         <th style="text-align: center;">Data Fim:</th>
                         <th style="text-align: center;">Instituição:</th>
                         <th style="text-align: center;">Período Atual:</th>
+                        <th style="text-align: center;">Editar:</th>
+                        <th style="text-align: center;">Excluir:</th>
                     </tr>
                 </thead>
     
@@ -41,17 +43,21 @@
                             style="text-align: center;">
                         </td>
                         <td style="text-align: center;">
-                            <img th:if="${periodo.periodoAtual}" th:src="@{/imagens/ok.png}" />
-                            <img th:unless="${periodo.periodoAtual}" th:src="@{/imagens/nok.png}" />
+                            <form th:action="@{/periodos/{id}(id=${periodo.id})}" method="GET">
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
+                                    <img th:if="${periodo.periodoAtual}" th:src="@{/imagens/ok.png}" />
+                                    <img th:unless="${periodo.periodoAtual}" th:src="@{/imagens/nok.png}" />
+                                </button>
+                            </form>
                         </td>
-                        <td>
+                        <td style="text-align: center;">
                             <form th:action="@{/periodos/{id}(id=${periodo.id})}" method="GET">
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
                                     <img th:src="@{/imagens/editar.png}" alt="Editar"/>
                                 </button>
                             </form>
                         </td>
-                        <td>
+                        <td style="text-align: center;">
                             <form th:action="@{/periodos/{id}/delete(id=${periodo.id})}">
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
                                     <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>

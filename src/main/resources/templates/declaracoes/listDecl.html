@@ -5,11 +5,31 @@
 
 <body>
     <div layout:fragment="content">
-        <form th:action="@{/declaracoes/formDecl}" method="GET">
-            <button class="btn btn-outline-secondary btn-sm" type="submit" title="Novo">
-                <img th:src="@{/imagens/novo.png}" alt="Novo"/>
-            </button>
-        </form>
+        <table>
+            <tr>
+                <th>
+                    <form th:action="@{/declaracoes/formDecl}" method="GET">
+                        <button class="btn btn-outline-secondary btn-sm" type="submit" title="Novo">
+                            <img th:src="@{/imagens/novo.png}" alt="Novo"/>
+                        </button>
+                    </form>
+                </th>
+                <th>
+                    <form th:action="@{/declaracoes/formDecEstu}" method="GET">
+                        <button class="btn btn-outline-secondary btn-sm" type="submit" title="Consultar">
+                            <img th:src="@{/imagens/consulta.png}" alt="Consultar"/>
+                        </button>
+                    </form>
+                </th>
+                <th>
+                    <a th:href="@{/estudantes}" method="GET">
+                        <button class="btn btn-outline-secondary btn-sm" type="submit" title="Voltar">
+                            <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+                        </button>
+                    </a>
+                </th>
+            </tr>
+        </table>
 
         <div th:if="${not #lists.isEmpty(declaracoes)}">
             <div th:text="'Total: ' + ${#lists.size(declaracoes)} + ' registro(s)'" 
@@ -42,13 +62,13 @@
                             <img th:if="${declaracao.declaracaoAtual}" th:src="@{/imagens/ok.png}" />
                             <img th:unless="${declaracao.declaracaoAtual}" th:src="@{/imagens/nok.png}" />
                         </td>
-                        <td >
+                        <!-- <td >
                             <form th:action="@{/declaracoes/formDecEstu}" method="GET">
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Consultar">
                                     <img th:src="@{/imagens/consulta.png}" alt="Consultar"/>
                                 </button>
                             </form>
-                        </td>
+                        </td> -->
                         <td>
                             <form th:action="@{/declaracoes/{id}(id=${declaracao.id})}" method="GET">
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
@@ -62,7 +82,7 @@
                                     <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>
                                 </button>
                             </form>
-                        </td>
+                        </td>   
                     </tr>
                 </tbody>
             </table>
