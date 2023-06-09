@@ -28,10 +28,11 @@
                     </a>
                 </th>
             </tr>
-        </table>
-        <form th:action="@{/declaracoes/getDecEstudante}" th:object="${declaracao}">
-            <label for="estudante">Consultar por Matrícula:</label>
-                <input type="text" class="form-control" required th:field="*{estudante.matricula}" /></br>
+        </table></br>
+        <label for="estudante">Consultar por Matrícula:</label>
+        <form th:action="@{/declaracoes/getDecEstudante}" th:object="${declaracao}" class="d-flex">
+            <!-- <label for="estudante">Consultar por Matrícula:</label> -->
+            <input type="text" class="form-control" required th:field="*{estudante.matricula}" />
             <button class="btn btn-outline-secondary btn-sm" type="submit" title="Consultar">
                 <img th:src="@{/imagens/consulta.png}" alt="Consultar"/>
             </button>
