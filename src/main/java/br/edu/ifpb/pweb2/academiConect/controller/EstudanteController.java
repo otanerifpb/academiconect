@@ -132,7 +132,7 @@ public class EstudanteController {
         estudanteRepository.save(estudante);
         mav.addObject("estudantes", estudanteRepository.findAll());
         //redAttrs.addFlashAttribute("succesMensagem", "Instituição atualizada com sucesso!");
-        //model.setViewName("redirect:/estudantes");
+        //mav.setViewName("redirect:/estudantes");
         mav.addObject("succesMensagem", "Estudante "+estudante.getNome()+", atualizado com sucesso!");
         mav.setViewName("/estudantes/listEstu"); 
         return mav;
@@ -207,6 +207,7 @@ public class EstudanteController {
             mav.addObject("errorMensagem", "Estudante não está cadastrado no sistema!!");
             mav.setViewName("estudantes/listEstu");
         }
+
         return mav;
     }    
 }
