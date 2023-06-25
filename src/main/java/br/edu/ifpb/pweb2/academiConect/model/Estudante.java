@@ -56,7 +56,18 @@ public class Estudante implements Serializable{
     @Email(message = "Informe um e-mail válido!")
     private String email;
 
+    @NotBlank(message = "Este campo é obrigatório!")
+    private String login;
+
+    @NotBlank(message = "Este campo é obrigatório!")
     private String senha;
+
+    @Override
+    public String toString() {
+        return "Estudante [nome: " +nome
+            +", matricula: " +matricula
+            +", login: " +login+ "]";
+    }
 
     // Relação entre Estudante e Instituição (1:1)
     // Quando tem @ManyToOne é necessário add a class no @EqualsAndHashCode(exclude = {"instituicao", "declaracoes"})

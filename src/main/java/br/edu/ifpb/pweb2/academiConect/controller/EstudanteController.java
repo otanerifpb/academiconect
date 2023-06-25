@@ -31,6 +31,7 @@ import javax.validation.Valid;
 // Rota para o acesso da class
 @RequestMapping("/estudantes")
 public class EstudanteController {
+    
     @Autowired
     EstudanteRepository estudanteRepository;
     
@@ -60,6 +61,7 @@ public class EstudanteController {
     // Rota para acessar o formunário
     // REQFUNC 6 - Instituição Atual
     // REQFUNC 8 - Instituição Atual
+    // REQFUNC 13 - Autenticação e Autorização
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Layout e Fragments
     @RequestMapping("/formEstu")
@@ -89,8 +91,9 @@ public class EstudanteController {
         return mav;
     }
 
-    // Rota para salvar novo objeto na lista
+    // Rota para cadastrar um Estudante no Sitema
     // REQFUNC 4 - CRUD
+    // REQFUNC 13 - Autenticação e Autorização
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)

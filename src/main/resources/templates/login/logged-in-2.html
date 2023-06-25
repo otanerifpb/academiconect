@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt_BR" 
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" 
+        content="width=device-width, initial-scale=1.0">
+    <title>Página Principal do Usuário</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>Login validado com sucesso!!</h1>
+    <img th:src="@{/imagens/logo-t.png}">
+    <p>Bem Vindo, <span th:text="${usuario}">!!</span></p>
+</body>
+</html>
