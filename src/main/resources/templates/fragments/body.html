@@ -16,20 +16,32 @@
         </span>
     </div>
 
-    <!-- Menu da página -->
+    <!-- Menu superior da página -->
     <div class="navbar-nav" th:fragment="menu">
         <a th:classappend="${menu == 'home'} ? 'active'" class="nav-item nav-link" th:href="@{/home}">Home</a>
         <a th:classappend="${menu == 'estudantes'} ? 'active'" class="nav-item nav-link" th:href="@{/estudantes}">Estudantes</a>
         <a th:classappend="${menu == 'instituicoes'} ? 'active'" class="nav-item nav-link" th:href="@{/instituicoes}">Instituição</a>
         <a th:classappend="${menu == 'declaracoes'} ? 'active'" class="nav-item nav-link" th:href="@{/declaracoes/formDecEstu}">Declaração</a>
         <!-- <a th:classappend="${menu == 'declaracoes'} ? 'active'" class="nav-item nav-link" th:href="@{/declaracoes/formDecEstu}">Declaração</a> -->
-        <a th:classappend="${menu == 'periodos'} ? 'active'" class="nav-item nav-link" th:href="@{/periodos}">Período Letivo</a>
+        <a th:classappend="${menu == 'periodos'} ? 'active'" class="nav-item nav-link" th:href="@{/periodos}">Período Letivo</a>  
     </div>
 
+    <!-- <nav class="navbar navbar-expand navbar-light d-flex justify-content-between mb-3"> -->
+        <!-- <span th:if="${session.usuario != null}"
+            th:text="${session.usuario.username}"
+            style="margin-right: 3px; font-size: 0.8em;">
+        </span> -->
+
     <!-- Botão Sair da página Home -->
-    <div style="margin-right: 5px;" th:fragment="sair(titulo)">
-        <!-- th:text="${titulo}" -->
-        <a th:href="@{/home}">
+    <div style="margin-right: 5px;" th:fragment="sair(titulo)" 
+        class="navbar navbar-expand navbar-light d-flex justify-content-between mb-3">
+        <span th:if="${session.usuario != null}" th:text="${session.usuario.username}" 
+                style="margin-right: 3px; font-size: 0.8em;">
+        </span>
+        <p th:if="${session.usuario != null}" th:text="${session.usuario.username}" 
+                style="margin-right: 3px; font-size: 0.8em;">
+        </p>
+        <a th:href="@{/auth/logout}">
             <button class="btn btn-outline-secondary my-0 my-sm-0" type="submit" title="Sair">
                 <img th:src="@{/imagens/sair.png}" alt="Sair"/>
             </button>
