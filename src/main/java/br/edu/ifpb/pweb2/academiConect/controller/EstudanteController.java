@@ -17,6 +17,7 @@ import br.edu.ifpb.pweb2.academiConect.model.Instituicao;
 import br.edu.ifpb.pweb2.academiConect.repository.DeclaracaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.InstituicaoRepository;
+import br.edu.ifpb.pweb2.academiConect.util.PasswordUtil;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -113,6 +114,7 @@ public class EstudanteController {
             redAttrs.addFlashAttribute("errorMensagem", "E-mail já cadastrado no sistema!!");
             mav.setViewName("redirect:/estudantes");
         } else {
+            estudante.setSenha(PasswordUtil.hashPassword(estudante.getSenha()));
             estudanteRepository.save(estudante);
             mav.addObject("estudantes", estudanteRepository.findAll());
             mav.addObject("succesMensagem", "Estudante cadastrado com sucesso!");

@@ -60,7 +60,7 @@ public class Estudante implements Serializable{
     // private String login;
 
     @NotBlank(message = "Este campo é obrigatório!")
-    @Size(min = 4, max = 60, message = "Senha deve ter entre  4 a 12 caracteres")
+    @Size(min = 6, max = 60, message = "Senha deve ter entre  6 a 12 caracteres")
     private String senha;
 
     // @Override

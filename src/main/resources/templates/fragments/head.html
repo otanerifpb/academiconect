@@ -2,6 +2,7 @@
 <html lang="pt_BR" 
     xmlns:th="http://www.thymeleaf.org" 
     th:import="org.thymeleaf.spring5.util.SpringSelectedValueComparator">
+<!-- <head th:fragment="head(titulo, links)"> -->
 <head th:fragment="head(titulo)">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +18,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link rel="img" th:href="@{/imagens/header.png}" type="image/x-icon">
-    <title>Fragments Head</title>
+    <!-- <th:block th:replace="${links}"/> -->
+    <!-- <title>Fragments Head</title> -->
 </head>
 <body>
     

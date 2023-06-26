@@ -21,8 +21,7 @@ public class AcademicSecurityConfig extends WebSecurityConfigurerAdapter{
     // REQFUNC 13 - Autenticação e Autorização
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
+        http.authorizeRequests()
                 // Permite o acesso sem autenticação
                 .antMatchers("/css/**", "/imagens/**")
                 // Tudo acessível para quem estar em css e imagens
@@ -36,11 +35,10 @@ public class AcademicSecurityConfig extends WebSecurityConfigurerAdapter{
                 .formLogin(form -> form
                     // Rota para a página de Login definida
                     .loginPage("/auth")
-                    // Rota para o caso do sucesso do Login, chama página home
+                    // Rota para o caso do sucesso do Login, chama página
                     .defaultSuccessUrl("/home", true)
-                    // Permite tudo para o usuário que estiver logado
+                    // Permite tudo para o usuário que estive
                     .permitAll())
-                // Rota para realizar o Logout do sistema
                 .logout(logout -> logout.logoutUrl("/auth/logout"));
     }
     

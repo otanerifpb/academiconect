@@ -3,8 +3,10 @@
     xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
     
 <head>
+    <!-- <meta th:insert="~{/fragments/head :: head(${titulo1}, ~{::link})}"> -->
     <meta th:insert="~{/fragments/head :: head(${titulo1})}">
-    <title>Layout</title>
+    <!-- <link rel="stylesheet" href=""> -->
+    <!-- <title>Layout</title> -->
 </head>
 <body>
     <div th:replace="~{/fragments/body :: logo(titulo='AcademiConect')}"></div>

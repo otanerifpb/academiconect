@@ -1,17 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt_BR" 
     xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Login </title>
+<!-- <head th:replace="~{/fragments/head :: head(titulo = 'Autenticação', ~{::links})}"> -->
+<head th:replace="~{/fragments/head :: head(titulo = 'Autenticação')}">
+    <!-- <meta th:insert="~{/fragments/head :: head(titulo = 'Autenticação', ~{::links})}"> -->
+    <!-- <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <link th:href="@{/css/auth.css}" rel="stylesheet">
+    <!-- <title>Página de Login </title> -->
 </head>
-<body>
-    <h1>Login</h1>
-    <form action="validateLoginComParams">
-        Login: <input type="text" name="Login"/><br/>
-        Senha: <input type="password" name="Senha"/><br/>
-        <input type="submit" value="Login"/><br/>
+
+<body class="text-center">
+
+    <form class="form-signin" th:action="@{/auth}" method="POST" >
+        <div class="centered">
+            <img class="mb-4" th:src="@{/imagens/logo.png}" alt="Logo do AcademiConect"></img>
+            <h1 class="h3 mb-3 font-weight-normal autentique">Favor, Logar no Sistema!!</h1>
+            <div th:if="${not #strings.isEmpty(mensagem)}" 
+                th:utext="${mensagem} + '<button type=&quot; button&quot; class=&quot; 
+                    close&quot; data-dismiss=&quot; alert&quot; aria-label=&quot; Close&quot>
+                    <span aria-hidden=&quot; true&quot; &times></span></button>'"
+                class="alert alert-danger alert-dismissible fade show" role="alert">
+            </div>
+            <!-- <label for="email" class="sr-only">Email</label>
+                <input type="email" class="form-control input-login" placeholder="Email" 
+                    required autofocus th:field="*{email}"> -->
+                    
+            <!-- <label for="senha" class="sr-only">Senha</label>
+                <input type="password" class="form-control input-login" placeholder="Senha" 
+                    required th:field="*{senha}"> -->
+             <label for = "username" class="sr-only" style="text-align: left; 
+             display: block;">Login
+             </label>
+             <input type="text" class="form-control input-login" placeholder="Login" required autofocus name="username">
+             <label for="password" class="sr-only mt-3" style="text-align: left; display: block;">Senha
+             </label>
+            <input type="password" class="form-control input-login" placeholder="Senha" required name="password"> 
+                    
+            <div class="checkbox mb-3">
+                <label>
+                    <input  type="checkbox" value="lembrar">
+                    Lembrar-me
+                </label>
+            </div>
+            
+        </div>
+        <button class="btn btn-lg btn-primary" type="submit">
+            Entrar
+        </button>
     </form>
 </body>
 </html>

@@ -14,27 +14,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import br.edu.ifpb.pweb2.academiConect.model.Estudante;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.util.PasswordUtil;
-import br.edu.ifpb.pweb2.academiConect.util.PasswordUtil;
 
-@Controller
-@RequestMapping("/auth")
 // Rota para o acesso da class AuthController
 // REQFUNC 13 - Autenticação e Autorização
+@Controller
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
     private EstudanteRepository estudanteRepository;
 
     // Rota para o acessar com uso do GET
+    // Cria um novo objeto conhecido como "cookie", para identificar o Usuário
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getForm(ModelAndView mav) {
-        mav.setViewName("auth/formLogin");
-        mav.addObject("usuario", new Estudante());
+    public ModelAndView getForm(ModelAndView mav) {  
+        mav.setViewName("/auth/formLogin");
+       // mav.addObject("estudante", new Estudante());
         return mav;
     }
     
-    // Rota para o acessar com uso do POST
-    @RequestMapping(method = RequestMethod.POST)
+    // Rota para o acessar com uso do POST, para validar Usuário e Senha
+    @RequestMapping(value="/valide", method = RequestMethod.POST)
     public ModelAndView valide(Estudante estudante, HttpSession session, ModelAndView mav,
             RedirectAttributes redAttrs) {
         if ((estudante = this.isValido(estudante)) != null) {
@@ -56,24 +56,17 @@ public class AuthController {
         return mav;
     }
 
+    // Método para validação do Usuário e Senha
     private Estudante isValido(Estudante estudante) {
         Optional<Estudante> opestudanteSGBD = estudanteRepository.findByEmail(estudante.getEmail());
         //Estudante estudanteSGBD = estudanteRepository.findByEmail(estudante.getEmail());
         Estudante estudanteBD = opestudanteSGBD.get();
         boolean valido = false;
         if (opestudanteSGBD.isPresent()) {
-            //Estudante estudanteBD = opestudanteSGBD.get();
-            
             if (PasswordUtil.checkPass(estudante.getSenha(), estudanteBD.getSenha())) {
                 valido = true;
             }
         }
-        // if (estudanteSGBD != null) {
-        //     //Estudante estudante = estudanteSGBD.get();
-        //     if (PasswordUtil.checkPass(estudante.getSenha(), estudanteSGBD.getSenha())) {
-        //         valido = true;
-        //     }
-        // }
         return valido ? estudanteBD : null;
     }
 }
