@@ -9,26 +9,23 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-// Rota para o acesso da class
 @RequestMapping("/login")
+// Rota para o acesso da class LoginController
 public class LoginController {
 
     // Rota para exibir o formulário do Login
-    // REQFUNC 13 - Autenticação e Autorização
     @RequestMapping("/showLoginForm")
     public String showLoginForm() {
         return "formLogin";
     }
 
     // Rota para processar o Login
-    // REQFUNC 13 - Autenticação e Autorização
     @RequestMapping("/processLogin")
     public String processLoginForm() {
         return "logged-in-1";
     }
 
     // Rota para validar o login Modelo 1
-    // REQFUNC 13 - Autenticação e Autorização
     @RequestMapping("/validateLogin")
     public String validate(HttpServletRequest request, ModelAndView mav) {
         String proxView = "formLogin";
@@ -42,7 +39,6 @@ public class LoginController {
     }
 
     // Rota para validar o login Modelo 2
-    // REQFUNC 13 - Autenticação e Autorização
     @RequestMapping("/validateLoginComParams")
     public String validade(@RequestParam("login") String login, @RequestParam("senha") String senha, ModelAndView mav) {
         String proxView = "formLogin";

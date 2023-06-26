@@ -104,11 +104,11 @@
             <input type="email" th:field="*{email}" class="form-control"/>
             <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}"></p>
         </div>
-        <div class="form-group mx-sm-0 mb-2">
+        <!-- <div class="form-group mx-sm-0 mb-2">
             <label for="login" class="form-label">Login:</label>
             <input type="text" th:field="*{login}" class="form-control"/>
             <p th:if="${#fields.hasErrors('login')}" th:errorclass="error" th:errors="*{login}"></p>
-        </div>
+        </div> -->
         <div class="form-group mx-sm-0 mb-2">
             <label for="senha" class="form-label">Senha:</label>
             <input type="password" th:field="*{senha}" class="form-control"/>

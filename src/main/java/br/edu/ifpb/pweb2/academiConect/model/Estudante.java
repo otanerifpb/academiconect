@@ -17,7 +17,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -56,18 +56,19 @@ public class Estudante implements Serializable{
     @Email(message = "Informe um e-mail válido!")
     private String email;
 
-    @NotBlank(message = "Este campo é obrigatório!")
-    private String login;
+    // @NotBlank(message = "Este campo é obrigatório!")
+    // private String login;
 
     @NotBlank(message = "Este campo é obrigatório!")
+    @Size(min = 4, max = 60, message = "Senha deve ter entre  4 a 12 caracteres")
     private String senha;
 
-    @Override
-    public String toString() {
-        return "Estudante [nome: " +nome
-            +", matricula: " +matricula
-            +", login: " +login+ "]";
-    }
+    // @Override
+    // public String toString() {
+    //     return "Estudante [nome: " +nome
+    //         +", matricula: " +matricula
+    //         +", login: " +login+ "]";
+    // }
 
     // Relação entre Estudante e Instituição (1:1)
     // Quando tem @ManyToOne é necessário add a class no @EqualsAndHashCode(exclude = {"instituicao", "declaracoes"})
