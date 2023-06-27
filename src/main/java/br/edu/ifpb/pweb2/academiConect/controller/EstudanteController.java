@@ -34,7 +34,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/estudantes") /*Rota para o acesso da class */
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 @PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
 public class EstudanteController {
     

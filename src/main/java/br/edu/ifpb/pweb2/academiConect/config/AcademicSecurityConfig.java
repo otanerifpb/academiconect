@@ -32,7 +32,7 @@ public class AcademicSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/css/**", "/imagens/**")  
                 .permitAll()
                 //.antMatchers("/estudantes/**").hasRole("ADMIN")
-                .antMatchers("/declaracoes/**").hasRole("ADMIN")
+                //.antMatchers("/declaracoes/**").hasRole("ADMIN")
                 .antMatchers("/login/**").hasRole("ADMIN")
                 .antMatchers("/instituicoes/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/instituicoes/formInst").hasAnyRole("USER", "ADMIN")

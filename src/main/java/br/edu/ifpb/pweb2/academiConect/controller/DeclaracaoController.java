@@ -31,7 +31,7 @@ import br.edu.ifpb.pweb2.academiConect.repository.PeriodoRepository;
 
 @Controller
 @RequestMapping("/declaracoes") /*Rota para acessar a class */
-//@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
+@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
 public class DeclaracaoController implements Serializable {
     @Autowired
     DeclaracaoRepository declaracaoRepository;
@@ -46,6 +46,7 @@ public class DeclaracaoController implements Serializable {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView listAll(ModelAndView mav) {
         mav.addObject("declaracoes", declaracaoRepository.findAll());
+       // List<Declaracao> declaracoesVencidas = declaracaoRepository.findByDeclaracoesVencidas("UFPB",2022,"2021.2" );
         mav.setViewName("declaracoes/listDecl");
         return mav;
     }
