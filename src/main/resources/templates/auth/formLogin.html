@@ -14,18 +14,22 @@
 
     <form class="form-signin" th:action="@{/auth}" method="POST" >
         <div class="centered">
-            <img class="mb-4" th:src="@{/imagens/logo.png}" alt="Logo do AcademiConect"></img>
+            <img class="mb-4" th:src="@{/imagens/header.png}" alt="Logo do AcademiConect"></img>
             <h1 class="h3 mb-3 font-weight-normal autentique">Favor, Logar no Sistema!!</h1>
-            <div th:if="${not #strings.isEmpty(mensagem)}" 
+            <!-- <div th:if="${not #strings.isEmpty(mensagem)}" 
                 th:utext="${mensagem} + '<button type=&quot; button&quot; class=&quot; 
                     close&quot; data-dismiss=&quot; alert&quot; aria-label=&quot; Close&quot>
                     <span aria-hidden=&quot; true&quot; &times></span></button>'"
                 class="alert alert-danger alert-dismissible fade show" role="alert">
-            </div>
+            </div> -->
             <label for = "username" class="sr-only" style="text-align: left; display: block;">Login:</label>
-                <input type="text" class="form-control input-login" placeholder="Informe seu Login Aqui!" required autofocus name="username">
+                <input type="text" class="form-control input-login" 
+                    placeholder="Informe seu Login Aqui!" 
+                    required autofocus name="username">
             <label for="password" class="sr-only mt-3" style="text-align: left; display: block;">Senha:</label>
-                <input type="password" class="form-control input-login" placeholder="Digite sua Senha Aqui!" required name="password">       
+                <input type="password" class="form-control input-login" 
+                    placeholder="Digite sua Senha Aqui!" 
+                    required name="password">       
             <div class="checkbox mb-3">
                 <label>
                     <input  type="checkbox" value="lembrar">
