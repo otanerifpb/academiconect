@@ -19,7 +19,7 @@ import br.edu.ifpb.pweb2.academiConect.repository.DeclaracaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.InstituicaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.UserRepository;
-import br.edu.ifpb.pweb2.academiConect.util.PasswordUtil;
+//import br.edu.ifpb.pweb2.academiConect.util.PasswordUtil;
 
 import java.time.LocalDate;
 import java.time.Period;
