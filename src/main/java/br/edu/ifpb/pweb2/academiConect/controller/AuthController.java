@@ -32,6 +32,14 @@ public class AuthController {
        // mav.addObject("estudante", new Estudante());
         return mav;
     }
+
+    // Rota para o sair da Sessão
+    @RequestMapping("/logout")
+    public ModelAndView logout(ModelAndView mav, HttpSession session) {
+        session.invalidate();
+        mav.setViewName("redirect:/auth");
+        return mav;
+    }
     
     // Rota para o acessar com uso do POST, para validar Usuário e Senha
     // @RequestMapping(value="/valide", method = RequestMethod.POST)
@@ -47,14 +55,6 @@ public class AuthController {
     //     }
     //     return mav;
     // }
-
-    // Rota para o sair da Sessão
-    @RequestMapping("/logout")
-    public ModelAndView logout(ModelAndView mav, HttpSession session) {
-        session.invalidate();
-        mav.setViewName("redirect:/auth");
-        return mav;
-    }
 
     // Método para validação do Usuário e Senha
     // private Estudante isValido(Estudante estudante) {

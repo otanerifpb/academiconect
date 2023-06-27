@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,9 +21,9 @@ import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.InstituicaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.PeriodoRepository;
 
-// Rota para acessar a class
 @Controller
-@RequestMapping("/instituicoes")
+@RequestMapping("/instituicoes") /*Rota para acessar a class */
+//@EnableGlobalMethodSecurity(prePostEnabled = false) /*Habilita o acesso se autorizado */
 public class InstituicaoController {
     @Autowired
     EstudanteRepository estudanteRepository;
@@ -33,6 +35,7 @@ public class InstituicaoController {
     PeriodoRepository periodoRepository;
 
     // Rota para acessar a lista pelo menu com o GET
+    //@PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView listAll(ModelAndView mav) {
         mav.addObject("instituicoes", instituicaoRepository.findAll());
@@ -42,15 +45,19 @@ public class InstituicaoController {
 
     // Rota para acessar a lista ao usar a Rota da class
     // REQFUNC 1 - CRUD
+    // REQFUNC 13 - Autenticação e Autorização
     @RequestMapping()
+    //@PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
     public String listAll(Model model) {
         model.addAttribute("instituicoes", instituicaoRepository.findAll());
         return "instituicoes/listInst";
     }
     
     // Rota para acessar o formunário
-    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC 5 - Mostrar Erro nos Formulários
+    // REQFUNC 13 - Autenticação e Autorização 
     @RequestMapping("/formInst")
+    //@PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
     public ModelAndView getForm(ModelAndView mav) {
         mav.addObject("instituicao", new Instituicao());
         mav.setViewName("instituicoes/formInst");

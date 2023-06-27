@@ -1,6 +1,8 @@
 package br.edu.ifpb.pweb2.academiConect.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,8 +33,9 @@ import java.util.Set;
 import javax.validation.Valid;
 
 @Controller
-// Rota para o acesso da class
-@RequestMapping("/estudantes")
+@RequestMapping("/estudantes") /*Rota para o acesso da class */
+//@EnableGlobalMethodSecurity(prePostEnabled = true) /*Habilita o acesso se autorizado */
+//@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
 public class EstudanteController {
     
     @Autowired

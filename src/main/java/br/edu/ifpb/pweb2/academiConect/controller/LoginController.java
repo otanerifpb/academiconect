@@ -2,14 +2,17 @@ package br.edu.ifpb.pweb2.academiConect.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/login")
-// Rota para o acesso da class LoginController
+@RequestMapping("/login") /*Rota para o acesso da class LoginController */
+//@EnableGlobalMethodSecurity(prePostEnabled = false) /*Habilita o acesso se autorizado */
+//@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
 public class LoginController {
 
     // Rota para exibir o formulário do Login

@@ -9,6 +9,8 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,9 +29,10 @@ import br.edu.ifpb.pweb2.academiConect.repository.DeclaracaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.PeriodoRepository;
 
-// Rota para acessar a class
 @Controller
-@RequestMapping("/declaracoes")
+@RequestMapping("/declaracoes") /*Rota para acessar a class */
+//@EnableGlobalMethodSecurity(prePostEnabled = true) /*Habilita o acesso se autorizado */
+//@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
 public class DeclaracaoController implements Serializable {
     @Autowired
     DeclaracaoRepository declaracaoRepository;

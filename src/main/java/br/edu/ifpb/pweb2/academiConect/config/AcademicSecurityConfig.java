@@ -27,10 +27,10 @@ public class AcademicSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/estudantes/**").hasRole("ADMIN")
                 .antMatchers("/declaracoes/**").hasRole("ADMIN")
                 .antMatchers("/login/**").hasRole("ADMIN")
-                .antMatchers("/instituicoes/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/instituicoes/formInst").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/periodos/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/periodos/formPeri").hasAnyRole("USER", "ADMIN")  
+                //.antMatchers("/instituicoes/**").hasAnyRole("USER", "ADMIN")
+                //.antMatchers("/instituicoes/formInst").hasAnyRole("USER", "ADMIN")
+                //.antMatchers("/periodos/**").hasAnyRole("USER", "ADMIN")
+                //.antMatchers("/periodos/formPeri").hasAnyRole("USER", "ADMIN")  
                 .anyRequest()  
                 .authenticated() 
                 .and()
@@ -59,12 +59,14 @@ public class AcademicSecurityConfig extends WebSecurityConfigurerAdapter{
         auth.jdbcAuthentication()
             .dataSource(dataSource)
             // Criptografia da senha do usuário, lembrar de tirar ";" quando for rodar em um banco novo 
-            .passwordEncoder(encoder);
+            .passwordEncoder(encoder); /*; */
+            //.withUser(User.builder().username("admin").password(encoder.encode("useradmin")).roles("ADMIN").build())
+            //.withUser(User.builder().username("visitante").password(encoder.encode("uservis")).roles("USER").build())
+            //.withUser(User.builder().username("testador").password(encoder.encode("usertes")).roles("USER", "ADMIN").build());
+
             // Os métodos withUser(), só precisa ser executado 1 única vez, depois é necessário comentar
             // Caso seja executado mais de uma vez, ocorrerá um erro de duplicidade de PK no banco
             // Mudar os ";" para passwordEncoder(encoder), depois de comentar user abaixo
-            //.withUser(User.builder().username("admin").password(encoder.encode("useradmin")).roles("USER", "ADMIN").build())
-            //.withUser(User.builder().username("visitante").password(encoder.encode("uservis")).roles("USER").build())
-            //.withUser(User.builder().username("teste").password(encoder.encode("usertes")).roles("USER").build());
+            // Caso seja necessário criar novamente os perfis acima, devem ser criados 1 por vez, se for 3 da error
     }
 }
