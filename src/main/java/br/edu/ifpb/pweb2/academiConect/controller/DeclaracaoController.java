@@ -247,6 +247,12 @@ public class DeclaracaoController implements Serializable {
         return mav;
     }
 
+    // Método para selecionar a Matrícula do Estudante no formDecl
+    @ModelAttribute("estudanteItems")
+    public List<Estudante> getEstudante() {
+        return estudanteRepository.findAll();
+    }
+
     // @PostMapping("/destino")
     // @RequestMapping(value = "/destino", method = RequestMethod.GET)
     // public ModelAndView destinoForm(@RequestParam("acao") String acao, ModelAndView mav) {

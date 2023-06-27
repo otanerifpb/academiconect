@@ -32,7 +32,13 @@
         <label for="estudante">Consultar por Matrícula:</label>
         <form th:action="@{/declaracoes/getDecEstudante}" th:object="${declaracao}" class="d-flex">
             <!-- <label for="estudante">Consultar por Matrícula:</label> -->
-            <input type="text" class="form-control" required th:field="*{estudante.matricula}" />
+            <!-- <input type="text" class="form-control" required th:field="*{estudante.matricula}" id="estudante.id"/> -->
+            <select name="estudante" class="form-select">
+                <option th:each="estud : ${estudanteItems}" 
+                    th:value="${estud.id}"
+                    th:text="${estud.matricula}"
+                    th:selected="${estud.id == estudante}">
+            </select>
             <button class="btn btn-outline-secondary btn-sm" type="submit" title="Consultar">
                 <img th:src="@{/imagens/consulta.png}" alt="Consultar"/>
             </button>
