@@ -222,7 +222,7 @@ public class EstudanteController {
     } 
     
     //Lista de usuários para o select do formEstu
-    @ModelAttribute("user")
+    @ModelAttribute("users")
     public List<User> getUserOptions() {
         return userRepository.findByEnabledTrue();
     }

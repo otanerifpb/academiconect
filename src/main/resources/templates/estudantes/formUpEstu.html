@@ -7,6 +7,15 @@
     <div layout:fragment="content">
         <form th:action="@{/estudantes/update}" method="POST" th:object="${estudante}">
             <div th:replace="~{/fragments/body :: formEstu}"></div>
+            <label for="user" class="form-label">Usuário:</label>
+                <select th:field="*{user}" class="form-select" id="user">
+                    <option value=""></option>
+                    <option th:each="u : ${users}" 
+                        th:value="${u.username}" 
+                        th:text="${u.username}"
+                        th:selected="${u.username == user}">
+                    </option>
+                </select>
             <label for="instituicao" class="form-label">Instituição:</label>
                 <select th:field="*{instituicao.id}" class="form-select">
                     <option value=""></option>
