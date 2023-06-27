@@ -25,8 +25,8 @@
                         <th style="text-align: center;">Data Fim:</th>
                         <th style="text-align: center;">Instituição:</th>
                         <th style="text-align: center;">Período Atual:</th>
-                        <th style="text-align: center;">Editar:</th>
-                        <th style="text-align: center;">Excluir:</th>
+                        <!-- <th style="text-align: center;">Editar:</th> -->
+                        <!-- <th style="text-align: center;">Excluir:</th> -->
                     </tr>
                 </thead>
     
@@ -51,14 +51,14 @@
                             </form>
                         </td>
                         <td style="text-align: center;">
-                            <form th:action="@{/periodos/{id}(id=${periodo.id})}" method="GET">
+                            <form sec:authorize="hasAnyRole('USER', 'ADMIN')" th:action="@{/periodos/{id}(id=${periodo.id})}" method="GET">
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
                                     <img th:src="@{/imagens/editar.png}" alt="Editar"/>
                                 </button>
                             </form>
                         </td>
                         <td style="text-align: center;">
-                            <form th:action="@{/periodos/{id}/delete(id=${periodo.id})}">
+                            <form sec:authorize="hasRole('ADMIN')" th:action="@{/periodos/{id}/delete(id=${periodo.id})}">
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
                                     <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>
                                 </button>

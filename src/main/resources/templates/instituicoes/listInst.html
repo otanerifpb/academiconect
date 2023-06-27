@@ -34,14 +34,14 @@
                         <td th:text="${instituicao.sigla}"></td>
                         <td th:text="${instituicao.fone}"></td>
                         <td>
-                            <form th:action="@{/instituicoes/{id}(id=${instituicao.id})}">
+                            <form sec:authorize="hasAnyRole('USER', 'ADMIN')" th:action="@{/instituicoes/{id}(id=${instituicao.id})}">
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
                                     <img th:src="@{/imagens/editar.png}" alt="Editar"/>
                                 </button>
                             </form>
                         </td>
                         <td>
-                            <form th:action="@{/instituicoes/{id}/delete(id=${instituicao.id})}">
+                            <form sec:authorize="hasRole('ADMIN')" th:action="@{/instituicoes/{id}/delete(id=${instituicao.id})}">
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
                                     <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>
                                 </button>

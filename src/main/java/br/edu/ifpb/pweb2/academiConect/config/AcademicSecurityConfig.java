@@ -38,7 +38,7 @@ public class AcademicSecurityConfig extends WebSecurityConfigurerAdapter{
                     // Rota para o caso do sucesso do Login, chama página
                     .defaultSuccessUrl("/home", true)
                     // Permite tudo para o usuário que estive
-                    .permitAll())
+                    .permitAll())  /**/
                 .logout(logout -> logout.logoutUrl("/auth/logout"));
     }
     
