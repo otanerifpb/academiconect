@@ -11,8 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/login") /*Rota para o acesso da class LoginController */
-//@EnableGlobalMethodSecurity(prePostEnabled = false) /*Habilita o acesso se autorizado */
-//@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
 public class LoginController {
 
     // Rota para exibir o formulário do Login

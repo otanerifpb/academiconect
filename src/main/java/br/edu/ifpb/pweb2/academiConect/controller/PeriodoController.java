@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -57,6 +59,7 @@ public class PeriodoController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Layout e Fragments
     @RequestMapping("/formPeri")
+    //@PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
     public ModelAndView getFormPeri(ModelAndView model) {
         model.addObject("periodo", new Periodo());
         model.setViewName("periodos/formPeri");
@@ -87,6 +90,7 @@ public class PeriodoController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping(method = RequestMethod.POST)
+    //@PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
     public ModelAndView save(@Valid Periodo periodo, BindingResult validation, ModelAndView mav, RedirectAttributes redAttrs) { 
         if(validation.hasErrors()) {
             mav.addObject("periodo", periodo);
@@ -128,6 +132,7 @@ public class PeriodoController {
     // REQFUNC 2 - CRUD
     // REQNFUNC - Mostrar Erro nos Formulários
     @RequestMapping(value="/update", method = RequestMethod.POST)
+    //@PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
     public ModelAndView updade(Periodo periodo, ModelAndView model) {
         periodoRepository.save(periodo);
         model.addObject("periodos", periodoRepository.findAll());
@@ -142,6 +147,7 @@ public class PeriodoController {
     // REQFUNC 2 - CRUD
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
+    //@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
     @RequestMapping("{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView model, RedirectAttributes redAtt) {
         Optional<Periodo> opPeriodo = periodoRepository.findById(id);

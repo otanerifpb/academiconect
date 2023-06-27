@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -14,6 +15,8 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 
 @Configuration
 @EnableWebSecurity
+//@EnableGlobalMethodSecurity /*Habilita o acesso se autorizado */
+//@EnableGlobalMethodSecurity(prePostEnabled = true) /*Habilita o acesso se autorizado */
 public class AcademicSecurityConfig extends WebSecurityConfigurerAdapter{
     
     @Autowired
@@ -28,11 +31,11 @@ public class AcademicSecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests() 
                 .antMatchers("/css/**", "/imagens/**")  
                 .permitAll()
-                .antMatchers("/estudantes/**").hasRole("ADMIN")
+                //.antMatchers("/estudantes/**").hasRole("ADMIN")
                 .antMatchers("/declaracoes/**").hasRole("ADMIN")
                 .antMatchers("/login/**").hasRole("ADMIN")
-                //.antMatchers("/instituicoes/**").hasAnyRole("USER", "ADMIN")
-                //.antMatchers("/instituicoes/formInst").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/instituicoes/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/instituicoes/formInst").hasAnyRole("USER", "ADMIN")
                 //.antMatchers("/periodos/**").hasAnyRole("USER", "ADMIN")
                 //.antMatchers("/periodos/formPeri").hasAnyRole("USER", "ADMIN")  
                 .anyRequest()  

@@ -31,7 +31,6 @@ import br.edu.ifpb.pweb2.academiConect.repository.PeriodoRepository;
 
 @Controller
 @RequestMapping("/declaracoes") /*Rota para acessar a class */
-//@EnableGlobalMethodSecurity(prePostEnabled = true) /*Habilita o acesso se autorizado */
 //@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
 public class DeclaracaoController implements Serializable {
     @Autowired

@@ -23,7 +23,6 @@ import br.edu.ifpb.pweb2.academiConect.repository.PeriodoRepository;
 
 @Controller
 @RequestMapping("/instituicoes") /*Rota para acessar a class */
-//@EnableGlobalMethodSecurity(prePostEnabled = false) /*Habilita o acesso se autorizado */
 public class InstituicaoController {
     @Autowired
     EstudanteRepository estudanteRepository;
