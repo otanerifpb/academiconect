@@ -25,6 +25,7 @@
                         <th style="text-align: center;">Data Nascimento:</th>
                         <th>E-mail:</th>
                         <th style="text-align: center;">Instituição:</th>
+                        <th style="text-align: center;">Usuário:</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +37,7 @@
                         <td th:text="${estudante.email}"></td>                             
                         <td th:text="${estudante.instituicao != null and estudante.instituicao != '' ?estudante.instituicao.sigla: 'Não Informada'}"
                             style="text-align: center;"></td>
+                        <td class="text-center" th:text="${estudante.user != null ?estudnte.user.username: 'Sem Usuário'}"></td>
                         <td>
                             <form th:action="@{/estudantes/{id}/listaDeclaracoes(id=${estudante.id})}" method="GET">
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Declaraões">
