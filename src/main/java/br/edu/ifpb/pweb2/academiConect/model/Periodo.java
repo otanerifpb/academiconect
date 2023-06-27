@@ -32,6 +32,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -71,15 +72,18 @@ public class Periodo implements Serializable {
     private boolean PeriodoAtual;
 
     // Relação entre PerioLetivo e Instituição (1:N)
-
+    // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
     @ManyToMany(mappedBy = "periodos")
     @NotEmpty(message = "Selecione uma Instituição ou cadastre uma Instituição primeiro!")
     //@JoinColumn(name = "id_instituicao")
+    @ToString.Exclude
     private List<Instituicao> instituicoes;
 
     // Relação entre PerioLetivo e Declaração (1:N)
     // Quando tem @OneToMany é necessário add a class no @EqualsAndHashCode(exclude = {"declaracoes"})
+    // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
     @OneToMany(mappedBy = "periodo", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private Set<Declaracao> declaracoes = new HashSet<Declaracao>();
 
     public void addDeclaracao(Declaracao declaracao){

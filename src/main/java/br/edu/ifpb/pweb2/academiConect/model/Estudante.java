@@ -26,6 +26,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -66,20 +67,26 @@ public class Estudante implements Serializable{
 
     // Relação entre Estudante e User (1:1)
     // Uma vez que não temos mais solicitação de senha no Estudante, e sim uma vinculação
+    // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
     @OneToOne
     @JoinColumn(name = "username")
+    @ToString.Exclude
     private User user;
 
     // Relação entre Estudante e Instituição (1:1)
     // Quando tem @ManyToOne é necessário add a class no @EqualsAndHashCode(exclude = {"instituicao", "declaracoes"})
+    // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
     @ManyToOne
     @JoinColumn(name = "id_instituicao")
+    @ToString.Exclude
     private Instituicao instituicao;
 
     // Relação entre Estudante e Declaração (1:N)
     // Quando tem @OneToMany é necessário add a class no @EqualsAndHashCode(exclude = {"instituicao", "declaracoes"})
+    // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
     @OneToMany(mappedBy = "estudante", cascade = CascadeType.ALL)
     //@JoinColumn(name = "id_declaracao")
+    @ToString.Exclude
     private Set<Declaracao> declaracoes = new HashSet<Declaracao>();  
 
     // Para associar um Estudante a uma Instituição

@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -48,14 +49,18 @@ public class Declaracao implements Serializable {
     
     // Relação entre Declaração e Estudante (1:1)
     // Quando tem @OneToMany é necessário add a class no @EqualsAndHashCode(exclude = {"estudante", "periodo"})
+    // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
     @ManyToOne
     @JoinColumn(name = "id_estudante")
+    @ToString.Exclude
     private Estudante estudante;
 
     // Relação entre Declaração e PeriodoLetivo (1:1)
     // Quando tem @ManyToOne é necessário add a class no @EqualsAndHashCode(exclude = {"estudante", "periodo"})
+    // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
     @ManyToOne
     @JoinColumn(name = "id_periodo")
+    @ToString.Exclude
     private Periodo periodo;
     
     // Fazer a ligação de uma declaração com um estudante

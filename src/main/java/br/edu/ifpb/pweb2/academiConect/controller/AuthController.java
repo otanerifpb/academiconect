@@ -4,7 +4,7 @@ package br.edu.ifpb.pweb2.academiConect.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 //import br.edu.ifpb.pweb2.academiConect.model.Estudante;
-import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
+//import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 //import br.edu.ifpb.pweb2.academiConect.util.PasswordUtil;
 
 // Rota para o acesso da class AuthController
@@ -21,8 +21,8 @@ import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
-    private EstudanteRepository estudanteRepository;
+    // @Autowired
+    // private EstudanteRepository estudanteRepository;
 
     // Rota para o acessar com uso do GET
     // Cria um novo objeto conhecido como "cookie", para identificar o Usuário
