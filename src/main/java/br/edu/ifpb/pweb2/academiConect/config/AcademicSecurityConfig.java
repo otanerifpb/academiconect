@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -17,6 +18,9 @@ public class AcademicSecurityConfig extends WebSecurityConfigurerAdapter{
     
     @Autowired
     DataSource dataSource;
+
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
 
     // REQFUNC 13 - Autenticação e Autorização
     @Override
@@ -38,7 +42,10 @@ public class AcademicSecurityConfig extends WebSecurityConfigurerAdapter{
                     .loginPage("/auth")  
                     .defaultSuccessUrl("/home", true) 
                     .permitAll())  
-                .logout(logout -> logout.logoutUrl("/auth/logout"));
+                .logout(logout -> logout.logoutUrl("/auth/logout"))
+                //.and()
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler);
     }
     /*.antMatchers() - Permite o acesso sem autenticação*/
     /*.permitAll() - Tudo acessível para quem estar em css e imagens*/
