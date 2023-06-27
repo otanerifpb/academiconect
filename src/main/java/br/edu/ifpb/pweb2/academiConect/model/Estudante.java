@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -59,16 +60,15 @@ public class Estudante implements Serializable{
     // @NotBlank(message = "Este campo é obrigatório!")
     // private String login;
 
-    @NotBlank(message = "Este campo é obrigatório!")
-    @Size(min = 6, max = 60, message = "Senha deve ter entre  6 a 12 caracteres")
-    private String senha;
+    // @NotBlank(message = "Este campo é obrigatório!")
+    // @Size(min = 6, max = 60, message = "Senha deve ter entre  6 a 60 caracteres")
+    // private String senha;
 
-    // @Override
-    // public String toString() {
-    //     return "Estudante [nome: " +nome
-    //         +", matricula: " +matricula
-    //         +", login: " +login+ "]";
-    // }
+    // Relação entre Estudante e User (1:1)
+    // Uma vez que não temos mais solicitação de senha no Estudante, e sim uma vinculação
+    @OneToOne
+    @JoinColumn(name = "username")
+    private User user;
 
     // Relação entre Estudante e Instituição (1:1)
     // Quando tem @ManyToOne é necessário add a class no @EqualsAndHashCode(exclude = {"instituicao", "declaracoes"})

@@ -14,9 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
 import br.edu.ifpb.pweb2.academiConect.model.Estudante;
 import br.edu.ifpb.pweb2.academiConect.model.Instituicao;
+import br.edu.ifpb.pweb2.academiConect.model.User;
 import br.edu.ifpb.pweb2.academiConect.repository.DeclaracaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.InstituicaoRepository;
+import br.edu.ifpb.pweb2.academiConect.repository.UserRepository;
 import br.edu.ifpb.pweb2.academiConect.util.PasswordUtil;
 
 import java.time.LocalDate;
@@ -41,6 +43,9 @@ public class EstudanteController {
 
     @Autowired
     DeclaracaoRepository declaracaoRepository; 
+
+    @Autowired
+    UserRepository userRepository;
 
     // Rota para acessar a lista pelo menu
     @RequestMapping(method = RequestMethod.GET)
@@ -114,7 +119,7 @@ public class EstudanteController {
             redAttrs.addFlashAttribute("errorMensagem", "E-mail já cadastrado no sistema!!");
             mav.setViewName("redirect:/estudantes");
         } else {
-            estudante.setSenha(PasswordUtil.hashPassword(estudante.getSenha()));
+            //estudante.setSenha(PasswordUtil.hashPassword(estudante.getSenha()));
             estudanteRepository.save(estudante);
             mav.addObject("estudantes", estudanteRepository.findAll());
             mav.addObject("succesMensagem", "Estudante cadastrado com sucesso!");
@@ -214,5 +219,11 @@ public class EstudanteController {
         }
 
         return mav;
-    }    
+    } 
+    
+    //Lista de usuários para o select do formEstu
+    @ModelAttribute("user")
+    public List<User> getUserOptions() {
+        return userRepository.findByEnabledTrue();
+    }
 }

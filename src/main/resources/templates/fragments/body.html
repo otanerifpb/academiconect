@@ -25,21 +25,9 @@
         <a th:classappend="${menu == 'periodos'} ? 'active'" class="nav-item nav-link" th:href="@{/periodos}">Período Letivo</a>  
     </div>
 
-    <!-- <nav class="navbar navbar-expand navbar-light d-flex justify-content-between mb-3"> -->
-        <!-- <span th:if="${session.usuario != null}"
-            th:text="${session.usuario.username}"
-            style="margin-right: 3px; font-size: 0.8em;">
-        </span> -->
-
-    <!-- Botão Sair da página Home -->
+    <!-- Botão Sair da página Home + identificação do usuário -->
     <!-- <div style="margin-right: 5px;" th:fragment="sair(titulo)" 
         class="navbar navbar-expand navbar-light d-flex justify-content-between mb-3">
-        <span th:if="${session.usuario != null}" th:text="${session.usuario.username}" 
-                style="margin-right: 3px; font-size: 0.8em;">
-        </span>
-        <p th:if="${session.usuario != null}" th:text="${session.usuario.username}" 
-                style="margin-right: 3px; font-size: 0.8em;">
-        </p>
         <a th:href="@{/auth/logout}">
             <button class="btn btn-outline-secondary my-0 my-sm-0" type="submit" title="Sair">
                 <img th:src="@{/imagens/sair.png}" alt="Sair"/>
@@ -129,10 +117,18 @@
             <input type="text" th:field="*{login}" class="form-control"/>
             <p th:if="${#fields.hasErrors('login')}" th:errorclass="error" th:errors="*{login}"></p>
         </div> -->
-        <div class="form-group mx-sm-0 mb-2">
-            <label for="senha" class="form-label">Senha:</label>
+
+        <!-- Senha vai ser vinculada ao User -->
+        <!-- <label for="senha" class="form-label">Senha:</label>
             <input type="password" th:field="*{senha}" class="form-control"/>
-            <p th:if="${#fields.hasErrors('senha')}" th:errorclass="error" th:errors="*{senha}"></p>
+            <p th:if="${#fields.hasErrors('senha')}" th:errorclass="error" th:errors="*{senha}"></p> -->
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="user" class="form-label">Usuário:</label>
+            <select th:field="*{user}" class="form-select" id="user">
+                <option th:each="u : ${users}" th:value="${u.username}" th:text="${u.username}"
+                    th:selected="${u.username==user}">
+                </option>
+            </select>
         </div>
     </div>
 
