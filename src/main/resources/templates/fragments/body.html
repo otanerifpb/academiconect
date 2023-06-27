@@ -22,7 +22,6 @@
         <a th:classappend="${menu == 'estudantes'} ? 'active'" class="nav-item nav-link" th:href="@{/estudantes}">Estudantes</a>
         <a th:classappend="${menu == 'instituicoes'} ? 'active'" class="nav-item nav-link" th:href="@{/instituicoes}">Instituição</a>
         <a th:classappend="${menu == 'declaracoes'} ? 'active'" class="nav-item nav-link" th:href="@{/declaracoes/formDecEstu}">Declaração</a>
-        <!-- <a th:classappend="${menu == 'declaracoes'} ? 'active'" class="nav-item nav-link" th:href="@{/declaracoes/formDecEstu}">Declaração</a> -->
         <a th:classappend="${menu == 'periodos'} ? 'active'" class="nav-item nav-link" th:href="@{/periodos}">Período Letivo</a>  
     </div>
 
@@ -33,7 +32,7 @@
         </span> -->
 
     <!-- Botão Sair da página Home -->
-    <div style="margin-right: 5px;" th:fragment="sair(titulo)" 
+    <!-- <div style="margin-right: 5px;" th:fragment="sair(titulo)" 
         class="navbar navbar-expand navbar-light d-flex justify-content-between mb-3">
         <span th:if="${session.usuario != null}" th:text="${session.usuario.username}" 
                 style="margin-right: 3px; font-size: 0.8em;">
@@ -46,7 +45,16 @@
                 <img th:src="@{/imagens/sair.png}" alt="Sair"/>
             </button>
         </a>
-    </div>
+    </div> -->
+    <!-- class="btn btn-outline-success my-2 my-sm-0" -->
+    <form th:fragment="sair(titulo)" class="form-inline my-2 my-lg-0" 
+            th:action="@{/auth/logout}" method="POST">
+        <span sec:authorize="isAuthenticated()" sec:authentication="name" 
+            style="margin-right: 3px; font-size: 0.8em;"></span>
+        <button class="btn btn-outline-secondary my-0 my-sm-0" type="submit" title="Sair">
+            <img th:src="@{/imagens/sair.png}" alt="Sair"/>
+        </button>
+    </form>
 
     <!-- Botão Voltar dos Formulários / Não foi possível usar depois de aplicar o Layout 
     Foi enviado para os forms de cada class -->
