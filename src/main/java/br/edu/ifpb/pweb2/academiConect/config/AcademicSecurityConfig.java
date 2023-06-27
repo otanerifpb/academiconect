@@ -21,26 +21,36 @@ public class AcademicSecurityConfig extends WebSecurityConfigurerAdapter{
     // REQFUNC 13 - Autenticação e Autorização
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                // Permite o acesso sem autenticação
-                .antMatchers("/css/**", "/imagens/**")
-                // Tudo acessível para quem estar em css e imagens
+        http.authorizeRequests() 
+                .antMatchers("/css/**", "/imagens/**")  
                 .permitAll()
-                // Toda requisição da Url
-                .anyRequest()
-                // O usuário autenticado pode acessar tudo
-                .authenticated()
+                .antMatchers("/estudantes/**").hasRole("ADMIN")
+                .antMatchers("/declaracoes/**").hasRole("ADMIN")
+                .antMatchers("/login/**").hasRole("ADMIN")
+                .antMatchers("/instituicoes/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/instituicoes/formInst").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/periodos/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/periodos/formPeri").hasAnyRole("USER", "ADMIN")  
+                .anyRequest()  
+                .authenticated() 
                 .and()
-                // Formulário para a recolha dos dados de usuário e senha
-                .formLogin(form -> form
-                    // Rota para a página de Login definida
-                    .loginPage("/auth")
-                    // Rota para o caso do sucesso do Login, chama página
-                    .defaultSuccessUrl("/home", true)
-                    // Permite tudo para o usuário que estive
-                    .permitAll())  /**/
+                .formLogin(form -> form 
+                    .loginPage("/auth")  
+                    .defaultSuccessUrl("/home", true) 
+                    .permitAll())  
                 .logout(logout -> logout.logoutUrl("/auth/logout"));
     }
+    /*.antMatchers() - Permite o acesso sem autenticação*/
+    /*.permitAll() - Tudo acessível para quem estar em css e imagens*/
+    /*.anyRequest() - Toda requisição da Url */
+    /*.authenticated() - O usuário autenticado pode acessar tudo */
+    /*.formLogin() - Formulário para a recolha dos dados de usuário e senha */
+    /*.loginPage() - Rota para a página de Login para entrar no sistema*/
+    /*.defaultSuccessUrl() - Rota para o caso do sucesso do Login, chama página */
+    /*.permitAll() - Permite tudo para o usuário que estive */
+    /*.logout() - Rota para a página de Logout para sair do sistema */
+    /*.hasRole() - Permite o acesso para 1 unico Perfil de usuário */
+    /*.hasAnyRole() - Permite o acesso para mais de 1 Perfil de usuário */
     
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
