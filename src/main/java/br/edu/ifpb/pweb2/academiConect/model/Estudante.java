@@ -92,6 +92,13 @@ public class Estudante implements Serializable{
     // Para associar um Estudante a uma Instituição
     public Estudante(Instituicao instituicao) {
         this.instituicao = instituicao;
-    }  
+    }
+    
+    // Relação entre Estudante e Documento (1:1)
+    // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
+    @OneToOne
+    @JoinColumn(name = "id_documento")
+    @ToString.Exclude
+    private Documento documento;
     
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}"
+    th:with="titulo1='Documento Estudante', titulo2='Documento(s) Cadastrado(s)'">
+<body>
+    <div layout:fragment="content">
+        <form th:action="@{/estudantes/{id}/documentos/form(id=${id})}" method="GET">
+            <button class="btn btn-outline-secondary" type="submit" title="Novo">
+                <img th:src="@{/imagens/novo.png}" alt="Novo"/>
+            </button>
+        </form>
+
+        <div th:if="${documento != null}">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <!-- <th style="text-align: center;">Matrícula:</th> -->
+                        <th scope="col">Arquivo</th>
+                        <th scope="col">Declaração</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>[[${documento.nome}]]</td>
+                        <td>
+                            <a th:href="@{${documento.url}}" title="Download documento">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a th:href="@{/giveyourjumps}" id="btnDelete" title="Apague documento"
+                                    class="fa-regular fa-trash-can icon-dark btn-delete"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:unless="${documento != null}">
+            <span>Nenhum documento foi encontrado!!</span>
+        </div>
+
+    </div>
+</body>
+</html>

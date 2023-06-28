@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
+import br.edu.ifpb.pweb2.academiConect.model.Documento;
 import br.edu.ifpb.pweb2.academiConect.model.Estudante;
 import br.edu.ifpb.pweb2.academiConect.model.Instituicao;
 import br.edu.ifpb.pweb2.academiConect.model.User;
@@ -22,6 +23,7 @@ import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.InstituicaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.UserRepository;
 //import br.edu.ifpb.pweb2.academiConect.util.PasswordUtil;
+import br.edu.ifpb.pweb2.academiConect.util.DocumentoUtil;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -49,6 +51,9 @@ public class EstudanteController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    DocumentoUtil documentoUtil;
 
     // Rota para acessar a lista pelo menu
     @RequestMapping(method = RequestMethod.GET)
@@ -228,5 +233,17 @@ public class EstudanteController {
     @ModelAttribute("users")
     public List<User> getUserOptions() {
         return userRepository.findByEnabledTrue();
+    }
+
+    // REQFUNC 12 - Upload de PDF
+    // Método para pegar o Documento de um Estudante
+    @RequestMapping("/{id}/documentos") 
+    public ModelAndView getDocumentos(@PathVariable ("id") Integer id, ModelAndView mav) {
+        Optional<Documento> documento = documentoUtil.getDocumentoOf(id);
+        if(documento.isPresent()) {
+            mav.addObject("documento", documento.get());
+        }
+        mav.setViewName("estudante/documentos/listDoc");
+        return mav;
     }
 }
