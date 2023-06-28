@@ -253,7 +253,7 @@ public class EstudanteController {
         if(opdocumento.isPresent()) {
             mav.addObject("documento", opdocumento.get());
         }
-        mav.setViewName("estudante/documentos/listDoc");
+        mav.setViewName("estudantes/documentos/listDoc");
         return mav;
     }
 
@@ -311,4 +311,28 @@ public class EstudanteController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + documento.getNome() + "\"")
                 .body(documento.getDados());
     }
+
+    // REQFUNC 12 - Upload de PDF
+    // Método para acessar o formDoc para salvar um novo Documento
+    @RequestMapping("/{id}/documentos/formDoc")
+    public ModelAndView getForm(@PathVariable(name = "id") Integer id, ModelAndView mav) {
+        mav.addObject("id", id);
+        mav.setViewName("estudantes/documentos/formDoc");
+        return mav;
+    }
+
+
+    // @RequestMapping(method = RequestMethod.GET)
+    // public ModelAndView listAll(ModelAndView model, @RequestParam(defaultValue = "1") int page,
+    //         @RequestParam(defaultValue = "3") int size) {
+    //     Pageable paging = PageRequest.of(page - 1, size);
+    //     Page<Correntista> pageCorrentistas = correntistaRepository.findAll(paging);
+    //     NavPage navPage = NavePageBuilder.newNavPage(pageCorrentistas.getNumber() + 1,
+    //             pageCorrentistas.getTotalElements(), pageCorrentistas.getTotalPages(), size);
+    //     model.addObject("correntistas", pageCorrentistas);
+    //     model.addObject("navPage", navPage);
+    //     model.setViewName("correntistas/list");
+    //     return model;
+    // }
+
 }
