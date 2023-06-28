@@ -15,23 +15,46 @@
                 <thead>
                     <tr>
                         <!-- <th style="text-align: center;">Matrícula:</th> -->
-                        <th scope="col">Arquivo</th>
-                        <th scope="col">Declaração</th>
+                        <th scope="col">Arquivo:</th>
+                        <th scope="col">Declaração:</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     <tr>
                         <td>[[${documento.nome}]]</td>
-                        <td>
-                            <a th:href="@{${documento.url}}" title="Download documento">
-                                <i class="fa fa-download" aria-hidden="true"></i>
+                        <!-- <td>
+                             <a th:href="@{${documento.url}}" title="Download documento">
+                                 
+                                 
+                            <form th:action="@{/estudantes/{id}/documentos/formDoc(id=${documento.url})}" method="POST">
+                                <button class="btn btn-outline-secondary btn-sm" type="button" title="Download">
+                                    <img th:src="@{/imagens/salvar1.png}" alt="Download"/>
+                                </button>
+                            </form>
+                        </td> -->
+                         <td>
+                             <!-- <form action="@{/estudantes/documentos}" method="POST"> 
+                                 <a th:href="@{${documento.url}}" title="Download documento"> 
+                                    <i class="fa fa-download" aria-hidden="true"></i>
+                                    <button class="btn btn-outline-secondary btn-sm" type="button" title="Download">
+                                        <img th:src="@{/imagens/salvar1.png}" alt="Download"/>
+                                    </button>
+                                </a> 
+                            </form> -->
+
+                            <a th:href="@{/estudantes/{id}/documentos(id=${documento.url})}" target="_blank">
+                                <i class="fa fa-external-link" aria-hidden="true"></i>
+                                <img th:src="@{/imagens/salvar1.png}" alt="Download"/>
                             </a>
+
                         </td>
                         <td>
                             <a th:href="@{/giveyourjumps}" id="btnDelete" title="Apague documento"
                                     class="fa-regular fa-trash-can icon-dark btn-delete">
                             </a>
+                            <p>
+                                Deletar
+                            </p>
                             <!-- <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
                                 <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>
                             </button> -->
@@ -41,8 +64,15 @@
             </table>
         </div>
 
-        <div th:unless="${documento != null}">
+        <div th:unless="${documento != null}"></br>
             <span>Nenhum documento foi encontrado!!</span>
+        </div>
+        <div></br>
+            <a th:href="@{/estudantes}">
+                <button class="btn btn-outline-secondary btn-sm" type="button" title="Voltar">
+                    <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+                </button>
+            </a>
         </div>
 
     </div>

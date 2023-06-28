@@ -3,6 +3,7 @@
     layout:decorate="~{layout/layout}"
     th:with="titulo1='Upload PDF', titulo2='Upload de Documento'">
 <body>
+    <!-- th:action="@{/estudantes/{id}/documentos/upload(id=${id})}" -->
     <div layout:fragment="content">
         <form id="uploadForm" method="post" 
                 th:action="@{/estudantes/{id}/documentos/upload(id=${id})}" 
@@ -14,14 +15,46 @@
                      <input id="file" class="form-control" type="file" name="file" 
                             accept="application/pdf"/>
                 </div>
-                <div class="col-md-2">
+                <!-- <table class="table table-striped table-hover">
+                    <tbody>
+                        <tr>
+                            <th>
+                                <div class="form-group">
+                                    <label for="upload">&nbsp;</label>
+                                    <button class="btn btn-outline-secondary btn-sm" type="submit" 
+                                            name="dados" title="Salvar">
+                                        <img th:src="@{/imagens/salvar3.png}" alt="Salvar"/>
+                                    </button>
+                                </div>
+                            </th>
+                            <th>
+                                <form th:action="@{/estudantes/documentos/listDoc}">
+                                    <button class="btn btn-outline-secondary btn-sm" type="button" title="Voltar">
+                                        <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+                                    </button>
+                                </form>
+                            </th>
+                        </tr>
+                </table> -->
+                <!-- <div class="col-md-2"> -->
+                <div class="col-md-1">
                     <div class="form-group">
                         <label for="upload">&nbsp;</label>
-                        <button class="btn btn-sm btn-primary form-control" type="submit" 
+                        <button class="btn btn-outline-secondary btn-sm form-control " type="submit" 
                                 name="dados" title="Salvar">
                             <img th:src="@{/imagens/salvar3.png}" alt="Salvar"/>
                         </button>
                     </div>
+                </div></br>
+                <!-- <form th:action="@{/estudantes/documentos/listDoc}" 
+                    "@{/estudantes/{id}/listaDeclaracoes(id=${estudante.id})}"
+                    <a th:href="@{/estudantes}">-->
+                <div></br>
+                    <a th:href="@{/estudantes}">
+                        <button class="btn btn-outline-secondary btn-sm" type="button" title="Voltar">
+                            <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+                        </button>
+                    </a>
                 </div>
             </div>
         </form>

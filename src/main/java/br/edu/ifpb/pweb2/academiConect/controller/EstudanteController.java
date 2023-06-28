@@ -69,6 +69,8 @@ public class EstudanteController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView listAll(ModelAndView mav) {
         mav.addObject("estudantes", estudanteRepository.findAll());
+
+        List<Estudante> estudanteSemDeclaracao = estudanteRepository.buscaEstudanteQueNaoTemDeclaracao();
         mav.setViewName("estudantes/listEstu");
         return mav;
     }
@@ -305,7 +307,6 @@ public class EstudanteController {
     @RequestMapping("/{id}/documentos/{idDoc}")
     public ResponseEntity<byte[]> getDocumento(@PathVariable("idDoc") Integer idDoc) {
         Documento documento = documentoService.getDocumento(idDoc);
-
         return ResponseEntity
                 .ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + documento.getNome() + "\"")
