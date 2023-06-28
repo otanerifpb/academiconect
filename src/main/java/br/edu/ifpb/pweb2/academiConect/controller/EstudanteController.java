@@ -1,17 +1,26 @@
 package br.edu.ifpb.pweb2.academiConect.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
 import br.edu.ifpb.pweb2.academiConect.model.Documento;
@@ -22,9 +31,10 @@ import br.edu.ifpb.pweb2.academiConect.repository.DeclaracaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.InstituicaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.UserRepository;
-//import br.edu.ifpb.pweb2.academiConect.util.PasswordUtil;
-import br.edu.ifpb.pweb2.academiConect.util.DocumentoUtil;
+import br.edu.ifpb.pweb2.academiConect.service.DocumentoService;
+import groovy.transform.stc.FirstParam.Component;
 
+//import java.net.http.HttpHeaders;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -41,19 +51,19 @@ import javax.validation.Valid;
 public class EstudanteController {
     
     @Autowired
-    EstudanteRepository estudanteRepository;
+    private EstudanteRepository estudanteRepository;
     
     @Autowired
-    InstituicaoRepository instituicaoRepository; 
+    private InstituicaoRepository instituicaoRepository; 
 
     @Autowired
-    DeclaracaoRepository declaracaoRepository; 
+    private DeclaracaoRepository declaracaoRepository; 
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    DocumentoUtil documentoUtil;
+    private DocumentoService documentoService;
 
     // Rota para acessar a lista pelo menu
     @RequestMapping(method = RequestMethod.GET)
@@ -236,14 +246,69 @@ public class EstudanteController {
     }
 
     // REQFUNC 12 - Upload de PDF
-    // Método para pegar o Documento de um Estudante
+    // Método para acessar a lista dos Documentos de um Estudante
     @RequestMapping("/{id}/documentos") 
     public ModelAndView getDocumentos(@PathVariable ("id") Integer id, ModelAndView mav) {
-        Optional<Documento> documento = documentoUtil.getDocumentoOf(id);
-        if(documento.isPresent()) {
-            mav.addObject("documento", documento.get());
+        Optional<Documento> opdocumento = documentoService.getDocumentoOf(id);
+        if(opdocumento.isPresent()) {
+            mav.addObject("documento", opdocumento.get());
         }
         mav.setViewName("estudante/documentos/listDoc");
         return mav;
+    }
+
+    // REQFUNC 12 - Upload de PDF
+    // Método para carregar o Documento de um Estudante
+    @RequestMapping(value = "/{id}/documentos/upload", method = RequestMethod.POST)
+    public ModelAndView fileDownloadUri(@RequestParam("file") MultipartFile arquivo, 
+            @PathVariable("id") Integer id, ModelAndView mav) {
+        String mensagem = "";
+        String proxPagina = "";
+        try{
+            Optional<Estudante> opEstudante = estudanteRepository.findById(id);
+            Estudante estudante = null;
+            if(opEstudante.isPresent()) {
+                estudante = opEstudante.get();
+                String nomeArquivo = StringUtils.cleanPath(arquivo.getOriginalFilename());
+                Documento documento = documentoService.saveDoc(estudante, nomeArquivo, 
+                        arquivo.getBytes());
+                documento.setUrl(this.buildUrl(estudante.getId(), documento.getId()));
+                estudanteRepository.save(estudante);
+                mensagem = "Documento carregado com sucesso: " + arquivo.getOriginalFilename();
+                proxPagina = String.format("redirect:/estudantes/%s/documentos", 
+                        estudante.getId().toString());
+            }
+        } catch(Exception e) {
+            mensagem = "Não foi possível carregar o documento: " + arquivo.getOriginalFilename() 
+                    + "!! " + e.getMessage();
+            proxPagina = "/estudantes/documentos/formDoc";
+        }
+        mav.addObject("mensagem", mensagem);
+        mav.setViewName(proxPagina);
+        return mav;
+    }
+
+    // Método para usar no método fileDownloadUri()
+    private String buildUrl(Integer idEstudante, Integer idDocumento) {
+        String fileDownloadUri = ServletUriComponentsBuilder
+                .fromCurrentContextPath()
+                .path("/estudantes")
+                .path(String.valueOf(idEstudante))
+                .path("/documentos")
+                .path(String.valueOf(idDocumento))
+                .toUriString();
+        return fileDownloadUri;
+    }
+
+    // REQFUNC 12 - Upload de PDF
+    // Método para devolver um documento binário PDF
+    @RequestMapping("/{id}/documentos/{idDoc}")
+    public ResponseEntity<byte[]> getDocumento(@PathVariable("idDoc") Integer idDoc) {
+        Documento documento = documentoService.getDocumento(idDoc);
+
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + documento.getNome() + "\"")
+                .body(documento.getDados());
     }
 }

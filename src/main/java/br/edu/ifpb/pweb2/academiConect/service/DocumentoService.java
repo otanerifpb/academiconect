@@ -1,4 +1,4 @@
-package br.edu.ifpb.pweb2.academiConect.util;
+package br.edu.ifpb.pweb2.academiConect.service;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -13,7 +13,7 @@ import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 
 //REQFUNC 12 - Upload de PDF
 @Service
-public class DocumentoUtil {
+public class DocumentoService {
 
     @Autowired
     private DocumentoRepository documentoRepository;
@@ -21,7 +21,7 @@ public class DocumentoUtil {
     @Autowired
     private EstudanteRepository estudanteRepository;
 
-    public Documento save(Estudante estudante, String nomeArquivo, byte[] bytes) throws IOException {
+    public Documento saveDoc(Estudante estudante, String nomeArquivo, byte[] bytes) throws IOException {
         Documento documento = new Documento(nomeArquivo, bytes);
         estudante.setDocumento(documento);
         documentoRepository.save(documento);

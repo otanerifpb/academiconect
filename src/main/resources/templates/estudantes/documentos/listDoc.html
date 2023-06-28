@@ -4,7 +4,7 @@
     th:with="titulo1='Documento Estudante', titulo2='Documento(s) Cadastrado(s)'">
 <body>
     <div layout:fragment="content">
-        <form th:action="@{/estudantes/{id}/documentos/form(id=${id})}" method="GET">
+        <form th:action="@{/estudantes/{id}/documentos/formDoc(id=${id})}" method="GET">
             <button class="btn btn-outline-secondary" type="submit" title="Novo">
                 <img th:src="@{/imagens/novo.png}" alt="Novo"/>
             </button>
