@@ -43,19 +43,22 @@
                             </form> -->
 
                             <!-- <a th:href="@{/estudantes/{id}/documentos(id=${documento.url})}" target="_blank"> -->
-                            <a th:href="@{/estudantes/{id}/documentos(id=${documento.url})}" target="_blank">
+                            <a th:href="@{${documento.url}}" title="Download documento" target="_blank">
                                 <i class="fa fa-external-link" aria-hidden="true"></i>
                                 <img th:src="@{/imagens/salvar1.png}" alt="Download"/>
                             </a>
 
                         </td>
                         <td>
+                            <!-- <form th:action="@{/estudantes/{id}/delete(id=${estudante.id})}">
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
+                                    <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>
+                                </button>
+                            </form> -->
                             <a th:href="@{/giveyourjumps}" id="btnDelete" title="Apague documento"
                                     class="fa-regular fa-trash-can icon-dark btn-delete">
+                                    
                             </a>
-                            <p>
-                                Deletar
-                            </p>
                             <!-- <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
                                 <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>
                             </button> -->
