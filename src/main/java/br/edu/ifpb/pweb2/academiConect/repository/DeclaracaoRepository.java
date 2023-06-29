@@ -1,11 +1,19 @@
 package br.edu.ifpb.pweb2.academiConect.repository;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
-import lombok.Data;
+import br.edu.ifpb.pweb2.academiConect.model.Estudante;
+import br.edu.ifpb.pweb2.academiConect.model.Periodo;
+
 
 public interface DeclaracaoRepository extends JpaRepository<Declaracao, Integer> {
 
@@ -23,11 +31,14 @@ public interface DeclaracaoRepository extends JpaRepository<Declaracao, Integer>
   + " where periodo.dataFim < current_date " )
   Set<Declaracao> findByAllOverdueDeclaration();
 
-  @Query("select dec from Declaracao dec "
-  + "inner join fetch dec.periodo periodo "  
-  + " where periodo.dataFim between current_date and :dataInformada " )
-  Set<Declaracao> declarationForExpire(Data dataInformada);
+  @Query("select dec from Declaracao as dec "
+  + " where dec.periodo in "
+  + " (select pe from Periodo as pe" 
+  + " where pe.dataFim > :dataInformada and pe.dataFim < :dataInformada2 )" )
+  Set<Declaracao> declarationForExpire(Date dataInformada, Date dataInformada2);
 
    //@Query("SELECT e FROM Enrollment e WHERE e.semester.end < current_date")
    // List<Enrollment> findExpiredEnrollments(); 
+
+   
 }

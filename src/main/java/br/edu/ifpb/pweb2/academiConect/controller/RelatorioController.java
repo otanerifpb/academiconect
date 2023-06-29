@@ -1,21 +1,29 @@
 package br.edu.ifpb.pweb2.academiConect.controller;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
 import br.edu.ifpb.pweb2.academiConect.model.Estudante;
+import br.edu.ifpb.pweb2.academiConect.model.Periodo;
 import br.edu.ifpb.pweb2.academiConect.repository.DeclaracaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 
@@ -89,12 +97,20 @@ public class RelatorioController {
     // Rota para acessar a Lista de Estudante Declaração
     // REQFUNC 10 - Relatório Declarações por Vencer
     @RequestMapping("/listDecVence")
-    public String getlistDecVence() {
+    public ModelAndView getlistDecVence( Integer dias, ModelAndView mav) {
+
+        LocalDate novaData = LocalDate.now();
+        LocalDate novaData2 = LocalDate.now().plusDays(dias);
+        Date d1 = java.sql.Date.valueOf(novaData);
+        Date d2 = java.sql.Date.valueOf(novaData2);
+       
+        Set<Declaracao> declaracoesAvencer = declaracaoRepository.declarationForExpire(d1, d2);
+       
         //String mostrarForm = "false";
-        //mav.addObject("declaracao", declaracao);
+        mav.addObject("declaracoes", declaracoesAvencer);
         //mav.addObject("mostrarForm", mostrarForm);
-        //mav.setViewName("relatorios/listRelator");
-        return "relatorios/listDecVence";
+        mav.setViewName("relatorios/listDecVence");
+        return mav;
     }
 
     // Rota para acessar a Lista de Declaração por Vencer

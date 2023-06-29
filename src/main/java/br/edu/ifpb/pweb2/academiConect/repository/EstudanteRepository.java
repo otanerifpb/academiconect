@@ -27,7 +27,8 @@ public interface EstudanteRepository extends JpaRepository<Estudante, Integer>{
     Documento findDocumentById(@Param ("idEstudante") Integer idEstudante);
     
     
-   @Query("select est from Estudante as est where not exists ( Select est from Declaracao as dec where dec.estudante = est ) " )
+   @Query("select est from Estudante as est "
+   + " where not exists ( Select est from Declaracao as dec where dec.estudante = est ) " )
    Set<Estudante> findByStudantWintoutDeclaration();
 
 
