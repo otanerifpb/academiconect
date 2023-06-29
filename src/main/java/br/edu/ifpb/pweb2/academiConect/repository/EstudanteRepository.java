@@ -31,7 +31,6 @@ public interface EstudanteRepository extends JpaRepository<Estudante, Integer>{
    + " where not exists ( Select est from Declaracao as dec where dec.estudante = est ) " )
    Set<Estudante> findByStudantWintoutDeclaration();
 
-
 //    SELECT * FROM estudante e
 // where not exists (select * from declaracao d where e.id = d.id_estudante )
 }

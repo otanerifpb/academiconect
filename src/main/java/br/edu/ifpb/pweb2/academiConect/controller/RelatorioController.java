@@ -1,7 +1,7 @@
 package br.edu.ifpb.pweb2.academiConect.controller;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.chrono.Chronology;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -143,7 +144,25 @@ public class RelatorioController {
 
     // Rota para acessar a Lista dos Estudantes menores de 24 Anos
     @RequestMapping("/listEstuMaior")
-    public String getListEstuMaior() {
-        return "relatorios/listEstuMaior";
+    public ModelAndView getListEstuMaior(ModelAndView mav) {
+        List<Estudante> estudantes = new ArrayList<>();
+        List<Estudante> listEstudantes = estudanteRepository.findAll();
+        LocalDate  dataHoje = LocalDate.now();
+   
+
+        for(Estudante est : listEstudantes ){
+            LocalDate localDateNas = (est.getDataNascimento()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            //LocalDate dataNascimento = LocalDate.parse();
+            Period periodo = Period.between(localDateNas, dataHoje);
+             int anos = periodo.getYears();
+            if (anos>=24){
+            estudantes.add(est);
+                
+            }
+        }
+
+        mav.addObject("estudantes", estudantes);
+        mav.setViewName("relatorios/listEstuMaior");
+        return mav;
     }
 }
