@@ -140,4 +140,10 @@ public class RelatorioController {
         model.addAttribute("declaracoes", declaracaoRepository.findAll());
         return "relatorios/listDecEstu";
     }
+
+    // Rota para acessar a Lista dos Estudantes menores de 24 Anos
+    @RequestMapping("/listEstuMaior")
+    public String getListEstuMaior() {
+        return "relatorios/listEstuMaior";
+    }
 }
