@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}"
+    th:with="titulo1='Estudante sem Declaração', titulo2='Lista Estudante(S) sem Declaração(s)'">
 <body>
-    <h1>Relatório Aluno sem Declaração</h1>
+    <div layout:fragment="content">
+        <table>
+            <tr>
+                <th>
+                    <a th:href="@{/relatorios}" method="GET">
+                        <button class="btn btn-outline-secondary btn-sm" type="submit" title="Voltar">
+                            <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+                        </button>
+                    </a>
+                </th>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>
