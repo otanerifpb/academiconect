@@ -1,5 +1,10 @@
 package br.edu.ifpb.pweb2.academiConect.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -10,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
+import br.edu.ifpb.pweb2.academiConect.model.Estudante;
 import br.edu.ifpb.pweb2.academiConect.repository.DeclaracaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 
@@ -71,19 +77,8 @@ public class RelatorioController {
         return "relatorios/formDecVence";
     }
 
-    // Rota para acessar a Lista de Declaração por Vencer
-    // REQFUNC 10 - Relatório Declarações por Vencer
-    @RequestMapping("/listEstSDec")
-    public String getlistEstSDec() {
-        //String mostrarForm = "false";
-        //mav.addObject("declaracao", declaracao);
-        //mav.addObject("mostrarForm", mostrarForm);
-        //mav.setViewName("relatorios/listRelator");
-        return "relatorios/listEstSDec";
-    }
-
     // Rota para acessar a Lista de Estudante Declaração
-    // REQFUNC 11 - Relatório Estudante sem Declarações
+    // REQFUNC 10 - Relatório Declarações por Vencer
     @RequestMapping("/listDecVence")
     public String getlistDecVence() {
         //String mostrarForm = "false";
@@ -93,6 +88,35 @@ public class RelatorioController {
         return "relatorios/listDecVence";
     }
 
+    // Rota para acessar a Lista de Declaração por Vencer
+    // REQFUNC 11 - Relatório Estudante sem Declarações
+    @RequestMapping("/listEstSDec")
+    public ModelAndView getlistEstSDec(ModelAndView mav) {
+        Set<Estudante> estudanteSemDeclaracao = 
+                estudanteRepository.findByStudantWintoutDeclaration();
+        if (!estudanteSemDeclaracao.isEmpty()) {
+            List<Estudante> listEstudantes = new ArrayList<>();
+            for (Estudante estudante : estudanteSemDeclaracao) {
+                listEstudantes.add(estudante);
+            }
+            mav.addObject("estudantes", listEstudantes);
+            mav.addObject("succesMensagem", "Estudante(s) encontrado(s) com sucesso!!");
+            mav.setViewName("relatorios/listEstSDec");
+        } else {
+            mav.addObject("errorMensagem", "Não existe Estudante sem declaração cadastrada!!");
+            mav.setViewName("redirect:/relatorios");
+        }
+        //String mostrarForm = "false";
+        //mav.addObject("declaracao", declaracao);
+        //mav.addObject("mostrarForm", mostrarForm);
+        //mav.setViewName("relatorios/listRelator");
+        return mav;
+    }
+
+    //mav.setViewName("redirect:/declaracoes");
+    
+    //List<Estudante> estudanteSemDeclaracao = estudanteRepository.buscaEstudanteQueNaoTemDeclaracao();
+    
     //@RequestMapping("/listDecVence")
     // public ModelAndView getFormDecEstu(Declaracao declaracao, ModelAndView mav) {
     //     mav.addObject("declaracao", declaracao);
@@ -100,6 +124,6 @@ public class RelatorioController {
     //     return mav;
     // }
 
-    //List<Estudante> estudanteSemDeclaracao = estudanteRepository.buscaEstudanteQueNaoTemDeclaracao();
+    
       
 }

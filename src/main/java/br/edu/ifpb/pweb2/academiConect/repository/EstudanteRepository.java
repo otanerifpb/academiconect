@@ -2,6 +2,7 @@ package br.edu.ifpb.pweb2.academiConect.repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,11 +24,11 @@ public interface EstudanteRepository extends JpaRepository<Estudante, Integer>{
    Optional<Estudante> findByNome(String nome);
 
    @Query(value = "select e.documento from Estudante e where e.id = :idEstudante")
-    Documento findDocumentoById(@Param ("idEstudante") Integer idEstudante);
+    Documento findDocumentById(@Param ("idEstudante") Integer idEstudante);
     
     
    @Query("select est from Estudante as est where not exists ( Select est from Declaracao as dec where dec.estudante = est ) " )
-   List<Estudante> buscaEstudanteQueNaoTemDeclaracao();
+   Set<Estudante> findByStudantWintoutDeclaration();
 
 
 //    SELECT * FROM estudante e

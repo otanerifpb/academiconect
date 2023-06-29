@@ -87,7 +87,7 @@ public class EstudanteController {
     // REQFUNC 6 - Instituição Atual
     // REQFUNC 8 - Instituição Atual
     // REQFUNC 13 - Autenticação e Autorização
-    // REQNFUNC - Mostrar Erro nos Formulários
+    // REQNFUNC 05 - Mostrar Erro nos Formulários
     // REQNFUNC - Layout e Fragments
     @RequestMapping("/formEstu")
     public ModelAndView getFormEstu(Estudante estudante, ModelAndView mav) {
@@ -97,8 +97,8 @@ public class EstudanteController {
     }
 
     // Rota para acessar o formunlário de atualização ou a lista se não for atualizar 
-    // REQFUNC 6 - Instituição Atual
-    // REQFUNC 8 - Instituição Atual
+    // REQFUNC 06 - Instituição Atual
+    // REQFUNC 08 - Instituição Atual
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Layout e Fragments cvb
     @RequestMapping("/{id}")
@@ -117,7 +117,7 @@ public class EstudanteController {
     }
 
     // Rota para cadastrar um Estudante no Sitema
-    // REQFUNC 4 - CRUD
+    // REQFUNC 04 - CRUD
     // REQFUNC 13 - Autenticação e Autorização
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
@@ -331,7 +331,7 @@ public class EstudanteController {
     //             pageCorrentistas.getTotalElements(), pageCorrentistas.getTotalPages(), size);
     //     model.addObject("correntistas", pageCorrentistas);
     //     model.addObject("navPage", navPage);
-    //     model.setViewName("correntistas/list");
+    //     model.setViewName("estudantes/listEstu");
     //     return model;
     // }
 

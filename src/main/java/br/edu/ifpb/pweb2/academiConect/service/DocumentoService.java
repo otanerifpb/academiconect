@@ -33,7 +33,7 @@ public class DocumentoService {
     }
 
     public Optional<Documento> getDocumentoOf(Integer idEstudante) {
-        return Optional.ofNullable(estudanteRepository.findDocumentoById(idEstudante));
+        return Optional.ofNullable(estudanteRepository.findDocumentById(idEstudante));
     }
     
 }
