@@ -58,13 +58,24 @@ public class RelatorioController {
     // Rota para acessar a Lista de Declaração Vencida
     // REQFUNC 09 - Relatório Declarações Vencidas
     @RequestMapping("/listDecVenci")
-    public String getlistDecVenci() {
-        //String mostrarForm = "false";
-        //mav.addObject("declaracao", declaracao);
-        //mav.addObject("mostrarForm", mostrarForm);
-        //mav.setViewName("relatorios/listRelator");
-        return "relatorios/listDecVenci";
+    public ModelAndView getlistDecVenci(ModelAndView mav) {
+        Set<Declaracao> declaracaoVencida = declaracaoRepository.findByAllOverdueDeclaration();
+        if (!declaracaoVencida.isEmpty()) {
+            List<Declaracao> listDeclaracoes = new ArrayList<>();
+            for (Declaracao declaracao : declaracaoVencida) {
+                listDeclaracoes.add(declaracao);
+            }
+            mav.addObject("declaracoes", listDeclaracoes);
+            mav.addObject("succesMensagem", "Declaração(s) encontrada(s) com sucesso!!");
+            mav.setViewName("relatorios/listDecVenci");
+        } else {
+            mav.addObject("errorMensagem", "Não existe Declaração vencida cadastrada!!");
+            mav.setViewName("redirect:/relatorios");
+        }
+        return mav;
     }
+
+    //List<Declaracao> findByAllOverdueDeclaration();
 
     // Rota para acessar o Formulário de Declaração por Vencer
     // REQFUNC 10 - Relatório Declarações por Vencer
@@ -106,10 +117,6 @@ public class RelatorioController {
             mav.addObject("errorMensagem", "Não existe Estudante sem declaração cadastrada!!");
             mav.setViewName("redirect:/relatorios");
         }
-        //String mostrarForm = "false";
-        //mav.addObject("declaracao", declaracao);
-        //mav.addObject("mostrarForm", mostrarForm);
-        //mav.setViewName("relatorios/listRelator");
         return mav;
     }
 
