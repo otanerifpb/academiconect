@@ -21,9 +21,14 @@
                     </tr>
                     <tr>
                         <td><h2>Declaração(s) por Vencer</h2></td>
+                        <!-- <input type="text" class="form-control" name="dias"  th:value="${declaracao.dias}"/> -->
+                        
                         <td>
-                            <input>
+                            <input type="number" class="form-control" th:id="dias" required th:name="dias"/>
+                        </td>
+                        <td>
                             <form th:action="@{/relatorios/listDecVence}" method="GET">
+                                
                                 <button class="btn btn-outline-secondary" type="submit" title="Consultar">
                                     <img th:src="@{/imagens/consulta.png}" alt="Consultar"/>
                                 </button>

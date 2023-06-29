@@ -46,6 +46,8 @@ public class Declaracao implements Serializable {
     private String observacao;
 
     private boolean declaracaoAtual;
+
+    private Integer dias = 10;
     
     // Relação entre Declaração e Estudante (1:1)
     // Quando tem @OneToMany é necessário add a class no @EqualsAndHashCode(exclude = {"estudante", "periodo"})
