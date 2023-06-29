@@ -321,17 +321,19 @@ public class EstudanteController {
         return mav;
     }
 
+    // REQNFUNC 09 - Paginação
+    // Método para paginação 
     // @RequestMapping(method = RequestMethod.GET)
-    // public ModelAndView listAll(ModelAndView model, @RequestParam(defaultValue = "1") int page,
+    // public ModelAndView listAll(ModelAndView mav, @RequestParam(defaultValue = "1") int page,
     //         @RequestParam(defaultValue = "3") int size) {
     //     Pageable paging = PageRequest.of(page - 1, size);
-    //     Page<Correntista> pageCorrentistas = correntistaRepository.findAll(paging);
-    //     NavPage navPage = NavePageBuilder.newNavPage(pageCorrentistas.getNumber() + 1,
-    //             pageCorrentistas.getTotalElements(), pageCorrentistas.getTotalPages(), size);
-    //     model.addObject("correntistas", pageCorrentistas);
-    //     model.addObject("navPage", navPage);
-    //     model.setViewName("estudantes/listEstu");
-    //     return model;
+    //     Page<Estudante> pageEstudantes = estudanteRepository.findAll(paging);
+    //     NavPage navPage = NavePageBuilder.newNavPage(pageEstudantes.getNumber() + 1,
+    //             pageEstudantes.getTotalElements(), pageEstudantes.getTotalPages(), size);
+    //     mav.addObject("estudantes", pageEstudantes);
+    //     mav.addObject("navPage", navPage);
+    //     mav.setViewName("estudantes/listEstu");
+    //     return mav;
     // }
 
 }

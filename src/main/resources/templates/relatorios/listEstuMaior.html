@@ -13,6 +13,7 @@
             <thead>
                 <tr>
                     <th>Nome:</th>
+                    <th style="text-align: center;">Data de Nascimento:</th>
                     <th style="text-align: center;">Matrícula:</th>
                     <th>E-mail:</th>
                     <th style="text-align: center;">Instituição:</th>
@@ -20,7 +21,9 @@
             </thead>
             <tbody>
                 <tr th:each="estudante : ${estudantes}">
-                    <td th:text="${estudante.nome != null and estudante.nome != '' ?estudante.nome: 'Anônimo'}"></td>   
+                    <td th:text="${estudante.nome != null and estudante.nome != '' ?estudante.nome: 'Anônimo'}"></td>
+                    <td th:text="${#dates.format(estudante.dataNascimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
+                        style="text-align: center;"></td>   
                     <td th:text="${estudante.matricula}" style="text-align: center;"></td>
                     <td th:text="${estudante.email}"></td>                             
                     <td th:text="${estudante.instituicao != null and estudante.instituicao != '' ?estudante.instituicao.sigla: 'Não Informada'}"
