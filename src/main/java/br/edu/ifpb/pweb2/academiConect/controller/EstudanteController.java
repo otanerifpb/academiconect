@@ -69,8 +69,7 @@ public class EstudanteController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView listAll(ModelAndView mav) {
         mav.addObject("estudantes", estudanteRepository.findAll());
-
-        List<Estudante> estudanteSemDeclaracao = estudanteRepository.buscaEstudanteQueNaoTemDeclaracao();
+        //List<Estudante> estudanteSemDeclaracao = estudanteRepository.buscaEstudanteQueNaoTemDeclaracao();
         mav.setViewName("estudantes/listEstu");
         return mav;
     }

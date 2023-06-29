@@ -37,6 +37,10 @@
         <a sec:authorize="hasAnyRole('USER', 'ADMIN')" th:classappend="${menu == 'periodos'} ? 'active'" 
             class="nav-item nav-link"  th:href="@{/periodos}">
             Período Letivo
+        </a>
+        <a sec:authorize="hasRole('ADMIN')" th:classappend="${menu == 'relatorios'} ? 'active'"  
+            class="nav-item nav-link" th:href="@{/relatorios}">
+            Relatórios
         </a>  
     </div>
 

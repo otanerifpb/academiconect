@@ -32,6 +32,4 @@ public interface EstudanteRepository extends JpaRepository<Estudante, Integer>{
 
 //    SELECT * FROM estudante e
 // where not exists (select * from declaracao d where e.id = d.id_estudante )
-
-
 }

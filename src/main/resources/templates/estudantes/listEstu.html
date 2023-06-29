@@ -20,7 +20,7 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Nome</th>
+                        <th>Nome:</th>
                         <th style="text-align: center;">Matrícula:</th>
                         <th style="text-align: center;">Data Nascimento:</th>
                         <th>E-mail:</th>
@@ -39,19 +39,19 @@
                         <td th:text="${estudante.instituicao != null and estudante.instituicao != '' ?estudante.instituicao.sigla: 'Não Informada'}"
                             style="text-align: center;"></td>
                         <td class="text-center" th:text="${estudante.user != null ?estudante.user.username: 'Sem Usuário'}"></td>
-                        <td class="text-center">
+                        <!-- <td class="text-center">
                             <a th:href="@{/estudantes/{id}/documentos(id=${estudante.id})}">
                                 <i class="fa fa-external-link" aria-hidden="true"></i>
-                                <img th:src="@{/imagens/declaracao.png}" alt="Documento"/>
+                                <img th:if="${documento != null}" th:src="@{/imagens/declaracao.png}" alt="Documento"/>
                             </a>
-                        </td>
-                        <!-- <td>
+                        </td> -->
+                        <td class="text-center">
                             <form th:action="@{/estudantes/{id}/listaDeclaracoes(id=${estudante.id})}" method="GET">
-                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Declaração">
+                                <button class="btn btn-outline-secondary btn-sm " type="submit" title="Declaração">
                                     <img th:src="@{/imagens/declaracao.png}" alt="Declaração"/>
                                 </button>
                             </form>
-                        </td> -->
+                        </td>
                         <td>
                             <form th:action="@{/estudantes/{id}(id=${estudante.id})}" method="GET">
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">

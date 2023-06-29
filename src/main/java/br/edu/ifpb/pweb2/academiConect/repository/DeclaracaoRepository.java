@@ -26,12 +26,6 @@ public interface DeclaracaoRepository extends JpaRepository<Declaracao, Integer>
   + " where periodo.dataFim between current_date and :dataInformada " )
   List<Declaracao> declaracoesVaiVencer(Data dataInformada);
 
-
-
    //@Query("SELECT e FROM Enrollment e WHERE e.semester.end < current_date")
-   // List<Enrollment> findExpiredEnrollments();
-
-
-
-    
+   // List<Enrollment> findExpiredEnrollments(); 
 }
