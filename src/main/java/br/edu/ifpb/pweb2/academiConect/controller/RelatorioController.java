@@ -75,8 +75,6 @@ public class RelatorioController {
         return mav;
     }
 
-    //List<Declaracao> findByAllOverdueDeclaration();
-
     // Rota para acessar o Formulário de Declaração por Vencer
     // REQFUNC 10 - Relatório Declarações por Vencer
     @RequestMapping("formDecVence")
@@ -85,7 +83,7 @@ public class RelatorioController {
         //mav.addObject("declaracao", declaracao);
         //mav.addObject("mostrarForm", mostrarForm);
         //mav.setViewName("relatorios/listRelator");
-        return "relatorios/formDecVence";
+        return "relatorios/listDecVence";
     }
 
     // Rota para acessar a Lista de Estudante Declaração
@@ -119,18 +117,11 @@ public class RelatorioController {
         }
         return mav;
     }
-
-    //mav.setViewName("redirect:/declaracoes");
     
-    //List<Estudante> estudanteSemDeclaracao = estudanteRepository.buscaEstudanteQueNaoTemDeclaracao();
-    
-    //@RequestMapping("/listDecVence")
-    // public ModelAndView getFormDecEstu(Declaracao declaracao, ModelAndView mav) {
-    //     mav.addObject("declaracao", declaracao);
-    //     mav.setViewName("relatorios/listDecVence");
-    //     return mav;
-    // }
-
-    
-      
+    // Rota para acessar a lista com todas as declarações cadastradas
+    @RequestMapping("/listDecEstu")
+    public String listAll(Model model) {
+        model.addAttribute("declaracoes", declaracaoRepository.findAll());
+        return "relatorios/listDecEstu";
+    }
 }

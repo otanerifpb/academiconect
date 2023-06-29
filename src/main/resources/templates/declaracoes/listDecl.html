@@ -45,6 +45,7 @@
                         <th style="text-align: center;">Período Letivo:</th>
                         <th>Data Vencimento:</th>
                         <th style="text-align: center;">Declaração Atual:</th>
+                        <th>Documento:</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,13 +66,13 @@
                             <img th:if="${declaracao.declaracaoAtual}" th:src="@{/imagens/ok.png}" />
                             <img th:unless="${declaracao.declaracaoAtual}" th:src="@{/imagens/nok.png}" />
                         </td>
-                        <!-- <td >
+                        <td >
                             <form th:action="@{/declaracoes/formDecEstu}" method="GET">
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Consultar">
                                     <img th:src="@{/imagens/consulta.png}" alt="Consultar"/>
                                 </button>
                             </form>
-                        </td> -->
+                        </td>
                         <td>
                             <form th:action="@{/declaracoes/{id}(id=${declaracao.id})}" method="GET">
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
