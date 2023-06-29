@@ -22,7 +22,8 @@
                     <tr>
                         <td><h2>Declaração(s) por Vencer</h2></td>
                         <td>
-                            <form th:action="@{/relatorios/formDecVence}" method="GET">
+                            <input>
+                            <form th:action="@{/relatorios/listDecVence}" method="GET">
                                 <button class="btn btn-outline-secondary" type="submit" title="Consultar">
                                     <img th:src="@{/imagens/consulta.png}" alt="Consultar"/>
                                 </button>
@@ -33,6 +34,16 @@
                         <td><h2>Aluno(s) sem Declaração(s)</h2></td>
                         <td>
                             <form th:action="@{/relatorios/listEstSDec}" method="GET">
+                                <button class="btn btn-outline-secondary" type="submit" title="Consultar">
+                                    <img th:src="@{/imagens/consulta.png}" alt="Consultar"/>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><h2>Declaração(s) Cadastrada(s)</h2></td>
+                        <td>
+                            <form th:action="@{/relatorios/listDecEstu}" method="GET">
                                 <button class="btn btn-outline-secondary" type="submit" title="Consultar">
                                     <img th:src="@{/imagens/consulta.png}" alt="Consultar"/>
                                 </button>
