@@ -21,13 +21,6 @@
                         </button>
                     </form>
                 </th>
-                <th>
-                    <a th:href="@{/estudantes}" method="GET">
-                        <button class="btn btn-outline-secondary btn-sm" type="submit" title="Voltar">
-                            <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
-                        </button>
-                    </a>
-                </th>
             </tr>
         </table>
 
@@ -48,6 +41,7 @@
                         <th>Documento:</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <tr th:each="declaracao: ${declaracoes}">   
                         <td th:text="${declaracao.estudante.matricula}"></td>
@@ -90,6 +84,14 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div></br>
+            <form th:action="@{/estudantes}" method="GET">
+                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Voltar">
+                    <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+                </button>
+            </form>
         </div>
     </div> 
 </body>

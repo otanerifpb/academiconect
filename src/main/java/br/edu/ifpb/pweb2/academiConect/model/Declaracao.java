@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -69,5 +70,12 @@ public class Declaracao implements Serializable {
     public Declaracao(Estudante estudante) {
         this.estudante = estudante;
     }
+
+    // Relação entre Declaração e Documento (1:1)
+    // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
+    @OneToOne
+    @JoinColumn(name = "id_documento")
+    @ToString.Exclude
+    private Documento documento;
     
 }
