@@ -16,7 +16,7 @@
                     <tr>
                         <!-- <th style="text-align: center;">Matrícula:</th> -->
                         <th scope="col">Arquivo:</th>
-                        <th scope="col">Declaração:</th>
+                        <th scope="col" style="text-align: center;">Declaração:</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,7 +32,7 @@
                                 </button>
                             </form>
                         </td> -->
-                         <td>
+                         <td style="text-align: center;">
                              <!-- <form action="@{/estudantes/documentos}" method="POST"> 
                                  <a th:href="@{${documento.url}}" title="Download documento"> 
                                     <i class="fa fa-download" aria-hidden="true"></i>
@@ -42,6 +42,7 @@
                                 </a> 
                             </form> -->
 
+                            <!-- <a th:href="@{/estudantes/{id}/documentos(id=${documento.url})}" target="_blank"> -->
                             <a th:href="@{/estudantes/{id}/documentos(id=${documento.url})}" target="_blank">
                                 <i class="fa fa-external-link" aria-hidden="true"></i>
                                 <img th:src="@{/imagens/salvar1.png}" alt="Download"/>

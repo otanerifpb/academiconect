@@ -190,6 +190,35 @@
             <input type="text" class="form-control" th:field="*{observacao}" />
             <p th:if="${#fields.hasErrors('observacao')}" th:errors="*{observacao}" th:errorclass="error"></p>
         </div>
+        <div >
+            <form id="uploadForm" method="post" 
+                th:action="@{/estudantes/{id}/documentos/upload(id=${id})}" 
+                enctype="multipart/form-data" class="row g-2">
+                <input type="hidden" name="idEstudante" th:value="${idEstudante}"/>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <td>
+                                <div >
+                                    <label for="file">Arquivo:</label>
+                                    <input id="file" class="form-control" type="file" name="file" 
+                                        accept="application/pdf"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="upload">&nbsp;</label>
+                                    <button class="btn btn-outline-secondary btn-sm  " type="submit" 
+                                        name="dados" title="Salvar">
+                                        <img th:src="@{/imagens/salvar3.png}" alt="Salvar"/>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </thead>
+                </table> 
+            </form>
+        </div></br>
     </div>   
     
     <!-- Dados do formulário de Instituição -->

@@ -39,12 +39,6 @@
                         <td th:text="${estudante.instituicao != null and estudante.instituicao != '' ? estudante.instituicao.sigla: 'Não Informada'}"
                             style="text-align: center;"></td>
                         <td class="text-center" th:text="${estudante.user != null ?estudante.user.username: 'Sem Usuário'}"></td>
-                        <!-- <td class="text-center" th:text="${estudante.documento} != null and ${estudante.documento} != '' ? ${estudante.documento.nome} : 'Não Informada'"  >
-                            <a th:href="@{/estudantes/{id}/documentos(id=${estudante.id})}">
-                                <i class="fa fa-external-link" aria-hidden="true">
-                                <img th:src="@{/imagens/declaracao.png}" alt="Documento"/></i>
-                            </a>
-                        </td> -->
                         <td class="text-center">
                             <div th:if="${estudante.documento} != null and ${estudante.documento} != ''">
                                 <a th:href="@{/estudantes/{id}/documentos(id=${estudante.id})}">
@@ -53,11 +47,12 @@
                                 </a>
                             </div>
                             <div th:unless="${estudante.documento} != null and ${estudante.documento} != ''">
-                                    <p>Não Informada</p>
+                                <a th:href="@{/estudantes/{id}/documentos/formDoc(id=${estudante.id})}" method="GET">
+                                    <i class="fa fa-external-link" aria-hidden="true">
+                                        <p>Sem PDF</p></i>
+                                </a>
                             </div>
-
                         </td>
-                        
                         <!-- <td class="text-center">
                             <form th:action="@{/estudantes/{id}/listaDeclaracoes(id=${estudante.id})}" method="GET">
                                 <button class="btn btn-outline-secondary btn-sm " type="submit" title="Consulta">

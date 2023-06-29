@@ -321,7 +321,6 @@ public class EstudanteController {
         return mav;
     }
 
-
     // @RequestMapping(method = RequestMethod.GET)
     // public ModelAndView listAll(ModelAndView model, @RequestParam(defaultValue = "1") int page,
     //         @RequestParam(defaultValue = "3") int size) {
