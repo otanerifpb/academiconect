@@ -61,13 +61,13 @@
                             <img th:unless="${declaracao.declaracaoAtual}" th:src="@{/imagens/nok.png}" />
                         </td>
                         <td style="text-align: center;">
-                            <td class="text-center" th:text="${estudante.documento != null and estudante.documento != ''}">
+                            <td class="text-center" th:text="${declaracao.documento != null and declaracao.documento != ''}">
                                 <a th:href="@{/estudantes/{id}/documentos(id=${estudante.id})}">
                                     <i class="fa fa-external-link" aria-hidden="true"></i>
                                     <img th:src="@{/imagens/declaracao.png}" alt="Documento"/>
                                 </a>
                             </td>
-                            <p>teste</p>
+                           
                         </td>
                         <td style="text-align: center;">
                             <form th:action="@{/declaracoes/formDecEstu}" method="GET">

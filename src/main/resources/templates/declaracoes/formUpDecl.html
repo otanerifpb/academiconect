@@ -8,7 +8,7 @@
         <form th:action="@{/declaracoes/update}" method="POST" th:object="${declaracao}">
             <label for="estudante">Matrícula:</label></br>
                 <input type="text" class="form-control" required th:field="*{estudante.matricula}" /></br>
-            <div th:replace="~{/fragments/body :: formDecl}"></div>
+             <div th:replace="~{/fragments/body :: formDecl}"></div> 
             <label for="periodos" class="form-label">Período Letivo:</label>
                 <select th:field="*{periodo.id}" class="form-select">
                     <option value=""></option>
@@ -23,6 +23,35 @@
             <button class="btn btn-outline-secondary btn-sm" type="submit" title="Enviar">
                 <img th:src="@{/imagens/enviar1.png}" alt="Enviar"/>
             </button>
+            <div >
+                <form id="uploadForm" method="post" 
+                    th:action="@{/estudantes/{id}/documentos/upload(id=${id})}" 
+                    enctype="multipart/form-data" class="row g-2">
+                    <input type="hidden" name="idEstudante" th:value="${idEstudante}"/>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <div >
+                                        <label for="file">Arquivo:</label>
+                                        <input id="file" class="form-control" type="file" name="file" 
+                                            accept="application/pdf"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="upload">&nbsp;</label>
+                                        <button class="btn btn-outline-secondary btn-sm  " type="submit" 
+                                            name="dados" title="Salvar">
+                                            <img th:src="@{/imagens/salvar3.png}" alt="Salvar"/>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table> 
+                </form>
+            </div>
             <a th:href="@{/declaracoes}">
                 <button class="btn btn-outline-secondary btn-sm" type="button" title="Voltar">
                     <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
