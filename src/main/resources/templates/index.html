@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{layout/layout}"
-    th:with="titulo1='Página Principal'">
+    th:with="titulo1='Página Principal', titulo2='Controle de Declaração de Estudante' ">
 <body>
      <div layout:fragment="content" class="home-page mb-0 p-0">
-        <img th:src="@{/imagens/home-page.jpg}" stayle="height: auto; width: 100%" class="img-fluid"/>
-        <!-- height="500" width="1420" -->
+        <div class="div-home">
+            <h1>Controle de Declaração de Estudante</h1>
+            <p>Sistema para controlar o recebimento de declaração de estudantes.</p>
+            <p>A empresa recebe periodicamente a declaração de um estudante, 
+                para fornecer o benefício de um plano de saúde para os filhos dependentes 
+                até 24 anos que estejam estudando.</p>
+            <p>A empresa controla a validação da declaração, cadastro e acompanhamento 
+                dos prazos de validade da mesma de acordo com a validade do Período letivo
+                da instituíção de ensino do estudante. 
+            </p>
+        </div>
+        <img th:src="@{/imagens/home-page.jpg}" class="img-fluid"/>
      </div>
 </body>
 </html>
