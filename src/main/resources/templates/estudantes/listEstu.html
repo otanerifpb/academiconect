@@ -48,18 +48,18 @@
                             </div>
                             <div th:unless="${estudante.documento} != null and ${estudante.documento} != ''">
                                 <a th:href="@{/estudantes/{id}/documentos/formDoc(id=${estudante.id})}" method="GET">
-                                    <i class="fa fa-external-link" aria-hidden="true">
-                                        <p>Sem PDF</p></i>
+                                    <i class="fa fa-external-link" aria-hidden="true"></i>
                                 </a>
+                                <p>Sem PDF</p>
                             </div>
                         </td>
-                        <!-- <td class="text-center">
+                        <td class="text-center">
                             <form th:action="@{/estudantes/{id}/listaDeclaracoes(id=${estudante.id})}" method="GET">
                                 <button class="btn btn-outline-secondary btn-sm " type="submit" title="Consulta">
                                     <img th:src="@{/imagens/consulta.png}" alt="Consulta"/>
                                 </button>
                             </form>
-                        </td> -->
+                        </td>
                         <td>
                             <form th:action="@{/estudantes/{id}(id=${estudante.id})}" method="GET">
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">

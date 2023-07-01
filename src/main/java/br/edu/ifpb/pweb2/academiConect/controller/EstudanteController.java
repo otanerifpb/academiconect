@@ -275,16 +275,20 @@ public class EstudanteController {
                         arquivo.getBytes());
                 documento.setUrl(this.buildUrl(estudante.getId(), documento.getId()));
                 estudanteRepository.save(estudante);
-                mensagem = "Documento carregado com sucesso: " + arquivo.getOriginalFilename();
+                //mensagem = "Documento carregado com sucesso: " + arquivo.getOriginalFilename();
+                mav.addObject("succesMensagem", "Documento carregado com sucesso: " 
+                        + arquivo.getOriginalFilename() + "!!");
                 proxPagina = String.format("redirect:/estudantes/%s/documentos", 
                         estudante.getId().toString());
             }
         } catch(Exception e) {
-            mensagem = "Não foi possível carregar o documento: " + arquivo.getOriginalFilename() 
-                    + "!! " + e.getMessage();
+            mav.addObject("errorMensagem", "Não foi possível carregar o documento " 
+                        + arquivo.getOriginalFilename() + "!!");
+            // mensagem = "Não foi possível carregar o documento: " + arquivo.getOriginalFilename() 
+            //         + "!! " + e.getMessage();
             proxPagina = "/estudantes/documentos/formDoc";
         }
-        mav.addObject("mensagem", mensagem);
+        //mav.addObject("mensagem", mensagem);
         mav.setViewName(proxPagina);
         return mav;
     }
