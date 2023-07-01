@@ -17,9 +17,9 @@
     margin-right: 5px;
 }
 
-.home-page {
+/* .home-page {
     background-color: #0a0b0a;
-}
+} */
 
 /* .alert-error {
     background-color: #cc3a3a;
@@ -45,3 +45,12 @@ footer {
     font-size: 12px;
   }
 
+.img-fluid {
+    height: 300px;
+    width: 100%;
+}
+
+.div-home {
+    text-align: center
+}
+/* text-align: center */

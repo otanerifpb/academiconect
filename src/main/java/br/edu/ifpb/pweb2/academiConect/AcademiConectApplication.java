@@ -1,10 +1,11 @@
-/*
- **********************************************
- * Autor do projeto
- * Renato Ribeiro da Silva
+/**
+ * 
+ * @author Renato Ribeiro da Silva
+ * Programação para WebII
  * Professor Dr. Frederico Costa Guedes Pereira
+ * Tecnologia em Sistemas para Internet
  * IFPB - João Pessoa - Brasil - 2023.1 - P5
- ********************************************** 
+ * 
  */
 
 package br.edu.ifpb.pweb2.academiConect;
