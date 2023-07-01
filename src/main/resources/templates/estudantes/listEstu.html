@@ -7,7 +7,7 @@
     <div layout:fragment="content">
         <form th:action="@{/estudantes/formEstu}" method="GET">
             <button class="btn btn-outline-secondary" type="submit" title="Novo">
-                <img th:src="@{/imagens/novo.png}" alt="Novo"/>
+                <img th:src="@{/imagens/novo1.png}" alt="Novo"/>
             </button>
         </form>
 
@@ -43,7 +43,7 @@
                             <div th:if="${estudante.documento} != null and ${estudante.documento} != ''">
                                 <a th:href="@{/estudantes/{id}/documentos(id=${estudante.id})}">
                                     <i class="fa fa-external-link" aria-hidden="true">
-                                    <img th:src="@{/imagens/declaracao.png}" alt="Documento"/></i>
+                                    <img th:src="@{/imagens/documento3.png}" alt="Documento"/></i>
                                 </a>
                             </div>
                             <div th:unless="${estudante.documento} != null and ${estudante.documento} != ''">
