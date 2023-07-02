@@ -263,7 +263,7 @@ public class EstudanteController {
     @RequestMapping(value = "/{id}/documentos/upload", method = RequestMethod.POST)
     public ModelAndView fileDownloadUri(@RequestParam("file") MultipartFile arquivo, 
             @PathVariable("id") Integer id, ModelAndView mav) {
-        String mensagem = "";
+        //String mensagem = "";
         String proxPagina = "";
         try{
             Optional<Estudante> opEstudante = estudanteRepository.findById(id);
@@ -319,7 +319,7 @@ public class EstudanteController {
     // REQFUNC 12 - Upload de PDF
     // Método para acessar o formDoc para salvar um novo Documento
     @RequestMapping("/{id}/documentos/formDoc")
-    public ModelAndView getForm(@PathVariable(name = "id") Integer id, ModelAndView mav) {
+    public ModelAndView getFormDoc(@PathVariable(name = "id") Integer id, ModelAndView mav) {
         mav.addObject("id", id);
         mav.setViewName("estudantes/documentos/formDoc");
         return mav;

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
 import br.edu.ifpb.pweb2.academiConect.model.Estudante;
@@ -64,23 +65,19 @@ public class RelatorioController {
         return "relatorios";
     }
 
-    // Rota para acessar a Lista de Declaração Vencida
-    // REQFUNC 09 - Relatório Declarações Vencidas
-    @RequestMapping("/listDecVenci")
-    public ModelAndView getlistDecVenci(ModelAndView mav) {
-        Set<Declaracao> declaracaoVencida = declaracaoRepository.findByAllOverdueDeclaration();
-        if (!declaracaoVencida.isEmpty()) {
-            List<Declaracao> listDeclaracoes = new ArrayList<>();
-            for (Declaracao declaracao : declaracaoVencida) {
-                listDeclaracoes.add(declaracao);
-            }
-            mav.addObject("declaracoes", listDeclaracoes);
-            mav.addObject("succesMensagem", "Declaração(s) encontrada(s) com sucesso!!");
-            mav.setViewName("relatorios/listDecVenci");
+    // Rota para acessar a lista com todas as declarações cadastradas
+    @RequestMapping("/listDecEstu")
+    public ModelAndView listAll(ModelAndView mav) {
+        List<Declaracao> listDeclaracoes = declaracaoRepository.findAll();
+        if(!listDeclaracoes.isEmpty()) {
+            mav.addObject("succesMensagem", 
+                    listDeclaracoes.size() +" Declaração(s) Encontrada(s) com Sucesso!!");
+            mav.addObject("declaracoes", listDeclaracoes); 
         } else {
-            mav.addObject("errorMensagem", "Não existe Declaração vencida cadastrada!!");
-            mav.setViewName("redirect:/relatorios");
+            mav.addObject("errorMensagem", 
+                    "Não Consta no Sistema Declaração Cadastrada!!");
         }
+        mav.setViewName("relatorios/listDecEstu");
         return mav;
     }
 
@@ -105,12 +102,76 @@ public class RelatorioController {
         Date d1 = java.sql.Date.valueOf(novaData);
         Date d2 = java.sql.Date.valueOf(novaData2);
        
-        Set<Declaracao> declaracoesAvencer = declaracaoRepository.declarationForExpire(d1, d2);
-       
+        Set<Declaracao> listDeclaracoes = declaracaoRepository.declarationForExpire(d1, d2);
+        if(!listDeclaracoes.isEmpty()) {
+            mav.addObject("succesMensagem", 
+                    listDeclaracoes.size() +" Declaração(s) por Vencer em " + dias + " Encontrada(s) com Sucesso!!");
+            mav.addObject("declaracoes", listDeclaracoes);
+        } else {
+            mav.addObject("errorMensagem", 
+                    "Não Consta no Sistema Declaração a vencer em " + dias + " dias!!");
+        }
         //String mostrarForm = "false";
-        mav.addObject("declaracoes", declaracoesAvencer);
+        //mav.addObject("declaracoes", listDeclaracoes);
         //mav.addObject("mostrarForm", mostrarForm);
         mav.setViewName("relatorios/listDecVence");
+        return mav;
+    }
+
+    // Rota para acessar a Lista de Declaração Vencida
+    // REQFUNC 09 - Relatório Declarações Vencidas
+    @RequestMapping("/listDecVenci")
+    public ModelAndView getlistDecVenci(ModelAndView mav) {
+        Set<Declaracao> declaracaoVencida = declaracaoRepository.findByAllOverdueDeclaration();
+        if (!declaracaoVencida.isEmpty()) {
+            List<Declaracao> listDeclaracoes = new ArrayList<>();
+            for (Declaracao declaracao : declaracaoVencida) {
+                listDeclaracoes.add(declaracao);
+            }
+            mav.addObject("declaracoes", listDeclaracoes);
+            mav.addObject("succesMensagem", 
+                    listDeclaracoes.size() +" Declaração(s) encontrada(s) com sucesso!!");
+        } else {
+            mav.addObject("errorMensagem", 
+                    "Não Consta no Sistema Declaração vencida cadastrada!!");
+        }
+        mav.setViewName("relatorios/listDecVenci");
+        return mav;
+    }
+
+    
+
+    // Rota para acessar a Lista dos Estudantes menores de 24 Anos
+    @RequestMapping("/listEstuMaior")
+    public ModelAndView getListEstuMaior(ModelAndView mav) {
+        List<Estudante> listMaiores = new ArrayList<>();
+        List<Estudante> listEstudantes = estudanteRepository.findAll();
+        LocalDate  dataHoje = LocalDate.now();
+   
+        for(Estudante estudante : listEstudantes ){
+            LocalDate localDateNas = (estudante
+                .getDataNascimento())
+                .toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+            //LocalDate dataNascimento = LocalDate.parse();
+            Period periodo = Period.between(localDateNas, dataHoje);
+             int anos = periodo.getYears();
+            if (anos >= 24){
+                listMaiores.add(estudante);  
+            }
+        }
+
+        if (!listMaiores.isEmpty()) {
+            mav.addObject("succesMensagem", 
+                listMaiores.size() +" Estudante(s) Maior de 24 Anos Encontrada(s) com sucesso!!");
+        }else {
+            mav.addObject("errorMensagem", 
+                    "Não Consta no Sistema Estudante(s) Maior de 24 Anos Cadastrado(s)!!");
+        }
+
+        mav.addObject("estudantes", listMaiores);
+        mav.setViewName("relatorios/listEstuMaior");
         return mav;
     }
 
@@ -118,51 +179,21 @@ public class RelatorioController {
     // REQFUNC 11 - Relatório Estudante sem Declarações
     @RequestMapping("/listEstSDec")
     public ModelAndView getlistEstSDec(ModelAndView mav) {
-        Set<Estudante> estudanteSemDeclaracao = 
+        Set<Estudante> listEstudanteSemDeclaracao = 
                 estudanteRepository.findByStudantWintoutDeclaration();
-        if (!estudanteSemDeclaracao.isEmpty()) {
+        if (!listEstudanteSemDeclaracao.isEmpty()) {
             List<Estudante> listEstudantes = new ArrayList<>();
-            for (Estudante estudante : estudanteSemDeclaracao) {
+            for (Estudante estudante : listEstudanteSemDeclaracao) {
                 listEstudantes.add(estudante);
             }
             mav.addObject("estudantes", listEstudantes);
-            mav.addObject("succesMensagem", "Estudante(s) encontrado(s) com sucesso!!");
-            mav.setViewName("relatorios/listEstSDec");
+            mav.addObject("succesMensagem", 
+                listEstudantes.size() + " Estudante(s) Encontrado(s) Cadastrado(s) sem Declaração(s)!!");
         } else {
-            mav.addObject("errorMensagem", "Não existe Estudante sem declaração cadastrada!!");
-            mav.setViewName("redirect:/relatorios");
+            mav.addObject("errorMensagem", 
+                    "Não existe Estudante sem declaração cadastrada!!");
         }
-        return mav;
-    }
-    
-    // Rota para acessar a lista com todas as declarações cadastradas
-    @RequestMapping("/listDecEstu")
-    public String listAll(Model model) {
-        model.addAttribute("declaracoes", declaracaoRepository.findAll());
-        return "relatorios/listDecEstu";
-    }
-
-    // Rota para acessar a Lista dos Estudantes menores de 24 Anos
-    @RequestMapping("/listEstuMaior")
-    public ModelAndView getListEstuMaior(ModelAndView mav) {
-        List<Estudante> estudantes = new ArrayList<>();
-        List<Estudante> listEstudantes = estudanteRepository.findAll();
-        LocalDate  dataHoje = LocalDate.now();
-   
-
-        for(Estudante est : listEstudantes ){
-            LocalDate localDateNas = (est.getDataNascimento()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            //LocalDate dataNascimento = LocalDate.parse();
-            Period periodo = Period.between(localDateNas, dataHoje);
-             int anos = periodo.getYears();
-            if (anos>=24){
-            estudantes.add(est);
-                
-            }
-        }
-
-        mav.addObject("estudantes", estudantes);
-        mav.setViewName("relatorios/listEstuMaior");
+        mav.setViewName("relatorios/listEstSDec");
         return mav;
     }
 }
