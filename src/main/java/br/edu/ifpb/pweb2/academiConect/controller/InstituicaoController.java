@@ -46,7 +46,7 @@ public class InstituicaoController {
     // REQFUNC 1 - CRUD
     // REQFUNC 13 - Autenticação e Autorização
     @RequestMapping()
-    //@PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
+    @PreAuthorize("hasAnyRole('VIS','USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     public String listAll(Model model) {
         model.addAttribute("instituicoes", instituicaoRepository.findAll());
         return "instituicoes/listInst";
@@ -56,7 +56,7 @@ public class InstituicaoController {
     // REQNFUNC 5 - Mostrar Erro nos Formulários
     // REQFUNC 13 - Autenticação e Autorização 
     @RequestMapping("/formInst")
-    //@PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     public ModelAndView getForm(ModelAndView mav) {
         mav.addObject("instituicao", new Instituicao());
         mav.setViewName("instituicoes/formInst");
@@ -66,6 +66,7 @@ public class InstituicaoController {
     // Rota para acessar o formunlário de atualização ou a lista se não for atualizar 
     // REQNFUNC - Mostrar Erro nos Formulários
     @RequestMapping("/{id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     public ModelAndView getInstituicaoById(@PathVariable(value = "id") Integer id, ModelAndView mav) {
         Optional<Instituicao> opInstituicao = instituicaoRepository.findById(id);
         Instituicao instituicao = opInstituicao.get();
@@ -83,6 +84,7 @@ public class InstituicaoController {
     // REQFUNC 1 - CRUD
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView save(Instituicao instituicao, ModelAndView mav, RedirectAttributes redAttrs) {
         Optional<Instituicao> opInstituicao = instituicaoRepository.findBySigla(instituicao.getSigla());
@@ -104,6 +106,7 @@ public class InstituicaoController {
     // REQFUNC 1 - CRUD
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     @RequestMapping(value="/update", method = RequestMethod.POST)
     public ModelAndView updade(Instituicao instituicao, ModelAndView mav, RedirectAttributes redAttrs) {
         instituicaoRepository.save(instituicao);
@@ -120,6 +123,7 @@ public class InstituicaoController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping("{id}/delete")
+    @PreAuthorize("hasAnyRole('ADMIN')") /*Perfil que tem autorização para acessar */
     public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView mav, RedirectAttributes redAtt) {
         Optional<Instituicao> opInstituicao = instituicaoRepository.findById(id);
         Instituicao instituicao = null;

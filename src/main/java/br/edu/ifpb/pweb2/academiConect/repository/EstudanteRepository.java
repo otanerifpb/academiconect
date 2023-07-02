@@ -23,8 +23,8 @@ public interface EstudanteRepository extends JpaRepository<Estudante, Integer>{
 
    Optional<Estudante> findByNome(String nome);
 
-   @Query(value = "select e.documento from Estudante e where e.id = :idEstudante")
-    Documento findDocumentById(@Param ("idEstudante") Integer idEstudante);
+   //@Query(value = "select e.documento from Estudante e where e.id = :idEstudante")
+    //Documento findDocumentById(@Param ("idEstudante") Integer idEstudante);
     
     
    @Query("select est from Estudante as est "

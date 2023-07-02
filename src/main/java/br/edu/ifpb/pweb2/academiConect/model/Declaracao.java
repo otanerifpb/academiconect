@@ -2,14 +2,17 @@ package br.edu.ifpb.pweb2.academiConect.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -24,7 +27,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 // Para que não gere um loop na class do relacionamanto usar: exclude = nomeClassRelacionamento  para @OnoToMany ou @ManyToOne
-@EqualsAndHashCode(exclude = {"estudante", "periodo"})
+@EqualsAndHashCode(exclude = {"estudante", "periodo", "documentos"})
 @AllArgsConstructor
 @Entity
 public class Declaracao implements Serializable {
@@ -73,9 +76,9 @@ public class Declaracao implements Serializable {
 
     // Relação entre Declaração e Documento (1:1)
     // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
-    @OneToOne
+    @OneToMany(mappedBy = "declaracao", cascade = CascadeType.ALL)
     @JoinColumn(name = "id_documento")
     @ToString.Exclude
-    private Documento documento;
-    
+    private Set<Documento> documentos = new HashSet<Documento>();
+        
 }

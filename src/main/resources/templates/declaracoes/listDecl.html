@@ -10,7 +10,7 @@
                 <th>
                     <form th:action="@{/declaracoes/formDecl}" method="GET">
                         <button class="btn btn-outline-secondary btn-sm" type="submit" title="Novo">
-                            <img th:src="@{/imagens/novo.png}" alt="Novo"/>
+                            <img th:src="@{/imagens/novo1.png}" alt="Novo"/>
                         </button>
                     </form>
                 </th>
@@ -33,12 +33,12 @@
                 <thead>
                     <tr>
                         <th>Matrícula:</th>
-                        <th>Data Recebimento:</th>
+                        <th style="text-align: center;">Data Recebimento:</th>
                         <th>Observação:</th>
                         <th style="text-align: center;">Período Letivo:</th>
-                        <th>Data Vencimento:</th>
+                        <th style="text-align: center;">Data Vencimento:</th>
                         <th style="text-align: center;">Declaração Atual:</th>
-                        <th>Documento:</th>
+                        <th style="text-align: center;">Documento:</th>
                     </tr>
                 </thead>
 
@@ -46,7 +46,7 @@
                     <tr th:each="declaracao: ${declaracoes}">   
                         <td th:text="${declaracao.estudante.matricula}"></td>
                         <td th:text="${#dates.format(declaracao.dataRecebimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
-                            style="text-align: left;">       
+                            style="text-align: center;">       
                         </td>
                         <td 
                             th:text="${declaracao.observacao != null and declaracao.observacao != '' ?declaracao.observacao: 'Sem observações!!'}">
@@ -54,19 +54,33 @@
                         <td th:text="${declaracao.periodo != null and declaracao.periodo != '' ?declaracao.periodo.periodoLetivo: 'Não Informado'}"
                             style="text-align: center;">
                         </td>
-                        <td th:text="${#dates.format(declaracao.periodo.dataFim, 'dd ''de'' MMMM ''de'' yyyy')}">
+                        <td th:text="${#dates.format(declaracao.periodo.dataFim, 'dd ''de'' MMMM ''de'' yyyy')}"
+                            style="text-align: center;">
                         </td>
                         <td style="text-align: center;">
                             <img th:if="${declaracao.declaracaoAtual}" th:src="@{/imagens/ok.png}" />
                             <img th:unless="${declaracao.declaracaoAtual}" th:src="@{/imagens/nok.png}" />
                         </td>
                         <td style="text-align: center;">
-                            <td class="text-center" th:text="${declaracao.documento != null and declaracao.documento != ''}">
+                            <!-- <div th:if="${declaracao.documento} != null and ${declaracao.documento} != ''">
+                                <a th:href="@{/estudantes/{id}/documentos(id=${estudante.id})}">
+                                    <i class="fa fa-external-link" aria-hidden="true">
+                                    <img th:src="@{/imagens/documento3.png}" alt="Documento"/></i>
+                                </a>
+                            </div> -->
+                            <!-- <div th:unless="${estudante.documento} != null and ${estudante.documento} != ''">
+                                <a th:href="@{/estudantes/{id}/documentos/formDoc(id=${estudante.id})}" method="GET">
+                                    <i class="fa fa-external-link" aria-hidden="true"></i>
+                                </a>
+                                <p>Sem PDF</p>
+                            </div> -->
+                            <!-- <td class="text-center" th:text="${declaracao.documento != null and declaracao.documento != ''}">
                                 <a th:href="@{/estudantes/{id}/documentos(id=${estudante.id})}">
                                     <i class="fa fa-external-link" aria-hidden="true"></i>
                                     <img th:src="@{/imagens/declaracao.png}" alt="Documento"/>
                                 </a>
-                            </td>
+                            </td> -->
+                            <p>teste</p>
                            
                         </td>
                         <td style="text-align: center;">

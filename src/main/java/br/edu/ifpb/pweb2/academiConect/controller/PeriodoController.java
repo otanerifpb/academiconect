@@ -38,6 +38,7 @@ public class PeriodoController {
     DeclaracaoRepository declaracaoRepository;
 
     // Rota para acessar a lista pelo menu com o GET
+    @PreAuthorize("hasAnyRole('VIS', 'USER', 'ADMIN')") /*Perfil que tem autorização para acessar*/
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView listAll(ModelAndView model) {
         model.addObject("periodos", periodoRepository.findAll());
@@ -48,6 +49,7 @@ public class PeriodoController {
     // Rota para acessar a lista ao usar a Rota da class
     // REQFUNC 2 - CRUD
     // REQNFUNC - Layout e Fragments
+    @PreAuthorize("hasAnyRole('VIS', 'USER', 'ADMIN')") /*Perfil que tem autorização para acessar*/
     @RequestMapping()
     public String listAll(Model model) {
         model.addAttribute("periodos", periodoRepository.findAll());
@@ -59,7 +61,7 @@ public class PeriodoController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Layout e Fragments
     @RequestMapping("/formPeri")
-    //@PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar*/
     public ModelAndView getFormPeri(ModelAndView model) {
         model.addObject("periodo", new Periodo());
         model.setViewName("periodos/formPeri");
@@ -70,6 +72,7 @@ public class PeriodoController {
     // REQFUNC 5 - Período Atual
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Layout e Fragments
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar*/
     @RequestMapping("/{id}")
     public ModelAndView getPeriodoById(@PathVariable(value = "id") Integer id, ModelAndView model) {
         Optional<Periodo> opPeriodo = periodoRepository.findById(id);
@@ -89,6 +92,7 @@ public class PeriodoController {
     // REQFUNC 3 - Último periodo cadastrado se torna atual
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar*/
     @RequestMapping(method = RequestMethod.POST)
     //@PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
     public ModelAndView save(@Valid Periodo periodo, BindingResult validation, ModelAndView mav, RedirectAttributes redAttrs) { 
@@ -131,6 +135,7 @@ public class PeriodoController {
     // Rota para atualizar um objeto na lista
     // REQFUNC 2 - CRUD
     // REQNFUNC - Mostrar Erro nos Formulários
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar*/
     @RequestMapping(value="/update", method = RequestMethod.POST)
     //@PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
     public ModelAndView updade(Periodo periodo, ModelAndView model) {
@@ -147,7 +152,7 @@ public class PeriodoController {
     // REQFUNC 2 - CRUD
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
-    //@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
+    @PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
     @RequestMapping("{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView model, RedirectAttributes redAtt) {
         Optional<Periodo> opPeriodo = periodoRepository.findById(id);

@@ -5,9 +5,9 @@
 
 <body>
     <div layout:fragment="content">
-        <form th:action="@{/instituicoes/formInst}" method="GET">
+        <form sec:authorize="hasAnyRole('USER', 'ADMIN')" th:action="@{/instituicoes/formInst}" method="GET">
             <button class="btn btn-outline-secondary" type="submit" title="Novo">
-                <img th:src="@{/imagens/novo.png}" alt="Novo"/>
+                <img th:src="@{/imagens/novo1.png}" alt="Novo"/>
             </button>
         </form>
 

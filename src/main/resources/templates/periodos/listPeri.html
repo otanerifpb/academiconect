@@ -5,9 +5,9 @@
 
 <body>
     <div layout:fragment="content">
-        <form th:action="@{/periodos/formPeri}" method="GET">
+        <form sec:authorize="hasAnyRole('USER', 'ADMIN')" th:action="@{/periodos/formPeri}" method="GET">
             <button class="btn btn-outline-secondary" type="submit" title="Novo">
-                <img th:src="@{/imagens/novo.png}" alt="Novo"/>
+                <img th:src="@{/imagens/novo1.png}" alt="Novo"/>
             </button>
         </form>
 
@@ -44,10 +44,12 @@
                         </td>
                         <td style="text-align: center;">
                             <form th:action="@{/periodos/{id}(id=${periodo.id})}" method="GET">
-                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
+                                <img th:if="${periodo.periodoAtual}" th:src="@{/imagens/ok.png}" />
+                                <img th:unless="${periodo.periodoAtual}" th:src="@{/imagens/nok.png}" />
+                                <!-- <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
                                     <img th:if="${periodo.periodoAtual}" th:src="@{/imagens/ok.png}" />
                                     <img th:unless="${periodo.periodoAtual}" th:src="@{/imagens/nok.png}" />
-                                </button>
+                                </button> -->
                             </form>
                         </td>
                         <td style="text-align: center;">

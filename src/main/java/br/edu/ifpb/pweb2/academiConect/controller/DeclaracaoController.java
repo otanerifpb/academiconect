@@ -31,7 +31,7 @@ import br.edu.ifpb.pweb2.academiConect.repository.PeriodoRepository;
 
 @Controller
 @RequestMapping("/declaracoes") /*Rota para acessar a class */
-@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
+//@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
 public class DeclaracaoController implements Serializable {
     @Autowired
     DeclaracaoRepository declaracaoRepository;
@@ -43,6 +43,7 @@ public class DeclaracaoController implements Serializable {
     PeriodoRepository periodoRepository;
 
     // Rota para acessar a lista pelo formDecEstu
+    @PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView listAll(ModelAndView mav) {
         mav.addObject("declaracoes", declaracaoRepository.findAll());
@@ -191,6 +192,7 @@ public class DeclaracaoController implements Serializable {
     // REQFUNC 4 - CRUD
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
+    @PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
     @RequestMapping("{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView mav,
             RedirectAttributes redAtt) {

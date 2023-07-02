@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
 import br.edu.ifpb.pweb2.academiConect.model.Documento;
 import br.edu.ifpb.pweb2.academiConect.model.Estudante;
+import br.edu.ifpb.pweb2.academiConect.repository.DeclaracaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.DocumentoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 
@@ -21,9 +23,12 @@ public class DocumentoService {
     @Autowired
     private EstudanteRepository estudanteRepository;
 
-    public Documento saveDoc(Estudante estudante, String nomeArquivo, byte[] bytes) throws IOException {
+    @Autowired
+    private DeclaracaoRepository declaracaoRepository;
+
+    public Documento saveDoc(Declaracao declaracao, String nomeArquivo, byte[] bytes) throws IOException {
         Documento documento = new Documento(nomeArquivo, bytes);
-        estudante.setDocumento(documento);
+        declaracao.setDocumento(documento);
         documentoRepository.save(documento);
         return documento;
     }
@@ -32,8 +37,8 @@ public class DocumentoService {
         return documentoRepository.findById(id).get();
     }
 
-    public Optional<Documento> getDocumentoOf(Integer idEstudante) {
-        return Optional.ofNullable(estudanteRepository.findDocumentById(idEstudante));
-    }
+    // public Optional<Documento> getDocumentoOf(Integer idEstudante) {
+    //     return Optional.ofNullable(declaracaoRepository.findDocumentById(idEstudante));
+    // }
     
 }

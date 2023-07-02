@@ -68,7 +68,7 @@ public class Estudante implements Serializable{
     // Relação entre Estudante e User (1:1)
     // Uma vez que não temos mais solicitação de senha no Estudante, e sim uma vinculação
     // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
-    @OneToOne
+    @OneToOne(mappedBy = "user")
     @JoinColumn(name = "username")
     @ToString.Exclude
     private User user;
@@ -96,9 +96,9 @@ public class Estudante implements Serializable{
     
     // Relação entre Estudante e Documento (1:1)
     // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
-    @OneToOne
-    @JoinColumn(name = "id_documento")
-    @ToString.Exclude
-    private Documento documento;
+    // @OneToOne
+    // @JoinColumn(name = "id_documento")
+    // @ToString.Exclude
+    // private Documento documento;
     
 }

@@ -31,7 +31,7 @@ import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 
 @Controller
 @RequestMapping("/relatorios") /*Rota para o acesso da class */
-@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
+@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
 public class RelatorioController {
 
     @Autowired
@@ -138,8 +138,6 @@ public class RelatorioController {
         mav.setViewName("relatorios/listDecVenci");
         return mav;
     }
-
-    
 
     // Rota para acessar a Lista dos Estudantes menores de 24 Anos
     @RequestMapping("/listEstuMaior")

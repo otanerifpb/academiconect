@@ -47,7 +47,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/estudantes") /*Rota para o acesso da class */
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
-@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
+//@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
 public class EstudanteController {
     
     @Autowired
@@ -66,6 +66,7 @@ public class EstudanteController {
     private DocumentoService documentoService;
 
     // Rota para acessar a lista pelo menu
+    @PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView listAll(ModelAndView mav) {
         mav.addObject("estudantes", estudanteRepository.findAll());
@@ -77,6 +78,7 @@ public class EstudanteController {
     // Rota para acessar a lista ao usar o REDIRECT
     // REQFUNC 4 - CRUD
     // REQNFUNC - Layout e Fragments
+    @PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
     @RequestMapping()
     public String listAll(Model model) {
         model.addAttribute("estudantes", estudanteRepository.findAll());
@@ -89,6 +91,7 @@ public class EstudanteController {
     // REQFUNC 13 - Autenticação e Autorização
     // REQNFUNC 05 - Mostrar Erro nos Formulários
     // REQNFUNC - Layout e Fragments
+    @PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
     @RequestMapping("/formEstu")
     public ModelAndView getFormEstu(Estudante estudante, ModelAndView mav) {
         mav.addObject("estudante", estudante);
@@ -102,6 +105,7 @@ public class EstudanteController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Layout e Fragments cvb
     @RequestMapping("/{id}")
+    @PreAuthorize("hasRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessar */
     public ModelAndView getEstudanteById(@PathVariable(value = "id") Integer id, ModelAndView mav) {
         Optional<Estudante> opEstudante = estudanteRepository.findById(id);
        
@@ -121,6 +125,7 @@ public class EstudanteController {
     // REQFUNC 13 - Autenticação e Autorização
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
+    @PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView save(@Valid Estudante estudante, BindingResult validation, ModelAndView mav, RedirectAttributes redAttrs) {
         if(validation.hasErrors()) {
@@ -152,6 +157,7 @@ public class EstudanteController {
     // REQFUNC 6 - Instituição Atual
     // REQFUNC 8 - Instituição Atual
     // REQNFUNC - Mostrar Erro nos Formulários
+    @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     @RequestMapping(value="/update", method = RequestMethod.POST)
     public ModelAndView updade(Estudante estudante, ModelAndView mav, RedirectAttributes redAttrs) {
         //Optional<Instituicao> listaInstituicao = instituicaoRepository.findBySigla(instituicao.getSigla());
@@ -171,6 +177,7 @@ public class EstudanteController {
     // REQFUNC 4 - CRUD
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
+    @PreAuthorize("hasRole('ADMIN')") /*Perfil que tem autorização para acessar */
     @RequestMapping("{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView mav, RedirectAttributes redAttrs) {
         Optional<Estudante> opEstudante = estudanteRepository.findById(id);
@@ -212,6 +219,7 @@ public class EstudanteController {
     }
 
     // Acessar lista das declarações de um Estudante
+    @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     @RequestMapping("{id}/listaDeclaracoes")
     public ModelAndView getEstudanteByMatricula(@PathVariable(value = "id") Integer id, ModelAndView mav) {
         Optional<Estudante> opEstudante = estudanteRepository.findById(id);
@@ -248,6 +256,7 @@ public class EstudanteController {
 
     // REQFUNC 12 - Upload de PDF
     // Método para acessar a lista dos Documentos de um Estudante
+    @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     @RequestMapping("/{id}/documentos") 
     public ModelAndView getDocumentos(@PathVariable ("id") Integer id, ModelAndView mav) {
         Optional<Documento> opdocumento = documentoService.getDocumentoOf(id);
@@ -260,8 +269,9 @@ public class EstudanteController {
 
     // REQFUNC 12 - Upload de PDF
     // Método para carregar o Documento de um Estudante
+    @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     @RequestMapping(value = "/{id}/documentos/upload", method = RequestMethod.POST)
-    public ModelAndView fileDownloadUri(@RequestParam("file") MultipartFile arquivo, 
+    public ModelAndView fileUploadUri(@RequestParam("file") MultipartFile arquivo, 
             @PathVariable("id") Integer id, ModelAndView mav) {
         //String mensagem = "";
         String proxPagina = "";
@@ -293,7 +303,7 @@ public class EstudanteController {
         return mav;
     }
 
-    // Método para usar no método fileDownloadUri()
+    // Método para usar no método fileUploadUri()
     private String buildUrl(Integer idEstudante, Integer idDocumento) {
         String fileDownloadUri = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
@@ -307,6 +317,7 @@ public class EstudanteController {
 
     // REQFUNC 12 - Upload de PDF
     // Método para devolver um documento binário PDF
+    @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     @RequestMapping("/{id}/documentos/{idDoc}")
     public ResponseEntity<byte[]> getDocumento(@PathVariable("idDoc") Integer idDoc) {
         Documento documento = documentoService.getDocumento(idDoc);
@@ -318,6 +329,7 @@ public class EstudanteController {
 
     // REQFUNC 12 - Upload de PDF
     // Método para acessar o formDoc para salvar um novo Documento
+    @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     @RequestMapping("/{id}/documentos/formDoc")
     public ModelAndView getFormDoc(@PathVariable(name = "id") Integer id, ModelAndView mav) {
         mav.addObject("id", id);

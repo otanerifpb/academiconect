@@ -40,18 +40,18 @@
                             style="text-align: center;"></td>
                         <td class="text-center" th:text="${estudante.user != null ?estudante.user.username: 'Sem Usuário'}"></td>
                         <td class="text-center">
-                            <div th:if="${estudante.documento} != null and ${estudante.documento} != ''">
+                            <!-- <div th:if="${estudante.documento} != null and ${estudante.documento} != ''">
                                 <a th:href="@{/estudantes/{id}/documentos(id=${estudante.id})}">
                                     <i class="fa fa-external-link" aria-hidden="true">
                                     <img th:src="@{/imagens/documento3.png}" alt="Documento"/></i>
                                 </a>
-                            </div>
-                            <div th:unless="${estudante.documento} != null and ${estudante.documento} != ''">
+                            </div> -->
+                            <!-- <div th:unless="${estudante.documento} != null and ${estudante.documento} != ''">
                                 <a th:href="@{/estudantes/{id}/documentos/formDoc(id=${estudante.id})}" method="GET">
                                     <i class="fa fa-external-link" aria-hidden="true"></i>
                                 </a>
                                 <p>Sem PDF</p>
-                            </div>
+                            </div> -->
                         </td>
                         <td class="text-center">
                             <form th:action="@{/estudantes/{id}/listaDeclaracoes(id=${estudante.id})}" method="GET">
