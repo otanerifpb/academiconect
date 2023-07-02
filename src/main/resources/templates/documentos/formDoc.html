@@ -6,9 +6,9 @@
     <!-- th:action="@{/estudantes/{id}/documentos/upload(id=${id})}" -->
     <div layout:fragment="content">
         <form id="uploadForm" method="post" 
-                th:action="@{/estudantes/{id}/documentos/upload(id=${id})}" 
+                th:action="@{/documentos/{id}/upload(id=${id})}" 
                 enctype="multipart/form-data" class="row g-2">
-            <input type="hidden" name="idEstudante" th:value="${idEstudante}"/>
+            <input type="hidden" name="idDocumento" th:value="${idDocumento}"/>
             <div class="row">
                 <div class="col-md-10"></br>
                     <label for="file">Arquivo:</label>

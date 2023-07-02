@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
@@ -68,7 +69,7 @@ public class Estudante implements Serializable{
     // Relação entre Estudante e User (1:1)
     // Uma vez que não temos mais solicitação de senha no Estudante, e sim uma vinculação
     // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
-    @OneToOne(mappedBy = "user")
+    @OneToOne
     @JoinColumn(name = "username")
     @ToString.Exclude
     private User user;

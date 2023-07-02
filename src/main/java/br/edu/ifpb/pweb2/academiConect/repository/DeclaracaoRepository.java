@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
+import br.edu.ifpb.pweb2.academiConect.model.Documento;
 import br.edu.ifpb.pweb2.academiConect.model.Estudante;
 import br.edu.ifpb.pweb2.academiConect.model.Periodo;
 
@@ -40,5 +41,6 @@ public interface DeclaracaoRepository extends JpaRepository<Declaracao, Integer>
    //@Query("SELECT e FROM Enrollment e WHERE e.semester.end < current_date")
    // List<Enrollment> findExpiredEnrollments(); 
 
-   
+  @Query("select d.documentos from Declaracao d where d.id = :idDeclaracao")
+  Set<Documento> findDocumentById(Integer idDeclaracao);
 }
