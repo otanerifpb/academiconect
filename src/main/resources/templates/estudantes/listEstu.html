@@ -26,7 +26,7 @@
                         <th>E-mail:</th>
                         <th style="text-align: center;">Instituição:</th>
                         <th style="text-align: center;">Usuário:</th>
-                        <th style="text-align: center;">Documentos:</th>
+                        <th style="text-align: center;">Declaração:</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,7 +39,7 @@
                         <td th:text="${estudante.instituicao != null and estudante.instituicao != '' ? estudante.instituicao.sigla: 'Não Informada'}"
                             style="text-align: center;"></td>
                         <td class="text-center" th:text="${estudante.user != null ?estudante.user.username: 'Sem Usuário'}"></td>
-                        <td class="text-center">
+                        <!-- <td class="text-center"> -->
                             <!-- <div th:if="${estudante.declaracao.documentos} != null and ${estudante.declaracao.documentos} != ''">
                                 <a th:href="@{/declaracoes/{id}/documentos(id=${declaracao.id})}">
                                     <i class="fa fa-external-link" aria-hidden="true">
@@ -53,13 +53,20 @@
                                 </a>
                                 <p>Sem PDF</p>
                             </div> -->
-                        </td>
+                        <!-- </td> -->
                         <td class="text-center">
-                            <form th:action="@{/estudantes/{id}/listaDeclaracoes(id=${estudante.id})}" method="GET">
-                                <button class="btn btn-outline-secondary btn-sm " type="submit" title="Consulta">
-                                    <img th:src="@{/imagens/consulta.png}" alt="Consulta"/>
-                                </button>
-                            </form>
+                            <div th:if="${not #lists.isEmpty(estudante.declaracoes)}">
+                                <form th:action="@{/estudantes/{id}/listaDeclaracoes(id=${estudante.id})}" method="GET">
+                                    <button class="btn btn-outline-secondary btn-sm " type="submit" title="Declaração">
+                                        <img th:src="@{/imagens/documento.png}" alt="Declaração"/>
+                                    </button>
+                                </form>
+                             </div>
+                             <div th:unless="${not #lists.isEmpty(estudante.declaracoes)}">
+                                <a th:href="@{/estudantes/{id}/listaDeclaracoes(id=${estudante.id})}" >
+                                    <p>Sem Declaração</p>
+                                </a>
+                            </div>
                         </td>
                         <td>
                             <form th:action="@{/estudantes/{id}(id=${estudante.id})}" method="GET">

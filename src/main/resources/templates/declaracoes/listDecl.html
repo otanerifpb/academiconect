@@ -63,32 +63,26 @@
                         </td>
                         <td style="text-align: center;">
                             <!-- <div th:if="${declaracao.documentos} != null and ${declaracao.documentos} != ''"> -->
-                             <div   th:if="${not #lists.isEmpty(declaracao.documentos)}">
+                             <div th:if="${not #lists.isEmpty(declaracao.documentos)}">
                                <a th:href="@{/declaracoes/{id}/documentos(id=${declaracao.id})}">
                                     <i class="fa fa-external-link" aria-hidden="true">
                                     <p th:text="${declaracao.documentos}"></p>
                                     <img th:src="@{/imagens/documento3.png}" alt="Documento"/></i>
                                 </a>  
-
                             </div> 
-                              <!-- <div th:unless="${declaracao.documentos} != null and ${declaracao.documentos} != ''"> -->
-                                 
+                              <!-- <div th:unless="${declaracao.documentos} != null and ${declaracao.documentos} != ''"> --> 
                              <div th:unless="${not #lists.isEmpty(declaracao.documentos)}">
                                 <a th:href="@{/declaracoes/{id}/documentos(id=${declaracao.id})}" >
                                     <i class="fa fa-external-link" aria-hidden="true"></i>
                                     <p>Sem PDF</p>
                                 </a>
-                                
                             </div>  
-                            
                              <!-- <td class="text-center" th:text="${declaracao.documento != null and declaracao.documento != ''}">
                                 <a th:href="@{/estudantes/{id}/documentos(id=${estudante.id})}">
                                     <i class="fa fa-external-link" aria-hidden="true"></i>
                                     <img th:src="@{/imagens/declaracao.png}" alt="Documento"/>
                                 </a>
                             </td>  -->
-                            
-                           
                         </td>
                         <td style="text-align: center;">
                             <form th:action="@{/declaracoes/formDecEstu}" method="GET">
