@@ -55,8 +55,8 @@ public class DeclaracaoController implements Serializable {
     @Autowired
     private DocumentoService documentoService;
 
-    @Autowired
-    private DocumentoRepository documentoRepository;
+    //@Autowired
+    //private DocumentoRepository documentoRepository;
 
     // Rota para acessar a lista pelo formDecEstu
     //@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
@@ -361,12 +361,14 @@ public class DeclaracaoController implements Serializable {
     // REQFUNC 12 - Download de PDF
     // Método para fazer download do Documento PDF
     // @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
-    @RequestMapping("/{id}/documentos/{idDoc}")
-    public ResponseEntity<byte[]> getDocumento(@PathVariable("idDoc") Integer idDoc) {
-        Documento documento = documentoService.getDocumento(idDoc);
+    @RequestMapping("/{id}/documentos/download")
+    public ResponseEntity<byte[]> getDocumento(@PathVariable("id") Integer id) {
+        Documento documento = documentoService.getDocumento(id);
+        //Optional<Documento> opdocumento = documentoService.getDocumentoOf(id);
         return ResponseEntity
                 .ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + documento.getNome() + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" 
+                    + documento.getNome() + "\"")
                 .body(documento.getDados());
     }
 
