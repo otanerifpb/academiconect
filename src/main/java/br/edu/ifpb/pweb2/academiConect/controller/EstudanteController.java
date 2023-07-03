@@ -315,7 +315,7 @@ public class EstudanteController {
     //     return fileDownloadUri;
     // }
 
-    // REQFUNC 12 - Upload de PDF
+    // REQFUNC 12 - Download de PDF
     // Método para fazer download do Documento PDF
     // @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     // @RequestMapping("/{id}/documentos/{idDoc}")
@@ -325,6 +325,15 @@ public class EstudanteController {
     //             .ok()
     //             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + documento.getNome() + "\"")
     //             .body(documento.getDados());
+    // }
+
+    // REQFUNC 12 - Upload de PDF
+    // Método para acessar o formDoc para salvar um novo Documento
+    // @RequestMapping("/{id}/documentos/formDoc")
+    // public ModelAndView getForm(@PathVariable(name = "id") Integer id, ModelAndView mav) {
+    //     mav.addObject("id", id);
+    //     mav.setViewName("estudantes/documentos/formDoc");
+    //     return mav;
     // }
 
     // REQNFUNC 09 - Paginação

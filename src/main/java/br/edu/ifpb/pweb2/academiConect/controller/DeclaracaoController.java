@@ -9,17 +9,23 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
 import br.edu.ifpb.pweb2.academiConect.model.Documento;
@@ -279,7 +285,7 @@ public class DeclaracaoController implements Serializable {
     }
 
     // REQFUNC 12 - Upload de PDF
-    // Método para acessar a lista dos Documentos de um Estudante
+    // Método para acessar a lista dos Documentos da Declaração de um Estudante
     // @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     @RequestMapping("/{id}/documentos") 
     public ModelAndView getDocumentos(@PathVariable ("id") Integer id, ModelAndView mav) {
@@ -292,6 +298,76 @@ public class DeclaracaoController implements Serializable {
         }
         mav.setViewName("documentos/listDoc");
         return mav;
+    }
+
+    // REQFUNC 12 - Upload de PDF
+    // Método para acessar o formDoc para salvar um novo Documento
+    // @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
+    @RequestMapping("/{id}/documentos/formDoc")
+    public ModelAndView getForm(@PathVariable(name = "id") Integer id, ModelAndView mav) {
+        mav.addObject("id", id);
+        mav.setViewName("documentos/formDoc");
+        return mav;
+    }
+
+    // REQFUNC 12 - Upload de PDF
+    // Método para carregar o Documento da Declaração de um Estudante
+    // @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
+    @RequestMapping(value = "/{id}/documentos/upload", method = RequestMethod.POST)
+    public ModelAndView fileUploadUri(@RequestParam("file") MultipartFile arquivo, 
+            @PathVariable("id") Integer id, ModelAndView mav) {
+        //String mensagem = "";
+        String proxPagina = "";
+        try{
+            Optional<Declaracao> opDeclaracao = declaracaoRepository.findById(id);
+            Declaracao declaracao = null;
+            if(opDeclaracao.isPresent()) {
+                declaracao = opDeclaracao.get();
+                String nomeArquivo = StringUtils.cleanPath(arquivo.getOriginalFilename());
+                Documento documento = documentoService.saveDoc(declaracao, nomeArquivo, 
+                        arquivo.getBytes());
+                documento.setUrl(this.buildUrl(declaracao.getId(), documento.getId()));
+                declaracaoRepository.save(declaracao);
+                //mensagem = "Documento carregado com sucesso: " + arquivo.getOriginalFilename();
+                mav.addObject("succesMensagem", "Documento carregado com sucesso: " 
+                        + arquivo.getOriginalFilename() + "!!");
+                proxPagina = String.format("redirect:/%s/documentos", 
+                        declaracao.getId().toString());
+            }
+        } catch(Exception e) {
+            mav.addObject("errorMensagem", "Não foi possível carregar o documento " 
+                        + arquivo.getOriginalFilename() + "!!");
+            // mensagem = "Não foi possível carregar o documento: " + arquivo.getOriginalFilename() 
+            //         + "!! " + e.getMessage();
+            proxPagina = "/documentos/formDoc";
+        }
+        //mav.addObject("mensagem", mensagem);
+        mav.setViewName(proxPagina);
+        return mav;
+    }
+
+    // Método para criar a URL para o método uploadDocumentos()
+    private String buildUrl(Integer idDeclaracao, Integer idDocumento) {
+        String fileUploadUri = ServletUriComponentsBuilder
+                .fromCurrentContextPath()
+                .path("/declaracoes")
+                .path(String.valueOf(idDeclaracao))
+                .path("/documentos")
+                .path(String.valueOf(idDocumento))
+                .toUriString();
+        return fileUploadUri;
+    }
+
+    // REQFUNC 12 - Download de PDF
+    // Método para fazer download do Documento PDF
+    // @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
+    @RequestMapping("/{id}/documentos/{idDoc}")
+    public ResponseEntity<byte[]> getDocumento(@PathVariable("idDoc") Integer idDoc) {
+        Documento documento = documentoService.getDocumento(idDoc);
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + documento.getNome() + "\"")
+                .body(documento.getDados());
     }
 
     // @PostMapping("/destino")

@@ -138,7 +138,7 @@ public class DocumentoController implements Serializable {
         return mav;
     }
 
-    // Método para usar no método uploadDocumentos()
+    // Método para criar a URL para o método uploadDocumentos()
     private String buildUrl(Integer idDeclaracao, Integer idDocumento) {
         String fileUploadUri = ServletUriComponentsBuilder
                 .fromCurrentContextPath()

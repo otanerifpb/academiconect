@@ -62,16 +62,18 @@
                             <img th:unless="${declaracao.declaracaoAtual}" th:src="@{/imagens/nok.png}" />
                         </td>
                         <td style="text-align: center;">
+                            <!-- <div th:if="${not #lists.isEmpty(declaracao.documentos)}"> -->
                             <!-- <div th:if="${declaracao.documentos} != null and ${declaracao.documentos} != ''"> -->
-                             <div th:if="${not #lists.isEmpty(declaracao.documentos)}">
+                            <div th:if="${not #lists.isEmpty(declaracao.documentos)}">
                                <a th:href="@{/declaracoes/{id}/documentos(id=${declaracao.id})}">
                                     <i class="fa fa-external-link" aria-hidden="true">
-                                    <p th:text="${declaracao.documentos}"></p>
+                                    <!-- <p th:text="${declaracao.documentos}"></p> -->
                                     <img th:src="@{/imagens/documento3.png}" alt="Documento"/></i>
                                 </a>  
                             </div> 
-                              <!-- <div th:unless="${declaracao.documentos} != null and ${declaracao.documentos} != ''"> --> 
-                             <div th:unless="${not #lists.isEmpty(declaracao.documentos)}">
+                            <!-- <div th:unless="${not #lists.isEmpty(declaracao.documentos)}"> -->
+                            <!-- <div th:unless="${declaracao.documentos} != null and ${declaracao.documentos} != ''"> --> 
+                            <div th:unless="${not #lists.isEmpty(declaracao.documentos)}">
                                 <a th:href="@{/declaracoes/{id}/documentos(id=${declaracao.id})}" >
                                     <i class="fa fa-external-link" aria-hidden="true"></i>
                                     <p>Sem PDF</p>
