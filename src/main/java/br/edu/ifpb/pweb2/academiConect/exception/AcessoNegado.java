@@ -1,4 +1,4 @@
-package br.edu.ifpb.pweb2.academiConect.error;
+package br.edu.ifpb.pweb2.academiConect.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

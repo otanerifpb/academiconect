@@ -37,8 +37,8 @@
                         <th>Observação:</th>
                         <th style="text-align: center;">Período Letivo:</th>
                         <th style="text-align: center;">Data Vencimento:</th>
-                        <th style="text-align: center;">Declaração Atual:</th>
-                        <th style="text-align: center;">Documento:</th>
+                        <th style="text-align: center;">Atual:</th>
+                        <th style="text-align: center;">Documentos:</th>
                     </tr>
                 </thead>
 
@@ -110,15 +110,20 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-
-        <div></br>
-            <form th:action="@{/estudantes}" method="GET">
+            <form th:action="@{/estudantes}" method="GET"></br>
                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Voltar">
                     <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
                 </button>
             </form>
         </div>
+
+        <!-- <div></br>
+            <form th:action="@{/estudantes}" method="GET">
+                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Voltar">
+                    <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+                </button>
+            </form>
+        </div> -->
     </div> 
 </body>
 </html>

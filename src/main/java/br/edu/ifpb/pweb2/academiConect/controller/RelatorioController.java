@@ -78,6 +78,7 @@ public class RelatorioController {
             mav.addObject("errorMensagem", 
                     "Não Consta no Sistema Declaração Cadastrada!!");
         }
+        //mav.setViewName("declaracoes/listDecl");
         mav.setViewName("relatorios/listDecEstu");
         return mav;
     }
@@ -106,11 +107,11 @@ public class RelatorioController {
         Set<Declaracao> listDeclaracoes = declaracaoRepository.declarationForExpire(d1, d2);
         if(!listDeclaracoes.isEmpty()) {
             mav.addObject("succesMensagem", 
-                    listDeclaracoes.size() +" Declaração(s) por Vencer em " + dias + " Encontrada(s) com Sucesso!!");
+                    listDeclaracoes.size() +" Declaração(s) por Vencer em " + dias + " Dia(s) Encontrada(s) com Sucesso!!");
             mav.addObject("declaracoes", listDeclaracoes);
         } else {
             mav.addObject("errorMensagem", 
-                    "Não Consta no Sistema Declaração a vencer em " + dias + " dias!!");
+                    "Não Consta no Sistema Declaração a vencer em " + dias + " Dia(s)!!");
         }
         //String mostrarForm = "false";
         //mav.addObject("declaracoes", listDeclaracoes);
