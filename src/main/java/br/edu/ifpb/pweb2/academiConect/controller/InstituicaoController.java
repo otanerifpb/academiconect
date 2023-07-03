@@ -123,7 +123,7 @@ public class InstituicaoController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
     @RequestMapping("{id}/delete")
-    @PreAuthorize("hasAnyRole('ADMIN')") /*Perfil que tem autorização para acessar */
+    @PreAuthorize("hasRole('ADMIN')") /*Perfil que tem autorização para acessar */
     public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView mav, RedirectAttributes redAtt) {
         Optional<Instituicao> opInstituicao = instituicaoRepository.findById(id);
         Instituicao instituicao = null;

@@ -35,7 +35,7 @@ import br.edu.ifpb.pweb2.academiConect.service.DocumentoService;
 
 @Controller
 @RequestMapping("/documentos") /*Rota para acessar a class */
-@PreAuthorize("hasRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessar */
+@PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessar */
 public class DocumentoController implements Serializable {
 
     @Autowired
@@ -52,9 +52,6 @@ public class DocumentoController implements Serializable {
 
     @Autowired
     DocumentoRepository documentoRepository;
-
-    @Autowired
-    private DocumentoService documentoService;
 
     // REQFUNC 12 - Upload de PDF
     // Rota para acessar a lista pelo menu

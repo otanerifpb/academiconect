@@ -31,6 +31,7 @@ import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 
 @Controller
 @RequestMapping("/relatorios") /*Rota para o acesso da class */
+//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 @PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
 public class RelatorioController {
 

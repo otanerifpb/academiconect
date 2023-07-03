@@ -43,4 +43,7 @@ public interface DeclaracaoRepository extends JpaRepository<Declaracao, Integer>
 
   @Query("select d.documentos from Declaracao d where d.id = :idDeclaracao")
   Set<Documento> findDocumentById(Integer idDeclaracao);
+
+  @Query(value = "select e.documentos from Declaracao e where e.id = :idDeclaracao")
+  Documento findDocumentoById(@Param ("idDeclaracao") Integer idDeclaracao);
 }

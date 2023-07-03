@@ -47,6 +47,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/estudantes") /*Rota para o acesso da class */
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 //@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
 public class EstudanteController {
     
@@ -105,7 +106,7 @@ public class EstudanteController {
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Layout e Fragments cvb
     @RequestMapping("/{id}")
-    @PreAuthorize("hasRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessar */
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessar */
     public ModelAndView getEstudanteById(@PathVariable(value = "id") Integer id, ModelAndView mav) {
         Optional<Estudante> opEstudante = estudanteRepository.findById(id);
         if (opEstudante.isPresent()) {
@@ -156,7 +157,7 @@ public class EstudanteController {
     // REQFUNC 6 - Instituição Atual
     // REQFUNC 8 - Instituição Atual
     // REQNFUNC - Mostrar Erro nos Formulários
-    @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     @RequestMapping(value="/update", method = RequestMethod.POST)
     public ModelAndView updade(Estudante estudante, ModelAndView mav, RedirectAttributes redAttrs) {
         //Optional<Instituicao> listaInstituicao = instituicaoRepository.findBySigla(instituicao.getSigla());
@@ -209,7 +210,7 @@ public class EstudanteController {
         return idade;
     }
 
-    // Método para selecionar a Instituição no formEstu
+    // Relacionamento Estudante com Instituição
     // REQFUNC 6 - Instituição Atual
     // REQFUNC 8 - Declaração Atual
     @ModelAttribute("instituicaoItems")
@@ -247,7 +248,7 @@ public class EstudanteController {
         return mav;
     } 
     
-    //Lista de usuários para o select do formEstu
+    // Relacionamento Estudante com User
     @ModelAttribute("users")
     public List<User> getUserOptions() {
         return userRepository.findByEnabledTrue();
@@ -324,16 +325,6 @@ public class EstudanteController {
     //             .ok()
     //             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + documento.getNome() + "\"")
     //             .body(documento.getDados());
-    // }
-
-    // // REQFUNC 12 - Upload de PDF
-    // // Método para acessar o formDoc para salvar um novo Documento
-    // @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
-    // @RequestMapping("/{id}/documentos/formDoc")
-    // public ModelAndView getFormDoc(@PathVariable(name = "id") Integer id, ModelAndView mav) {
-    //     mav.addObject("id", id);
-    //     mav.setViewName("estudantes/documentos/formDoc");
-    //     return mav;
     // }
 
     // REQNFUNC 09 - Paginação

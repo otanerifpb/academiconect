@@ -22,15 +22,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
+import br.edu.ifpb.pweb2.academiConect.model.Documento;
 import br.edu.ifpb.pweb2.academiConect.model.Estudante;
 import br.edu.ifpb.pweb2.academiConect.model.Instituicao;
 import br.edu.ifpb.pweb2.academiConect.model.Periodo;
 import br.edu.ifpb.pweb2.academiConect.repository.DeclaracaoRepository;
+import br.edu.ifpb.pweb2.academiConect.repository.DocumentoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.PeriodoRepository;
+import br.edu.ifpb.pweb2.academiConect.service.DocumentoService;
 
 @Controller
 @RequestMapping("/declaracoes") /*Rota para acessar a class */
+//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 //@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
 public class DeclaracaoController implements Serializable {
     @Autowired
@@ -42,8 +46,14 @@ public class DeclaracaoController implements Serializable {
     @Autowired
     PeriodoRepository periodoRepository;
 
+    @Autowired
+    private DocumentoService documentoService;
+
+    @Autowired
+    private DocumentoRepository documentoRepository;
+
     // Rota para acessar a lista pelo formDecEstu
-    @PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
+    //@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView listAll(ModelAndView mav) {
         mav.addObject("declaracoes", declaracaoRepository.findAll());
@@ -54,6 +64,7 @@ public class DeclaracaoController implements Serializable {
 
     // Rota para acessar a lista com o uso do REDIRECT
     // REQFUNC 4 - CRUD
+    //@PreAuthorize("hasRole('ADMIN')")
     @RequestMapping()
     public String listAll(Model model) {
         model.addAttribute("declaracoes", declaracaoRepository.findAll());
@@ -192,7 +203,7 @@ public class DeclaracaoController implements Serializable {
     // REQFUNC 4 - CRUD
     // REQNFUNC - Mostrar Erro nos Formulários
     // REQNFUNC - Padrão Post_Redirect_Get
-    @PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
+    //@PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
     @RequestMapping("{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView mav,
             RedirectAttributes redAtt) {
@@ -211,13 +222,13 @@ public class DeclaracaoController implements Serializable {
         return mav;
     }
 
-    // Relacionamento class Declaração com class Estudante para Form
+    // Relacionamento class Declaração com class Estudante
     @ModelAttribute("estudanteItems")
     public List<Estudante> getEstudantes() {
         return estudanteRepository.findAll();
     }
 
-    // Relacionamento class Declaração com class Período Letivo para Form
+    // Relacionamento class Declaração com class Período Letivo
     @ModelAttribute("periodosItems")
     public List<Periodo> getPeriodos() {
         return periodoRepository.findAll();
@@ -252,10 +263,35 @@ public class DeclaracaoController implements Serializable {
         return mav;
     }
 
-    // Método para selecionar a Matrícula do Estudante no formDecl
-    @ModelAttribute("estudanteItems")
-    public List<Estudante> getEstudante() {
-        return estudanteRepository.findAll();
+    // Relacionamento class Declaração com class Documento
+    // @ModelAttribute("documentoItems")
+    // public List<Documento> getDocumentos() {
+    //     return documentoRepository.findAll();
+    // }
+
+    // Método para acessar a lista de documentos
+    @RequestMapping("listaDocumentos")
+    public ModelAndView listaDocumentos(ModelAndView mav) {
+        mav.addObject("declaracoes", declaracaoRepository.findAll());
+       // List<Declaracao> declaracoesVencidas = declaracaoRepository.findByDeclaracoesVencidas("UFPB",2022,"2021.2" );
+        mav.setViewName("documentos/listDoc");
+        return mav;
+    }
+
+    // REQFUNC 12 - Upload de PDF
+    // Método para acessar a lista dos Documentos de um Estudante
+    // @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
+    @RequestMapping("/{id}/documentos") 
+    public ModelAndView getDocumentos(@PathVariable ("id") Integer id, ModelAndView mav) {
+        Optional<Documento> opdocumento = documentoService.getDocumentoOf(id);
+        if(opdocumento.isPresent()) {
+            mav.addObject("succesMensagem", "Documento Encontrado com Sucesso!!"); 
+            mav.addObject("documento", opdocumento.get());
+        } else {
+            mav.addObject("errorMensagem", "Não foi Encontrado Nenhum Documento no Sistema!!"); 
+        }
+        mav.setViewName("documentos/listDoc");
+        return mav;
     }
 
     // @PostMapping("/destino")

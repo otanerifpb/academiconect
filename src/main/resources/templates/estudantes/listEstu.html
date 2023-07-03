@@ -40,11 +40,12 @@
                             style="text-align: center;"></td>
                         <td class="text-center" th:text="${estudante.user != null ?estudante.user.username: 'Sem Usuário'}"></td>
                         <td class="text-center">
-                            <!-- <div th:if="${estudante.documento} != null and ${estudante.documento} != ''">
-                                <a th:href="@{/estudantes/{id}/documentos(id=${estudante.id})}">
+                            <!-- <div th:if="${estudante.declaracao.documentos} != null and ${estudante.declaracao.documentos} != ''">
+                                <a th:href="@{/declaracoes/{id}/documentos(id=${declaracao.id})}">
                                     <i class="fa fa-external-link" aria-hidden="true">
                                     <img th:src="@{/imagens/documento3.png}" alt="Documento"/></i>
                                 </a>
+                                <p>teste estudante</p>
                             </div> -->
                             <!-- <div th:unless="${estudante.documento} != null and ${estudante.documento} != ''">
                                 <a th:href="@{/estudantes/{id}/documentos/formDoc(id=${estudante.id})}" method="GET">

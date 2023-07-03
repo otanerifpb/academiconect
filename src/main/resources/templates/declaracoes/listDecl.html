@@ -62,25 +62,32 @@
                             <img th:unless="${declaracao.declaracaoAtual}" th:src="@{/imagens/nok.png}" />
                         </td>
                         <td style="text-align: center;">
-                            <!-- <div th:if="${declaracao.documento} != null and ${declaracao.documento} != ''">
-                                <a th:href="@{/estudantes/{id}/documentos(id=${estudante.id})}">
+                            <!-- <div th:if="${declaracao.documentos} != null and ${declaracao.documentos} != ''"> -->
+                             <div   th:if="${not #lists.isEmpty(declaracao.documentos)}">
+                               <a th:href="@{/declaracoes/{id}/documentos(id=${declaracao.id})}">
                                     <i class="fa fa-external-link" aria-hidden="true">
+                                    <p th:text="${declaracao.documentos}"></p>
                                     <img th:src="@{/imagens/documento3.png}" alt="Documento"/></i>
-                                </a>
-                            </div> -->
-                            <!-- <div th:unless="${estudante.documento} != null and ${estudante.documento} != ''">
-                                <a th:href="@{/estudantes/{id}/documentos/formDoc(id=${estudante.id})}" method="GET">
+                                </a>  
+
+                            </div> 
+                              <!-- <div th:unless="${declaracao.documentos} != null and ${declaracao.documentos} != ''"> -->
+                                 
+                             <div th:unless="${not #lists.isEmpty(declaracao.documentos)}">
+                                <a th:href="@{/declaracoes/{id}/documentos(id=${declaracao.id})}" >
                                     <i class="fa fa-external-link" aria-hidden="true"></i>
+                                    <p>Sem PDF</p>
                                 </a>
-                                <p>Sem PDF</p>
-                            </div> -->
-                            <!-- <td class="text-center" th:text="${declaracao.documento != null and declaracao.documento != ''}">
+                                
+                            </div>  
+                            
+                             <!-- <td class="text-center" th:text="${declaracao.documento != null and declaracao.documento != ''}">
                                 <a th:href="@{/estudantes/{id}/documentos(id=${estudante.id})}">
                                     <i class="fa fa-external-link" aria-hidden="true"></i>
                                     <img th:src="@{/imagens/declaracao.png}" alt="Documento"/>
                                 </a>
-                            </td> -->
-                            <p>teste</p>
+                            </td>  -->
+                            
                            
                         </td>
                         <td style="text-align: center;">
@@ -97,7 +104,7 @@
                                 </button>
                             </form>
                         </td>
-                        <td > 
+                        <td> 
                             <form th:action="@{/declaracoes/{id}/delete(id=${declaracao.id})}" >
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
                                     <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>
