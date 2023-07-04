@@ -221,6 +221,11 @@ public class DeclaracaoController implements Serializable {
             Declaracao declaracao = opDeclaracao.get();
             declaracao.setEstudante(null);
             declaracao.setPeriodo(null);
+            Documento doc = declaracao.getDocumento();
+            declaracao.setDocumento(null);
+            if (doc!= null){
+                documentoRepository.delete(doc);
+            }
             declaracaoRepository.delete(declaracao);
             redAtt.addFlashAttribute("succesMensagem", "Declarção deletada com sucesso!!");
         } else {

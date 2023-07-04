@@ -80,7 +80,7 @@ public class Declaracao implements Serializable {
     //@OneToMany(mappedBy = "declaracao", cascade = CascadeType.ALL)
     @OneToOne
     @JoinColumn(name = "id_documento")
-    //@ToString.Exclude
+    @ToString.Exclude
     private Documento documento;
     //private Set<Documento> documentos = new HashSet<Documento>();
         
