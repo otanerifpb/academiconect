@@ -18,7 +18,7 @@
                         <!-- <th style="text-align: center;">Matrícula:</th> -->
                         <th scope="col">Arquivo:</th>
                         <th scope="col" style="text-align: center;">Baixar:</th>
-                        <th scope="col">Apagar:</th>
+                        <th scope="col" style="text-align: center;">Apagar:</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,16 +53,16 @@
                             </a>
 
                         </td>
-                        <td>
+                        <td style="text-align: center;">
                             <!-- <form th:action="@{/estudantes/{id}/delete(id=${estudante.id})}">
                                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
                                     <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>
                                 </button>
                             </form> -->
-                            <a th:href="@{/giveyourjumps}" id="btnDelete" title="Apague documento"
+                            <a th:href="@{/giveyourjumps}" id="btnDelete" title="Apagar documento"
                                     class="fa-regular fa-trash-can icon-dark btn-delete">
+                                    <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>
                             </a>
-                            <p>teste</p>
                             <!-- <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
                                 <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>
                             </button> -->
