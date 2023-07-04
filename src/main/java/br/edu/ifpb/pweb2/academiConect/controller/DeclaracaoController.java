@@ -53,6 +53,9 @@ public class DeclaracaoController implements Serializable {
     PeriodoRepository periodoRepository;
 
     @Autowired
+    DocumentoRepository documentoRepository;
+
+    @Autowired
     private DocumentoService documentoService;
 
     //@Autowired
@@ -217,9 +220,8 @@ public class DeclaracaoController implements Serializable {
         if (opDeclaracao.isPresent()) {
             Declaracao declaracao = opDeclaracao.get();
             declaracao.setEstudante(null);
-            ;
             declaracao.setPeriodo(null);
-            declaracaoRepository.deleteById(id);
+            declaracaoRepository.delete(declaracao);
             redAtt.addFlashAttribute("succesMensagem", "Declarção deletada com sucesso!!");
         } else {
             redAtt.addFlashAttribute("errorMensagem", "Declaração não encontrada.");
@@ -270,12 +272,6 @@ public class DeclaracaoController implements Serializable {
     }
 
     // Relacionamento class Declaração com class Documento
-    // @ModelAttribute("documentoItems")
-    // public List<Documento> getDocumentos() {
-    //     return documentoRepository.findAll();
-    // }
-
-    // Método para acessar a lista de documentos
     @RequestMapping("listaDocumentos")
     public ModelAndView listaDocumentos(ModelAndView mav) {
         mav.addObject("declaracoes", declaracaoRepository.findAll());
@@ -284,11 +280,18 @@ public class DeclaracaoController implements Serializable {
         return mav;
     }
 
-    // REQFUNC 12 - Upload de PDF
-    // Método para acessar a lista dos Documentos da Declaração de um Estudante
+    // Relacionamento class Declaração com class Documento
+    // @ModelAttribute("documentoItems")
+    // public List<Documento> getDocumentos() {
+    //     return documentoRepository.findAll();
+    // }
+
+    // Rota para acessar a lista dos Documentos da Declaração de um Estudante
+    // REQFUNC 12 - Upload/Download de PDF
     // @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     @RequestMapping("/{id}/documentos") 
     public ModelAndView getDocumentos(@PathVariable ("id") Integer id, ModelAndView mav) {
+
         Optional<Documento> opdocumento = documentoService.getDocumentoOf(id);
         if(opdocumento.isPresent()) {
             mav.addObject("succesMensagem", "Documento Encontrado com Sucesso!!"); 
@@ -300,8 +303,8 @@ public class DeclaracaoController implements Serializable {
         return mav;
     }
 
-    // REQFUNC 12 - Upload de PDF
-    // Método para acessar o formDoc para salvar um novo Documento
+    // Rota para acessar o formDoc para salvar um novo Documento
+    // REQFUNC 12 - Upload/Download de PDF
     // @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     @RequestMapping("/{id}/documentos/formDoc")
     public ModelAndView getForm(@PathVariable(name = "id") Integer id, ModelAndView mav) {
@@ -310,8 +313,8 @@ public class DeclaracaoController implements Serializable {
         return mav;
     }
 
-    // REQFUNC 12 - Upload de PDF
-    // Método para carregar o Documento da Declaração de um Estudante
+    // Rota para carregar o Documento da Declaração de um Estudante
+    // REQFUNC 12 - Upload/Download de PDF
     // @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     @RequestMapping(value = "/{id}/documentos/upload", method = RequestMethod.POST)
     public ModelAndView fileUploadUri(@RequestParam("file") MultipartFile arquivo, 
@@ -327,6 +330,7 @@ public class DeclaracaoController implements Serializable {
                 Documento documento = documentoService.saveDoc(declaracao, nomeArquivo, 
                         arquivo.getBytes());
                 documento.setUrl(this.buildUrl(declaracao.getId(), documento.getId()));
+                declaracao.setDocumento(documento);
                 declaracaoRepository.save(declaracao);
                 //mensagem = "Documento carregado com sucesso: " + arquivo.getOriginalFilename();
                 mav.addObject("succesMensagem", "Documento carregado com sucesso: " 
@@ -358,8 +362,8 @@ public class DeclaracaoController implements Serializable {
         return fileUploadUri;
     }
 
-    // REQFUNC 12 - Download de PDF
-    // Método para fazer download do Documento PDF
+    // Rota para fazer download do Documento PDF
+    // REQFUNC 12 - Upload/Download de PDF
     // @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */
     @RequestMapping("/{id}/documentos/download")
     public ResponseEntity<byte[]> getDocumento(@PathVariable("id") Integer id) {
@@ -370,6 +374,34 @@ public class DeclaracaoController implements Serializable {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" 
                     + documento.getNome() + "\"")
                 .body(documento.getDados());
+    }
+
+    // Rota para deletar um Documento PDF
+    // REQFUNC 12 - Upload/Download de PDF
+    @RequestMapping("{id}/documentos/delete")
+    public ModelAndView deleteDocumentoById(@PathVariable(value = "id") Integer id, ModelAndView mav,
+        RedirectAttributes redAttr) {
+        Optional<Documento> opDocumento = documentoRepository.findById(id);
+        //Optional<Declaracao> opDeclaracao = declaracaoRepository.findById(id);
+        if (opDocumento.isPresent()) {
+            Documento documento = opDocumento.get();
+            Declaracao declaracao = declaracaoRepository.findDeclaracaoByIdDocument(documento.getId());
+            //Declaracao declaracao = opDeclaracao.get();
+            //Documento documento = declaracao.getDocumento();
+            declaracao.setDocumento(null);
+            //Declaracao declaracao = documento.get();
+
+           
+            //declaracaoRepository
+            documentoRepository.delete(documento);
+            //declaracao.setEstudante(null);
+            //declaracaoRepository.deleteById(id);
+            redAttr.addFlashAttribute("succesMensagem", "Documento Deletado com Sucesso!!");
+        } else {
+            redAttr.addFlashAttribute("errorMensagem", "Documento Não Encontrado!!");
+        }
+        mav.setViewName("redirect:/declaracoes");
+        return mav;
     }
 
     // @PostMapping("/destino")

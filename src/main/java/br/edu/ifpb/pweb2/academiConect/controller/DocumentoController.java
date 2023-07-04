@@ -164,15 +164,16 @@ public class DocumentoController implements Serializable {
     @PreAuthorize("hasRole('ADMIN')") /*Perfil que tem autorização para acessar */
     @RequestMapping("{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView mav, RedirectAttributes redAttrs) {
+       
         Optional<Declaracao> opDeclaracao = declaracaoRepository.findById(id);
         if (opDeclaracao.isPresent()) {
             Declaracao declaracao = opDeclaracao.get();
             Documento documento = declaracao.getDocumento();
             //Set<Documento> listaDocumento = declaracao.getDocumentos();
-            documentoRepository.findById(documento.getId());
+            documentoRepository.delete(documento);
             //documentoRepository.deleteAll(listaDocumento);
-            declaracao.setEstudante(null);
-            declaracaoRepository.deleteById(id);
+            //declaracao.setEstudante(null);
+           /// declaracaoRepository.deleteById(id);
             //redAttrs.addFlashAttribute("succesMensagem", "Estudante "+estudante.getNome()+" deletado com sucesso!!");
             redAttrs.addFlashAttribute("succesMensagem", "Documento Deletado com Sucesso!!");
         } else {

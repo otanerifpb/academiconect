@@ -79,8 +79,8 @@ public class Declaracao implements Serializable {
     // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
     //@OneToMany(mappedBy = "declaracao", cascade = CascadeType.ALL)
     @OneToOne
-   //@JoinColumn(name = "id_documento")
-    @ToString.Exclude
+    @JoinColumn(name = "id_documento")
+    //@ToString.Exclude
     private Documento documento;
     //private Set<Documento> documentos = new HashSet<Documento>();
         

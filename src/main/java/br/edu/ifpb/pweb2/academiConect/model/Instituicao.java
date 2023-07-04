@@ -67,7 +67,8 @@ public class Instituicao implements Serializable {
         this.estudantes.add(estudante);
         estudante.setInstituicao(this);
     }
-    //add periodo nalista de intituicao
+
+    //add periodo na lista de Intituicão
     public void addPeriodo(Periodo peri) {
         this.periodos.add(peri);
         peri.getInstituicoes().add(this);

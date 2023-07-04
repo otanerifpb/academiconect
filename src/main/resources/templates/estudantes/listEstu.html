@@ -38,7 +38,8 @@
                         <td th:text="${estudante.email}"></td>                             
                         <td th:text="${estudante.instituicao != null and estudante.instituicao != '' ? estudante.instituicao.sigla: 'Não Informada'}"
                             style="text-align: center;"></td>
-                        <td class="text-center" th:text="${estudante.user != null ?estudante.user.username: 'Sem Usuário'}"></td>
+                        <td class="text-center" th:text="${estudante.user != null ?estudante.user.username: 'Sem Usuário'}"
+                            style="text-align: center;"></td>
                         <td class="text-center">
                             <!-- <div th:if="${estudante.declaracao.documentos} != null and ${estudante.declaracao.documentos} != ''"> -->
                             <div th:if="${not #lists.isEmpty(estudante.declaracoes)}">

@@ -24,6 +24,7 @@ public class User {
     private String password;
     private Boolean enabled;
     
+    // Relacionamento User com Authority
     @OneToMany(mappedBy = "username")
     @ToString.Exclude
     List<Authority> authorities;

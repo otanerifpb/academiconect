@@ -24,6 +24,7 @@ public class Authority {
     @EmbeddedId
     private AuthorityId id;
 
+    // Relacionamento Authority com User
     @ManyToOne
     @JoinColumn(name = "username", referencedColumnName = "username", 
         insertable = false, updatable = false)

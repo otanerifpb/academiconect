@@ -24,43 +24,20 @@
                 <tbody>
                     <tr>
                         <td>[[${documento.nome}]]</td>
-                        <!-- <td>
-                             <a th:href="@{${documento.url}}" title="Download documento">
-                                 
-                                 
-                            <form th:action="@{/estudantes/{id}/documentos/formDoc(id=${documento.url})}" method="POST">
-                                <button class="btn btn-outline-secondary btn-sm" type="button" title="Download">
-                                    <img th:src="@{/imagens/salvar1.png}" alt="Download"/>
-                                </button>
-                            </form>
-                        </td> -->
                          <td style="text-align: center;">
-                             <!-- <form action="@{/estudantes/documentos}" method="POST"> 
-                                 <a th:href="@{${documento.url}}" title="Download documento"> 
-                                    <i class="fa fa-download" aria-hidden="true"></i>
-                                    <button class="btn btn-outline-secondary btn-sm" type="button" title="Download">
-                                        <img th:src="@{/imagens/salvar1.png}" alt="Download"/>
-                                    </button>
-                                </a> 
-                            </form> -->
-
                             <!-- <a th:href="@{${documento.url}}" title="Baixar documento" target="_blank"> -->
                             <!-- <a th:href="@{/estudantes/{id}/documentos(id=${documento.url})}" title="Download documento" target="_blank"> -->
-                                <a th:href="@{/declaracoes/{id}/documentos/download(id=${documento.id})}" 
-                                    title="Download documento" target="_blank">
-                                <i class="fa fa-external-link" aria-hidden="true"></i>
-                                <img th:src="@{/imagens/baixar4.png}" alt="Baixar Documento"/>
+                            <a th:href="@{/declaracoes/{id}/documentos/download(id=${documento.id})}" 
+                                title="Download documento" target="_blank">
+                                    <i class="fa fa-external-link" aria-hidden="true"></i>
+                                    <img th:src="@{/imagens/baixar4.png}" alt="Baixar Documento"/>
                             </a>
-
                         </td>
                         <td style="text-align: center;">
-                            <!-- <form th:action="@{/estudantes/{id}/delete(id=${estudante.id})}">
-                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
-                                    <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>
-                                </button>
-                            </form> -->
-                            <a th:href="@{/giveyourjumps}" id="btnDelete" title="Apagar documento"
-                                    class="fa-regular fa-trash-can icon-dark btn-delete">
+                            <!-- <form th:action="@{/declaracoes/{id}/documentos/delete(id=${documento.id})}"> -->
+                            <a th:href="@{/declaracoes/{id}/documentos/delete(id=${documento.id})}" 
+                                id="btnDelete" title="Apagar documento"
+                                class="fa-regular fa-trash-can icon-dark btn-delete">
                                     <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/>
                             </a>
                             <!-- <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">

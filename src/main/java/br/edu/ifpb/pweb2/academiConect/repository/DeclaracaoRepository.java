@@ -49,4 +49,9 @@ public interface DeclaracaoRepository extends JpaRepository<Declaracao, Integer>
 
   @Query(value = "select e.documento from Declaracao e where e.id = :idDeclaracao")
   Documento findDocumentoById(@Param ("idDeclaracao") Integer idDeclaracao);
+
+  @Query(value = "select d from Declaracao as d where d.documento in (select doc from Documento as doc where doc.id = :idDocumento)")
+    Declaracao findDeclaracaoByIdDocument(@Param ("idDocumento") Integer idDocumento);
+    // @Query(value = "select distinct i from Instituicao i left join fetch i.declaracao d where i.id = :id")
+
 }

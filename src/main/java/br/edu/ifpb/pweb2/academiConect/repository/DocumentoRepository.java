@@ -16,4 +16,4 @@ public interface DocumentoRepository extends JpaRepository<Documento, Integer>{
     @Query(value = "select d.documento from Declaracao d where d.id = :idDeclaracao")
     Documento findDocumentoById(@Param ("idDeclaracao") Integer idDeclaracao);
     
-}
+    }
