@@ -50,8 +50,8 @@ public class Documento implements Serializable{
     // Relação entre Documento e Declaração (1:1)
     // Quando tem @OneToMany é necessário add a class no @EqualsAndHashCode(exclude = {"classA", "classB"})
     // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
-    @ManyToOne
-    @JoinColumn(name = "id_declaracao")
-    @ToString.Exclude
-    private Declaracao declaracao;
+    // @ManyToOne
+    // @JoinColumn(name = "id_declaracao")
+    // @ToString.Exclude
+    // private Declaracao declaracao;
 }

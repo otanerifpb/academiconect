@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -76,9 +77,11 @@ public class Declaracao implements Serializable {
 
     // Relação entre Declaração e Documento (1:1)
     // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
-    @OneToMany(mappedBy = "declaracao", cascade = CascadeType.ALL)
-   // @JoinColumn(name = "id_documento")
+    //@OneToMany(mappedBy = "declaracao", cascade = CascadeType.ALL)
+    @OneToOne
+   //@JoinColumn(name = "id_documento")
     @ToString.Exclude
-    private Set<Documento> documentos = new HashSet<Documento>();
+    private Documento documento;
+    //private Set<Documento> documentos = new HashSet<Documento>();
         
 }

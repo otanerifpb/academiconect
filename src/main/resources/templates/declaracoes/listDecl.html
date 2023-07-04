@@ -64,7 +64,7 @@
                         <td style="text-align: center;">
                             <!-- <div th:if="${not #lists.isEmpty(declaracao.documentos)}"> -->
                             <!-- <div th:if="${declaracao.documentos} != null and ${declaracao.documentos} != ''"> -->
-                            <div th:if="${not #lists.isEmpty(declaracao.documentos)}">
+                            <div th:if="${declaracao.documento} != null and ${declaracao.documento} != ''">
                                <a th:href="@{/declaracoes/{id}/documentos(id=${declaracao.id})}">
                                     <i class="fa fa-external-link" aria-hidden="true">
                                     <!-- <p th:text="${declaracao.documentos}"></p> -->
@@ -73,7 +73,7 @@
                             </div> 
                             <!-- <div th:unless="${not #lists.isEmpty(declaracao.documentos)}"> -->
                             <!-- <div th:unless="${declaracao.documentos} != null and ${declaracao.documentos} != ''"> --> 
-                            <div th:unless="${not #lists.isEmpty(declaracao.documentos)}">
+                            <div th:unless="${declaracao.documento} != null and ${declaracao.documento} != ''">
                                 <a th:href="@{/declaracoes/{id}/documentos(id=${declaracao.id})}" >
                                     <i class="fa fa-external-link" aria-hidden="true"></i>
                                     <p>Sem PDF</p>

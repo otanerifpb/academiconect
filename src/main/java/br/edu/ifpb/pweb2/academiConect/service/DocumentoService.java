@@ -27,8 +27,8 @@ public class DocumentoService {
 
     public Documento saveDoc(Declaracao declaracao, String nomeArquivo, byte[] bytes) throws IOException {
         Documento documento = new Documento(nomeArquivo, bytes);
-        //declaracao.setDocumento(documento);
-        documento.setDeclaracao(declaracao);
+        declaracao.setDocumento(documento);
+        //documento.setDeclaracao(declaracao);
         documentoRepository.save(documento);
         return documento;
     }

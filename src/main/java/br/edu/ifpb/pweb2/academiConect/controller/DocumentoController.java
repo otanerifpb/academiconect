@@ -154,8 +154,8 @@ public class DocumentoController implements Serializable {
     public Documento saveDoc(Declaracao declaracao, String nomeArquivo, byte[] bytes) 
             throws IOException {
         Documento documento = new Documento(nomeArquivo, bytes);
-        //declaracao.setDocumento(documento);
-        documento.setDeclaracao(declaracao);
+        declaracao.setDocumento(documento);
+        //documento.setDeclaracao(declaracao);
         documentoRepository.save(documento);
         return documento;
     }
@@ -167,8 +167,10 @@ public class DocumentoController implements Serializable {
         Optional<Declaracao> opDeclaracao = declaracaoRepository.findById(id);
         if (opDeclaracao.isPresent()) {
             Declaracao declaracao = opDeclaracao.get();
-            Set<Documento> listaDocumento = declaracao.getDocumentos();
-            documentoRepository.deleteAll(listaDocumento);
+            Documento documento = declaracao.getDocumento();
+            //Set<Documento> listaDocumento = declaracao.getDocumentos();
+            documentoRepository.findById(documento.getId());
+            //documentoRepository.deleteAll(listaDocumento);
             declaracao.setEstudante(null);
             declaracaoRepository.deleteById(id);
             //redAttrs.addFlashAttribute("succesMensagem", "Estudante "+estudante.getNome()+" deletado com sucesso!!");
@@ -191,13 +193,20 @@ public class DocumentoController implements Serializable {
                 .body(documento.getDados());
     }
 
+    // Método usado no getDocunento
     public Documento getDocumentoPorId(Integer id) {
         return documentoRepository.findById(id).get();
     }
 
-    public Optional<Set<Documento>> getDocumentoOf(Integer idDeclaracao) {
+    //
+    public Optional<Documento> getDocumentoOf(Integer idDeclaracao) {
         return Optional.ofNullable(declaracaoRepository.findDocumentById(idDeclaracao));
     }
+
+    // public Optional<Set<Documento>> getDocumentoOf(Integer idDeclaracao) {
+    //     return Optional.ofNullable(declaracaoRepository.findDocumentById(idDeclaracao));
+    // }
+
      // REQFUNC 12 - Upload de PDF
     // Método para acessar o formDoc para salvar um novo Documento
     @PreAuthorize("hasRole('USER', 'ADMIN')") /*Perfil que tem autorização para acessar */

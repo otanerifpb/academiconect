@@ -10,10 +10,10 @@ import br.edu.ifpb.pweb2.academiConect.model.Documento;
 
 public interface DocumentoRepository extends JpaRepository<Documento, Integer>{
 
-    @Query(value = "select e.documentos from Declaracao e where e.id = :idDeclaracao")
-    Set<Documento> findDocumentoById(@Param ("idDeclaracao") Integer idDeclaracao);
+    //@Query(value = "select d.documentos from Declaracao d where d.id = :idDeclaracao")
+    //Set<Documento> findDocumentoById(@Param ("idDeclaracao") Integer idDeclaracao);
 
-    //@Query(value = "select e.documento from Estudante e where e.id = :idEstudante")
-    //Documento findDocumentoById(@Param ("idEstudante") Integer idEstudante);
+    @Query(value = "select d.documento from Declaracao d where d.id = :idDeclaracao")
+    Documento findDocumentoById(@Param ("idDeclaracao") Integer idDeclaracao);
     
 }

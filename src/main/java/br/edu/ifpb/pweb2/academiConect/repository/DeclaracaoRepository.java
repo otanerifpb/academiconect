@@ -41,9 +41,12 @@ public interface DeclaracaoRepository extends JpaRepository<Declaracao, Integer>
    //@Query("SELECT e FROM Enrollment e WHERE e.semester.end < current_date")
    // List<Enrollment> findExpiredEnrollments(); 
 
-  @Query("select d.documentos from Declaracao d where d.id = :idDeclaracao")
-  Set<Documento> findDocumentById(Integer idDeclaracao);
+  @Query("select d.documento from Declaracao d where d.id = :idDeclaracao")
+  Documento findDocumentById(Integer idDeclaracao);
 
-  @Query(value = "select e.documentos from Declaracao e where e.id = :idDeclaracao")
+  //@Query("select d.documentos from Declaracao d where d.id = :idDeclaracao")
+  //Set<Documento> findDocumentById(Integer idDeclaracao);
+
+  @Query(value = "select e.documento from Declaracao e where e.id = :idDeclaracao")
   Documento findDocumentoById(@Param ("idDeclaracao") Integer idDeclaracao);
 }
