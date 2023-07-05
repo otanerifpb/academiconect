@@ -2,17 +2,17 @@ package br.edu.ifpb.pweb2.academiConect.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+//import java.util.HashSet;
+//import java.util.Set;
 
-import javax.persistence.CascadeType;
+//import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+//import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -28,7 +28,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 // Para que não gere um loop na class do relacionamanto usar: exclude = nomeClassRelacionamento  para @OnoToMany ou @ManyToOne
-@EqualsAndHashCode(exclude = {"estudante", "periodo", "documentos"})
+@EqualsAndHashCode(exclude = {"estudante", "periodo", "documento"})
 @AllArgsConstructor
 @Entity
 public class Declaracao implements Serializable {

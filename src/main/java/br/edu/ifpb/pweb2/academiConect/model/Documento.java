@@ -6,23 +6,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+//import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+//import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.URL;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+//import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+//import lombok.ToString;
 
 // RECFUNC 12 - Upload PDF
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"declaracao"})
+//@EqualsAndHashCode(exclude = {"declaracao"})
 @AllArgsConstructor
 @Entity
 public class Documento implements Serializable{
