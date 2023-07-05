@@ -2,9 +2,9 @@ package br.edu.ifpb.pweb2.academiConect.controller;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
+//import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+//import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -24,14 +24,14 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
 import br.edu.ifpb.pweb2.academiConect.model.Documento;
-import br.edu.ifpb.pweb2.academiConect.model.Estudante;
-import br.edu.ifpb.pweb2.academiConect.model.Instituicao;
+//import br.edu.ifpb.pweb2.academiConect.model.Estudante;
+//import br.edu.ifpb.pweb2.academiConect.model.Instituicao;
 import br.edu.ifpb.pweb2.academiConect.repository.DeclaracaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.DocumentoRepository;
-import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
+//import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.InstituicaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.PeriodoRepository;
-import br.edu.ifpb.pweb2.academiConect.service.DocumentoService;
+//import br.edu.ifpb.pweb2.academiConect.service.DocumentoService;
 
 @Controller
 @RequestMapping("/documentos") /*Rota para acessar a class */

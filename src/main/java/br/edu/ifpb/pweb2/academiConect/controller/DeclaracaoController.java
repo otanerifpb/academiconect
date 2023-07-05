@@ -9,13 +9,13 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+//import org.springframework.data.domain.Page;
+//import org.springframework.data.domain.PageRequest;
+//import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+//import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -40,8 +40,8 @@ import br.edu.ifpb.pweb2.academiConect.repository.DocumentoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.PeriodoRepository;
 import br.edu.ifpb.pweb2.academiConect.service.DocumentoService;
-import br.edu.ifpb.pweb2.academiConect.ui.NavPage;
-import br.edu.ifpb.pweb2.academiConect.ui.NavPageBuilder;
+//import br.edu.ifpb.pweb2.academiConect.ui.NavPage;
+//import br.edu.ifpb.pweb2.academiConect.ui.NavPageBuilder;
 
 @Controller
 @RequestMapping("/declaracoes") /*Rota para acessar a class */

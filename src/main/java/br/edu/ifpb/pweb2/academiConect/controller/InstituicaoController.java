@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+//import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,11 +43,6 @@ public class InstituicaoController {
     // Rota para acessar a lista pelo menu com o GET
     //@PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
     @RequestMapping(method = RequestMethod.GET)
-    // public ModelAndView listAll(ModelAndView mav) {
-    //     mav.addObject("instituicoes", instituicaoRepository.findAll());
-    //     mav.setViewName("instituicoes/listInst");
-    //     return mav;
-    // }
     public ModelAndView listAll(ModelAndView mav, @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "3") int size) {
         Pageable paging = PageRequest.of(page - 1, size);

@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+//import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.edu.ifpb.pweb2.academiConect.model.Estudante;
+//import br.edu.ifpb.pweb2.academiConect.model.Estudante;
 import br.edu.ifpb.pweb2.academiConect.model.Instituicao;
 import br.edu.ifpb.pweb2.academiConect.model.Periodo;
 import br.edu.ifpb.pweb2.academiConect.repository.DeclaracaoRepository;
@@ -48,11 +48,6 @@ public class PeriodoController {
     // Rota para acessar a lista pelo menu com o GET
     @PreAuthorize("hasAnyRole('VIS', 'USER', 'ADMIN')") /*Perfil que tem autorização para acessar*/
     @RequestMapping(method = RequestMethod.GET)
-    // public ModelAndView listAll(ModelAndView model) {
-    //     model.addObject("periodos", periodoRepository.findAll());
-    //     model.setViewName("periodos/listPeri");
-    //     return model;
-    // }
     public ModelAndView listAll(ModelAndView mav, @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "3") int size) {
         Pageable paging = PageRequest.of(page - 1, size);
