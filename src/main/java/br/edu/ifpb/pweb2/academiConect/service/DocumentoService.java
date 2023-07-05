@@ -2,17 +2,17 @@ package br.edu.ifpb.pweb2.academiConect.service;
 
 import java.io.IOException;
 import java.util.Optional;
-import java.util.Set;
+//import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
 import br.edu.ifpb.pweb2.academiConect.model.Documento;
-import br.edu.ifpb.pweb2.academiConect.model.Estudante;
+//import br.edu.ifpb.pweb2.academiConect.model.Estudante;
 import br.edu.ifpb.pweb2.academiConect.repository.DeclaracaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.DocumentoRepository;
-import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
+//import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 
 //REQFUNC 12 - Upload de PDF
 @Service

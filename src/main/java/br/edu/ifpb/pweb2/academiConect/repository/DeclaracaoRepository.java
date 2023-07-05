@@ -1,9 +1,9 @@
 package br.edu.ifpb.pweb2.academiConect.repository;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
+//import java.time.LocalDate;
+//import java.time.ZoneId;
 import java.util.Date;
-import java.util.List;
+//import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,8 +12,8 @@ import org.springframework.data.repository.query.Param;
 
 import br.edu.ifpb.pweb2.academiConect.model.Declaracao;
 import br.edu.ifpb.pweb2.academiConect.model.Documento;
-import br.edu.ifpb.pweb2.academiConect.model.Estudante;
-import br.edu.ifpb.pweb2.academiConect.model.Periodo;
+//import br.edu.ifpb.pweb2.academiConect.model.Estudante;
+//import br.edu.ifpb.pweb2.academiConect.model.Periodo;
 
 
 public interface DeclaracaoRepository extends JpaRepository<Declaracao, Integer> {
