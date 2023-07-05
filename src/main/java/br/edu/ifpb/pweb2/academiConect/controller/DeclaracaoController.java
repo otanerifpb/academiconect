@@ -9,6 +9,9 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -37,6 +40,8 @@ import br.edu.ifpb.pweb2.academiConect.repository.DocumentoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.PeriodoRepository;
 import br.edu.ifpb.pweb2.academiConect.service.DocumentoService;
+import br.edu.ifpb.pweb2.academiConect.ui.NavPage;
+import br.edu.ifpb.pweb2.academiConect.ui.NavPageBuilder;
 
 @Controller
 @RequestMapping("/declaracoes") /*Rota para acessar a class */
@@ -70,6 +75,17 @@ public class DeclaracaoController implements Serializable {
         mav.setViewName("declaracoes/listDecl");
         return mav;
     }
+    // public ModelAndView listAll(ModelAndView mav, @RequestParam(defaultValue = "1") int page,
+    //         @RequestParam(defaultValue = "3") int size) {
+    //     Pageable paging = PageRequest.of(page - 1, size);
+    //     Page<Declaracao> pageDeclaracaos = declaracaoRepository.findAll(paging);
+    //     NavPage navPage = NavPageBuilder.newNavPage(pageDeclaracaos.getNumber() + 1, 
+    //         pageDeclaracaos.getTotalElements(), pageDeclaracaos.getTotalPages(), size);
+    //     mav.addObject("declaracoes", pageDeclaracaos);
+    //     mav.addObject("navPage", navPage);
+    //     mav.setViewName("declaracoes/listDecl");
+    //     return mav;
+    // }
 
     // Rota para acessar a lista com o uso do REDIRECT
     // REQFUNC 4 - CRUD

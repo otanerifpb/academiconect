@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,6 +24,8 @@ import br.edu.ifpb.pweb2.academiConect.model.Instituicao;
 import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.InstituicaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.PeriodoRepository;
+import br.edu.ifpb.pweb2.academiConect.ui.NavPage;
+import br.edu.ifpb.pweb2.academiConect.ui.NavPageBuilder;
 
 @Controller
 @RequestMapping("/instituicoes") /*Rota para acessar a class */
@@ -33,11 +39,23 @@ public class InstituicaoController {
     @Autowired
     PeriodoRepository periodoRepository;
 
+    // REQNFUNC 09 - Paginação
     // Rota para acessar a lista pelo menu com o GET
     //@PreAuthorize("hasAnyRole('USER', 'ADMIN')") /*Só o perfil Admin tem autorização para acessa a classe */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView listAll(ModelAndView mav) {
-        mav.addObject("instituicoes", instituicaoRepository.findAll());
+    // public ModelAndView listAll(ModelAndView mav) {
+    //     mav.addObject("instituicoes", instituicaoRepository.findAll());
+    //     mav.setViewName("instituicoes/listInst");
+    //     return mav;
+    // }
+    public ModelAndView listAll(ModelAndView mav, @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "3") int size) {
+        Pageable paging = PageRequest.of(page - 1, size);
+        Page<Instituicao> pageInstituicoes = instituicaoRepository.findAll(paging);
+        NavPage navPage = NavPageBuilder.newNavPage(pageInstituicoes.getNumber() + 1, 
+            pageInstituicoes.getTotalElements(), pageInstituicoes.getTotalPages(), size);
+        mav.addObject("instituicoes", pageInstituicoes);
+        mav.addObject("navPage", navPage);
         mav.setViewName("instituicoes/listInst");
         return mav;
     }

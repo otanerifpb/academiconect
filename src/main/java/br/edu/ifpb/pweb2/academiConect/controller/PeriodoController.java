@@ -6,6 +6,9 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
@@ -15,14 +18,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.edu.ifpb.pweb2.academiConect.model.Estudante;
 import br.edu.ifpb.pweb2.academiConect.model.Instituicao;
 import br.edu.ifpb.pweb2.academiConect.model.Periodo;
 import br.edu.ifpb.pweb2.academiConect.repository.DeclaracaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.InstituicaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.PeriodoRepository;
+import br.edu.ifpb.pweb2.academiConect.ui.NavPage;
+import br.edu.ifpb.pweb2.academiConect.ui.NavPageBuilder;
 
 // Rota para acessar a class
 @Controller
@@ -37,13 +44,25 @@ public class PeriodoController {
     @Autowired
     DeclaracaoRepository declaracaoRepository;
 
+    // REQNFUNC 09 - Paginação
     // Rota para acessar a lista pelo menu com o GET
     @PreAuthorize("hasAnyRole('VIS', 'USER', 'ADMIN')") /*Perfil que tem autorização para acessar*/
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView listAll(ModelAndView model) {
-        model.addObject("periodos", periodoRepository.findAll());
-        model.setViewName("periodos/listPeri");
-        return model;
+    // public ModelAndView listAll(ModelAndView model) {
+    //     model.addObject("periodos", periodoRepository.findAll());
+    //     model.setViewName("periodos/listPeri");
+    //     return model;
+    // }
+    public ModelAndView listAll(ModelAndView mav, @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "3") int size) {
+        Pageable paging = PageRequest.of(page - 1, size);
+        Page<Periodo> pagePeriodos = periodoRepository.findAll(paging);
+        NavPage navPage = NavPageBuilder.newNavPage(pagePeriodos.getNumber() + 1, 
+            pagePeriodos.getTotalElements(), pagePeriodos.getTotalPages(), size);
+        mav.addObject("periodos", pagePeriodos);
+        mav.addObject("navPage", navPage);
+        mav.setViewName("periodos/listPeri");
+        return mav;
     }
 
     // Rota para acessar a lista ao usar a Rota da class

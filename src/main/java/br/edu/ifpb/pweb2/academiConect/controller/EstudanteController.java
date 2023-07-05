@@ -65,6 +65,7 @@ public class EstudanteController {
     @Autowired
     private UserRepository userRepository;
 
+    // REQNFUNC 09 - Paginação
     // Rota para acessar a lista pelo menu
     @PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
     @RequestMapping(method = RequestMethod.GET)
@@ -74,7 +75,6 @@ public class EstudanteController {
         Page<Estudante> pageEstudantes = estudanteRepository.findAll(paging);
         NavPage navPage = NavPageBuilder.newNavPage(pageEstudantes.getNumber() + 1, 
             pageEstudantes.getTotalElements(), pageEstudantes.getTotalPages(), size);
-        //mav.addObject("estudantes", estudanteRepository.findAll());
         mav.addObject("estudantes", pageEstudantes);
         mav.addObject("navPage", navPage);
         mav.setViewName("estudantes/listEstu");
