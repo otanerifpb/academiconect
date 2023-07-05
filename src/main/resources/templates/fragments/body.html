@@ -184,7 +184,7 @@
             <label for="dataRecebimento" class="form-label">Data Recebimento:</label>
             <input type="date" class="form-control" th:field="*{dataRecebimento}" />  
             <p th:if="${#fields.hasErrors('dataRecebimento')}" th:errors="*{dataRecebimento}" th:errorclass="error"></p>
-        </div>
+        </div></br>
         <div>
             <label for="observacao" class="form-label">Observação:</label>
             <input type="text" class="form-control" th:field="*{observacao}" />

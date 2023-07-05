@@ -59,12 +59,13 @@
 
         <div th:unless="${documento != null}"></br>
             <span>Nenhum Documento foi Encontrado no Sistema!!</span>
-
-            <form th:action="@{/declaracoes}"></br>
-                <button class="btn btn-outline-secondary btn-sm" type="button" title="Voltar">
-                    <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
-                </button>
-            </form>
+            <div></br>
+                <a th:href="@{/declaracoes}">
+                    <button class="btn btn-outline-secondary btn-sm" type="button" title="Voltar">
+                        <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+                    </button>
+                </a>
+            </div>
         </div>
     </div>
 </body>

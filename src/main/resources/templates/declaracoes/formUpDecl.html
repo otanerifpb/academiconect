@@ -5,58 +5,48 @@
 
 <body>
     <div layout:fragment="content">
+
         <form th:action="@{/declaracoes/update}" method="POST" th:object="${declaracao}">
             <label for="estudante">Matrícula:</label></br>
                 <input type="text" class="form-control" required th:field="*{estudante.matricula}" /></br>
-             <div th:replace="~{/fragments/body :: formDecl}"></div> 
-            <label for="periodos" class="form-label">Período Letivo:</label>
-                <select th:field="*{periodo.id}" class="form-select">
+                <!-- <input type="text" class="form-control" name="matricula"  th:value="${estudante.matricula}" readonly/></br> -->
+             <div th:replace="~{/fragments/body :: formDecl}"></div></br>
+             <div>
+                <label for="periodos" class="form-label">Período Letivo:</label>
+                <!-- <option th:each="peri : ${periodosItems}" -->
+                <select th:field="*{periodo}" class="form-select">
                     <option value=""></option>
                     <option th:each="peri : ${periodosItems}" 
                         th:value="${peri.id}" 
-                        th:text="${peri.periodoLetivo}" 
+                        th:text="${peri.periodoLetivo}">
+                    </option>
+                </select>
+                <!-- <select th:field="*{periodo}" class="form-select">
+                    <option value=""></option>
+                    <option th:each="peri : ${periodosInstituicao}" 
+                        th:value="${peri.id}" 
+                        th:text="${peri.periodoLetivo}"
                         th:selected="${peri.periodoLetivo == periodo}">
                     </option>
-                </select></br>
-            <label for="nome" class="form-label">Declaração Atual?</label>
-                <input type="checkbox" th:field="*{declaracaoAtual}" class="form-check-input"/></br>
-            <button class="btn btn-outline-secondary btn-sm" type="submit" title="Enviar">
-                <img th:src="@{/imagens/enviar1.png}" alt="Enviar"/>
-            </button>
-            <div >
-                <form id="uploadForm" method="post" 
-                    th:action="@{/estudantes/{id}/documentos/upload(id=${id})}" 
-                    enctype="multipart/form-data" class="row g-2">
-                    <input type="hidden" name="idEstudante" th:value="${idEstudante}"/>
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <td>
-                                    <div >
-                                        <label for="file">Arquivo:</label>
-                                        <input id="file" class="form-control" type="file" name="file" 
-                                            accept="application/pdf"/>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <label for="upload">&nbsp;</label>
-                                        <button class="btn btn-outline-secondary btn-sm  " type="submit" 
-                                            name="dados" title="Salvar">
-                                            <img th:src="@{/imagens/salvar5.jpg}" alt="Salvar"/>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </thead>
-                    </table> 
-                </form>
+                </select> -->
+             </div></br> 
+            
+            <div>
+                <label for="nome" class="form-label">Declaração Atual?</label>
+                    <input type="checkbox" th:field="*{declaracaoAtual}" class="form-check-input"/>
             </div>
-            <a th:href="@{/declaracoes}">
-                <button class="btn btn-outline-secondary btn-sm" type="button" title="Voltar">
-                    <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+            <div ></br>
+                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Salvar">
+                    <img th:src="@{/imagens/salvar5.jpg}" alt="Salvar"/>
                 </button>
-            </a>
+
+                <a th:href="@{/declaracoes}">
+                    <button class="btn btn-outline-secondary btn-sm" type="button" title="Voltar">
+                        <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+                    </button>
+                </a>
+            </div>
+            
         </form>
     </div>
 </body>

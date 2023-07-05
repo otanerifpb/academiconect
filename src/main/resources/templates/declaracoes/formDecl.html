@@ -29,18 +29,21 @@
                 <label for="estudante">Matrícula:</label></br>
                     <input type="text" class="form-control" name="matricula"  th:value="${estudante.matricula}" readonly/></br>
                 <div th:replace="~{/fragments/body :: formDecl}"></div>
-                    
-                <label for="periodos" class="form-label">Período Letivo:</label>
+                <div></br>
+                    <label for="periodos" class="form-label">Período Letivo:</label>
                     <select th:field="*{periodo}" class="form-select">
                         <option value=""></option>
                         <option th:each="peri : ${periodosInstituicao}" 
                             th:value="${peri.id}" 
                             th:text="${peri.periodoLetivo}">
                         </option>
-                    </select></br>
-                <button type="submit" class="btn btn-outline-secondary btn-sm">
-                    <img th:src="@{/imagens/salvar5.jpg}" alt="Salvar"/>
-                </button>
+                    </select>
+                </div>
+                <div></br>
+                    <button type="submit" class="btn btn-outline-secondary btn-sm"></br>
+                        <img th:src="@{/imagens/salvar5.jpg}" alt="Salvar"/>
+                    </button>
+                </div>
             </form>
         </div>
 
