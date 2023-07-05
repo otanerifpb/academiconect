@@ -246,6 +246,7 @@ public class DeclaracaoController implements Serializable {
     public List<Periodo> getPeriodos() {
         return periodoRepository.findAll();
     }
+    // public List<Periodo> getPeriodos() {
 
     // Ativa o menu Declaração na barra de navegação
     @ModelAttribute("menu")
