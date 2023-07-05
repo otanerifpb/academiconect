@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-
 public class NavegaPagina {
 
     private int currentPage;

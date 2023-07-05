@@ -6,6 +6,7 @@
     <div layout:fragment="content">
 
         <div th:if="${not #lists.isEmpty(declaracoes)}">
+
             <div th:text="'Total: ' + ${#lists.size(declaracoes)} + ' registro(s)'" 
                 style="text-align: right; color: gray; font-size: 0.85em;">
             </div>
@@ -22,7 +23,7 @@
                         <th style="text-align: center;">Documentos:</th>
                     </tr>
                 </thead>
-
+    
                 <tbody>
                     <tr th:each="declaracao: ${declaracoes}">   
                         <td th:text="${declaracao.estudante.matricula}"></td>
@@ -45,7 +46,7 @@
                         <td style="text-align: center;">
                             <!-- <div th:if="${not #lists.isEmpty(declaracao.documentos)}"> -->
                             <!-- <div th:if="${declaracao.documentos} != null and ${declaracao.documentos} != ''"> -->
-                            <div th:if="${not #lists.isEmpty(declaracao.documentos)}">
+                            <div th:if="${not #lists.isEmpty(declaracao.documento)}">
                                <a th:href="@{/declaracoes/{id}/documentos(id=${declaracao.id})}">
                                     <i class="fa fa-external-link" aria-hidden="true">
                                     <!-- <p th:text="${declaracao.documentos}"></p> -->
@@ -54,7 +55,7 @@
                             </div> 
                             <!-- <div th:unless="${not #lists.isEmpty(declaracao.documentos)}"> -->
                             <!-- <div th:unless="${declaracao.documentos} != null and ${declaracao.documentos} != ''"> --> 
-                            <div th:unless="${not #lists.isEmpty(declaracao.documentos)}">
+                            <div th:unless="${not #lists.isEmpty(declaracao.documento)}">
                                 <a th:href="@{/declaracoes/{id}/documentos(id=${declaracao.id})}" >
                                     <i class="fa fa-external-link" aria-hidden="true"></i>
                                     <p>Sem PDF</p>
@@ -91,6 +92,15 @@
                     </tr>
                 </tbody>
             </table>
+            <form th:action="@{/relatorios}" method="GET"></br>
+                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Voltar">
+                    <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+                </button>
+            </form>
+        </div>
+        
+        <div th:unless="${not #lists.isEmpty(declaracoes)}"></br>
+            <span>Nenhum Declaração Vencida foi Encontrada no Sistema!!</span>
             <form th:action="@{/relatorios}" method="GET"></br>
                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Voltar">
                     <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>

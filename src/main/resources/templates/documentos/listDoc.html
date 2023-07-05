@@ -12,6 +12,7 @@
         </form>
 
         <div th:if="${documento != null}">
+
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
@@ -27,8 +28,9 @@
                          <td style="text-align: center;">
                             <!-- <a th:href="@{${documento.url}}" title="Baixar documento" target="_blank"> -->
                             <!-- <a th:href="@{/estudantes/{id}/documentos(id=${documento.url})}" title="Download documento" target="_blank"> -->
-                            <a th:href="@{/declaracoes/{id}/documentos/download(id=${documento.id})}" 
-                                title="Download documento" target="_blank">
+                            <!-- target="_blank" -->
+                                <a th:href="@{/declaracoes/{id}/documentos/download(id=${documento.id})}" 
+                                title="Download documento">
                                     <i class="fa fa-external-link" aria-hidden="true"></i>
                                     <img th:src="@{/imagens/baixar4.png}" alt="Baixar Documento"/>
                             </a>
@@ -47,19 +49,23 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
 
-        <div th:unless="${documento != null}"></br>
-            <span>Nenhum documento foi encontrado!!</span>
-        </div>
-        <div></br>
-            <a th:href="@{/declaracoes}">
+            <a th:href="@{/declaracoes}"></br>
                 <button class="btn btn-outline-secondary btn-sm" type="button" title="Voltar">
                     <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
                 </button>
             </a>
         </div>
 
+        <div th:unless="${documento != null}"></br>
+            <span>Nenhum Documento foi Encontrado no Sistema!!</span>
+
+            <form th:action="@{/declaracoes}"></br>
+                <button class="btn btn-outline-secondary btn-sm" type="button" title="Voltar">
+                    <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+                </button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

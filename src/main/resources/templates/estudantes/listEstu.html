@@ -73,6 +73,10 @@
                 </tbody>
             </table>
         </div>
+
+        <div th:unless="${not #lists.isEmpty(estudantes)}"></br>
+            <span>Nenhum Estudante foi Encontrado no Sistema!!</span>
+        </div>
     </div> 
 </body>
 </html>

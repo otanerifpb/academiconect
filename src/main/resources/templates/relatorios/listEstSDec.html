@@ -5,34 +5,47 @@
 <body>
     <div layout:fragment="content">
         <div th:if="${not #lists.isEmpty(estudantes)}">
+
             <div th:text="'Total: ' + ${#lists.size(estudantes)} + ' registro(s)'" 
                 style="text-align: right; color: gray; font-size: 0.85em;">
             </div>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Nome:</th>
+                        <th style="text-align: center;">Matrícula:</th>
+                        <th>E-mail:</th>
+                        <th style="text-align: center;">Instituição:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="estudante : ${estudantes}">
+                        <td th:text="${estudante.nome != null and estudante.nome != '' ?estudante.nome: 'Anônimo'}"></td>   
+                        <td th:text="${estudante.matricula}" style="text-align: center;"></td>
+                        <td th:text="${estudante.email}"></td>                             
+                        <td th:text="${estudante.instituicao != null and estudante.instituicao != '' ?estudante.instituicao.sigla: 'Não Informada'}"
+                            style="text-align: center;"></td>  
+                    </tr>
+                </tbody>
+            </table></br>
+            <form th:action="@{/relatorios}" method="GET">
+                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Voltar">
+                    <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+                </button>
+            </form>
         </div>
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>Nome:</th>
-                    <th style="text-align: center;">Matrícula:</th>
-                    <th>E-mail:</th>
-                    <th style="text-align: center;">Instituição:</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="estudante : ${estudantes}">
-                    <td th:text="${estudante.nome != null and estudante.nome != '' ?estudante.nome: 'Anônimo'}"></td>   
-                    <td th:text="${estudante.matricula}" style="text-align: center;"></td>
-                    <td th:text="${estudante.email}"></td>                             
-                    <td th:text="${estudante.instituicao != null and estudante.instituicao != '' ?estudante.instituicao.sigla: 'Não Informada'}"
-                        style="text-align: center;"></td>  
-                </tr>
-            </tbody>
-        </table></br>
-        <form th:action="@{/relatorios}" method="GET">
-            <button class="btn btn-outline-secondary btn-sm" type="submit" title="Voltar">
-                <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
-            </button>
-        </form>
+
+        <div th:unless="${not #lists.isEmpty(estudantes)}"></br>
+            <span>Nenhum Declaração por Vencer foi Encontrada no Sistema!!</span>
+
+            <form th:action="@{/relatorios}" method="GET"></br>
+                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Voltar">
+                    <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
+                </button>
+            </form>
+        </div>
+        
     </div>
 </body>
 </html>
