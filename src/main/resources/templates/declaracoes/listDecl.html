@@ -110,6 +110,10 @@
                     </tr>
                 </tbody>
             </table>
+
+            <!-- Paginador -->
+            <div th:replace="~{/fragments/paging :: paginator('declaracoes', ${navPage})}"></div>
+
             <!-- <form th:action="@{/estudantes}" method="GET"></br>
                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Voltar">
                     <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>

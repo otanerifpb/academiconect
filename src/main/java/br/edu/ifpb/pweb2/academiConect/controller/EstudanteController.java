@@ -32,6 +32,8 @@ import br.edu.ifpb.pweb2.academiConect.repository.EstudanteRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.InstituicaoRepository;
 import br.edu.ifpb.pweb2.academiConect.repository.UserRepository;
 import br.edu.ifpb.pweb2.academiConect.service.DocumentoService;
+import br.edu.ifpb.pweb2.academiConect.ui.NavPage;
+import br.edu.ifpb.pweb2.academiConect.ui.NavPageBuilder;
 import groovy.transform.stc.FirstParam.Component;
 
 //import java.net.http.HttpHeaders;
@@ -63,15 +65,18 @@ public class EstudanteController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private DocumentoService documentoService;
-
     // Rota para acessar a lista pelo menu
     @PreAuthorize("hasRole('ADMIN')") /*Só o perfil Admin tem autorização para acessar */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView listAll(ModelAndView mav) {
-        mav.addObject("estudantes", estudanteRepository.findAll());
-        //List<Estudante> estudanteSemDeclaracao = estudanteRepository.buscaEstudanteQueNaoTemDeclaracao();
+    public ModelAndView listAll(ModelAndView mav, @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "3") int size) {
+        Pageable paging = PageRequest.of(page - 1, size);
+        Page<Estudante> pageEstudantes = estudanteRepository.findAll(paging);
+        NavPage navPage = NavPageBuilder.newNavPage(pageEstudantes.getNumber() + 1, 
+            pageEstudantes.getTotalElements(), pageEstudantes.getTotalPages(), size);
+        //mav.addObject("estudantes", estudanteRepository.findAll());
+        mav.addObject("estudantes", pageEstudantes);
+        mav.addObject("navPage", navPage);
         mav.setViewName("estudantes/listEstu");
         return mav;
     }

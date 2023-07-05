@@ -1,4 +1,4 @@
-package br.edu.ifpb.pweb2.academiConect.pageCont;
+package br.edu.ifpb.pweb2.academiConect.ui;
 
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-public class NavegaPagina {
+public class NavPage {
 
     private int currentPage;
     private long totalItems;

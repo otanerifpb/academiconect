@@ -92,11 +92,15 @@
                     </tr>
                 </tbody>
             </table>
+
             <form th:action="@{/relatorios}" method="GET"></br>
                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Voltar">
                     <img th:src="@{/imagens/voltar.png}" alt="Voltar"/>
                 </button>
             </form>
+
+            <!-- Paginador -->
+            <div th:replace="~{/fragments/paging :: paginator('declaracoes', ${navPage})}"></div>
         </div>
         
         <div th:unless="${not #lists.isEmpty(declaracoes)}"></br>
