@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-//import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
@@ -71,9 +71,9 @@ public class AcademicSecurityConfig extends WebSecurityConfigurerAdapter{
             .dataSource(dataSource)
             // Criptografia da senha do usuário, lembrar de tirar ";" quando for rodar em um banco novo 
             .passwordEncoder(encoder); /*; */
-            // .withUser(User.builder().username("admin").password(encoder.encode("useradm")).roles("USER","ADMIN").build())
-            // .withUser(User.builder().username("estudante").password(encoder.encode("userest")).roles("USER").build())
-            // .withUser(User.builder().username("visitante").password(encoder.encode("uservis")).roles("VIS").build());
+            //.withUser(User.builder().username("admin").password(encoder.encode("useradm")).roles("USER","ADMIN").build())
+            //.withUser(User.builder().username("estudante").password(encoder.encode("userest")).roles("USER").build())
+            //.withUser(User.builder().username("visitante").password(encoder.encode("uservis")).roles("VIS").build());
 
             // Os métodos withUser(), só precisa ser executado 1 única vez, depois é necessário comentar
             // Caso seja executado mais de uma vez, ocorrerá um erro de duplicidade de PK no banco

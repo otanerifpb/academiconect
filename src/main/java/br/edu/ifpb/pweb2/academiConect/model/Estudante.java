@@ -86,7 +86,7 @@ public class Estudante implements Serializable{
     // Quando tem @OneToMany é necessário add a class no @EqualsAndHashCode(exclude = {"instituicao", "declaracoes"})
     // O @ToString.Exclude evita que o Lombok gere um loop infinito ao gerar o toString devido o relacionamento
     @OneToMany(mappedBy = "estudante", cascade = CascadeType.ALL)
-    //@JoinColumn(name = "id_declaracao")
+    //@JoinColumn(name = "id_declaracao") // identificar coluna apenas no ManyToOne
     @ToString.Exclude
     private Set<Declaracao> declaracoes = new HashSet<Declaracao>();  
 
